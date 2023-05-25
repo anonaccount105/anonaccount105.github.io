@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<title>axpwcet.rt.behavior.service</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Library axpwcet.rt.behavior.service</h1>
+
+<div class="code">
+<span class="comment">(*&nbsp;---------------------------------&nbsp;AxpWCET&nbsp;---------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">axpwcet.rt.behavior</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <a class="idref" href="axpwcet.rt.behavior.job.html#"><span class="id" title="library">job</span></a> <a class="idref" href="axpwcet.rt.behavior.schedule.html#"><span class="id" title="library">schedule</span></a>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;---------------------------------&nbsp;Main&nbsp;-----------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">Section</span> <a id="Service" class="idref" href="#Service"><span class="id" title="section">Service</span></a>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="c3d482fd3513878b11e14abf9e72362d" class="idref" href="#c3d482fd3513878b11e14abf9e72362d"><span class="id" title="binder">Ω</span></a>} {<a id="64252de629bdd27d41a7716d98f42d82" class="idref" href="#64252de629bdd27d41a7716d98f42d82"><span class="id" title="binder">μ</span></a> : <a class="idref" href="axpwcet.util.notation.html#measure"><span class="id" title="definition">measure</span></a> <a class="idref" href="axpwcet.rt.behavior.service.html#c3d482fd3513878b11e14abf9e72362d"><span class="id" title="variable">Ω</span></a>}.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="Job:3" class="idref" href="#Job:3"><span class="id" title="binder">Job</span></a> : <span class="id" title="definition">JobType</span>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a id="job_cost:4" class="idref" href="#job_cost:4"><span class="id" title="binder">job_cost</span></a> : <a class="idref" href="axpwcet.rt.behavior.job.html#JobCostRV"><span class="id" title="class">JobCostRV</span></a> <a class="idref" href="axpwcet.rt.behavior.service.html#Job:3"><span class="id" title="variable">Job</span></a> <a class="idref" href="axpwcet.rt.behavior.service.html#c5d781ac1fa0e3c80ce8d1fbc2c74e0d"><span class="id" title="variable">Ω</span></a> <a class="idref" href="axpwcet.rt.behavior.service.html#366aa54948eadd57c0dcbea161d0385d"><span class="id" title="variable">μ</span></a>}.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="PState:5" class="idref" href="#PState:5"><span class="id" title="binder">PState</span></a> : <span class="id" title="class">ProcessorState</span> <a class="idref" href="axpwcet.rt.behavior.service.html#Service.Job"><span class="id" title="variable">Job</span></a>}.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Variable</span> <a id="Service.pr_sched" class="idref" href="#Service.pr_sched"><span class="id" title="variable">pr_sched</span></a> : <a class="idref" href="axpwcet.rt.behavior.schedule.html#pr_schedule"><span class="id" title="definition">pr_schedule</span></a> <a class="idref" href="axpwcet.rt.behavior.service.html#366aa54948eadd57c0dcbea161d0385d"><span class="id" title="variable">μ</span></a> <a class="idref" href="axpwcet.rt.behavior.service.html#Service.PState"><span class="id" title="variable">PState</span></a>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Definition</span> <a id="pr_service" class="idref" href="#pr_service"><span class="id" title="definition">pr_service</span></a> (<a id="j:7" class="idref" href="#j:7"><span class="id" title="binder">j</span></a> : <a class="idref" href="axpwcet.rt.behavior.service.html#Service.Job"><span class="id" title="variable">Job</span></a>) (<a id="t:8" class="idref" href="#t:8"><span class="id" title="binder">t</span></a> : <span class="id" title="definition">instant</span>) : <a class="idref" href="axpwcet.probability.nrvar.html#nrvar"><span class="id" title="definition">nrvar</span></a> <a class="idref" href="axpwcet.rt.behavior.service.html#366aa54948eadd57c0dcbea161d0385d"><span class="id" title="variable">μ</span></a> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="constructor">mkRvar</span> <a class="idref" href="axpwcet.rt.behavior.service.html#366aa54948eadd57c0dcbea161d0385d"><span class="id" title="variable">μ</span></a> (<span class="id" title="keyword">fun</span> <a id="0ca13ed3bfdd4371c3b7e497b552fc2f" class="idref" href="#0ca13ed3bfdd4371c3b7e497b552fc2f"><span class="id" title="binder">ω</span></a>:<a class="idref" href="axpwcet.rt.behavior.service.html#c5d781ac1fa0e3c80ce8d1fbc2c74e0d"><span class="id" title="variable">Ω</span></a> ⇒ <span class="id" title="definition">service</span> (<a class="idref" href="axpwcet.rt.behavior.service.html#Service.pr_sched"><span class="id" title="variable">pr_sched</span></a> <a class="idref" href="axpwcet.rt.behavior.service.html#0ca13ed3bfdd4371c3b7e497b552fc2f"><span class="id" title="variable">ω</span></a>) <a class="idref" href="axpwcet.rt.behavior.service.html#j:7"><span class="id" title="variable">j</span></a> <a class="idref" href="axpwcet.rt.behavior.service.html#t:8"><span class="id" title="variable">t</span></a>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+A job <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.ProofOfLemma.j"><span class="id" title="variable">j</span></a></span> is completed at time <span class="inlinecode"><a class="idref" href="axpwcet.probability.stochastic_order.html#StochasticDomination.AddrvRespectsStochasticOrderHelpers.t"><span class="id" title="variable">t</span></a></span> in a scenario <span class="inlinecode">ω</span> iff
+      <span class="inlinecode"><a class="idref" href="axpwcet.rt.behavior.job.html#job_cost"><span class="id" title="projection">job_cost</span></a></span> <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.ProofOfLemma.j"><span class="id" title="variable">j</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#None"><span class="id" title="constructor">None</span></a></span>, or <span class="inlinecode"><a class="idref" href="axpwcet.rt.behavior.job.html#job_cost"><span class="id" title="projection">job_cost</span></a></span> <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.ProofOfLemma.j"><span class="id" title="variable">j</span></a></span> <span class="inlinecode">ω</span> <span class="inlinecode">≤</span> <span class="inlinecode"><a class="idref" href="axpwcet.rt.behavior.service.html#pr_service"><span class="id" title="definition">pr_service</span></a></span> <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.ProofOfLemma.j"><span class="id" title="variable">j</span></a></span> <span class="inlinecode"><a class="idref" href="axpwcet.probability.stochastic_order.html#StochasticDomination.AddrvRespectsStochasticOrderHelpers.t"><span class="id" title="variable">t</span></a></span> <span class="inlinecode">ω</span>. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Definition</span> <a id="pr_completed_by" class="idref" href="#pr_completed_by"><span class="id" title="definition">pr_completed_by</span></a> (<a id="j:10" class="idref" href="#j:10"><span class="id" title="binder">j</span></a> : <a class="idref" href="axpwcet.rt.behavior.service.html#Service.Job"><span class="id" title="variable">Job</span></a>) (<a id="t:11" class="idref" href="#t:11"><span class="id" title="binder">t</span></a> : <span class="id" title="definition">instant</span>) : <span class="id" title="record">rvar</span> <a class="idref" href="axpwcet.rt.behavior.service.html#366aa54948eadd57c0dcbea161d0385d"><span class="id" title="variable">μ</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">[</span></a><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">eqType</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">of</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">]</span></a> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="axpwcet.rt.behavior.service.html#Service.job_cost"><span class="id" title="variable">job_cost</span></a> <a class="idref" href="axpwcet.rt.behavior.service.html#j:10"><span class="id" title="variable">j</span></a> <a class="idref" href="axpwcet.util.notation.html#777c9b3f977fd54f0df407ac6eeb0fae"><span class="id" title="notation">⟨&lt;=⟩</span></a> <a class="idref" href="axpwcet.rt.behavior.service.html#pr_service"><span class="id" title="definition">pr_service</span></a> <a class="idref" href="axpwcet.rt.behavior.service.html#j:10"><span class="id" title="variable">j</span></a> <a class="idref" href="axpwcet.rt.behavior.service.html#t:11"><span class="id" title="variable">t</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Since <span class="inlinecode"><a class="idref" href="axpwcet.rt.behavior.service.html#pr_completed_by"><span class="id" title="definition">pr_completed_by</span></a></span> <span class="inlinecode"><span class="id" title="var">_</span></span> <span class="inlinecode"><span class="id" title="var">_</span></span> is a random variable with a codomain
+      in booleans, it can be viewed as a predicate on <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#d313a5a446fa6be1ab2b8a11bb47f934"><span class="id" title="variable">Ω</span></a></span>. Hence, we
+      use a notation similar to the set-theoretic -- <span class="inlinecode"><a class="idref" href="axpwcet.probability.stochastic_order.html#StochasticDomination.AddrvRespectsStochasticOrderHelpers.X"><span class="id" title="variable">X</span></a></span> <span class="inlinecode">∩</span> <span class="inlinecode"><a class="idref" href="axpwcet.probability.stochastic_order.html#StochasticDomination.AddrvRespectsStochasticOrderHelpers.Y"><span class="id" title="variable">Y</span></a></span> denotes a
+      subset of <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#d313a5a446fa6be1ab2b8a11bb47f934"><span class="id" title="variable">Ω</span></a></span> that satisfies both <span class="inlinecode"><a class="idref" href="axpwcet.probability.stochastic_order.html#StochasticDomination.AddrvRespectsStochasticOrderHelpers.X"><span class="id" title="variable">X</span></a></span> and <span class="inlinecode"><a class="idref" href="axpwcet.probability.stochastic_order.html#StochasticDomination.AddrvRespectsStochasticOrderHelpers.Y"><span class="id" title="variable">Y</span></a></span>. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Definition</span> <a id="pr_completes_at" class="idref" href="#pr_completes_at"><span class="id" title="definition">pr_completes_at</span></a> (<a id="j:12" class="idref" href="#j:12"><span class="id" title="binder">j</span></a> : <a class="idref" href="axpwcet.rt.behavior.service.html#Service.Job"><span class="id" title="variable">Job</span></a>) (<a id="t:13" class="idref" href="#t:13"><span class="id" title="binder">t</span></a> : <span class="id" title="definition">instant</span>) : <span class="id" title="record">rvar</span> <a class="idref" href="axpwcet.rt.behavior.service.html#366aa54948eadd57c0dcbea161d0385d"><span class="id" title="variable">μ</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">[</span></a><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">eqType</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">of</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">]</span></a> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="axpwcet.util.stdpp.html#a4f6c5e5e719bc44a813bfc51b4d70b8"><span class="id" title="notation">(</span></a><a class="idref" href="axpwcet.util.notation.html#d23c988823bed6e4afe1cb2f0c0bbd3c"><span class="id" title="notation">!</span></a><a class="idref" href="axpwcet.rt.behavior.service.html#pr_completed_by"><span class="id" title="definition">pr_completed_by</span></a> <a class="idref" href="axpwcet.rt.behavior.service.html#j:12"><span class="id" title="variable">j</span></a> <a class="idref" href="axpwcet.rt.behavior.service.html#t:13"><span class="id" title="variable">t</span></a><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.ssrnat.html#::nat_scope:x_'.-1'"><span class="id" title="notation">.-1</span></a><a class="idref" href="axpwcet.util.stdpp.html#a4f6c5e5e719bc44a813bfc51b4d70b8"><span class="id" title="notation">)</span></a> <a class="idref" href="axpwcet.util.stdpp.html#a4f6c5e5e719bc44a813bfc51b4d70b8"><span class="id" title="notation">∩</span></a> <a class="idref" href="axpwcet.util.stdpp.html#a4f6c5e5e719bc44a813bfc51b4d70b8"><span class="id" title="notation">(</span></a><a class="idref" href="axpwcet.rt.behavior.service.html#pr_completed_by"><span class="id" title="definition">pr_completed_by</span></a> <a class="idref" href="axpwcet.rt.behavior.service.html#j:12"><span class="id" title="variable">j</span></a> <a class="idref" href="axpwcet.rt.behavior.service.html#t:13"><span class="id" title="variable">t</span></a><a class="idref" href="axpwcet.util.stdpp.html#a4f6c5e5e719bc44a813bfc51b4d70b8"><span class="id" title="notation">)</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="axpwcet.rt.behavior.service.html#Service"><span class="id" title="section">Service</span></a>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

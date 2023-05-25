@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<title>axpwcet.rt.analysis.pETs_to_pWCETs</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Library axpwcet.rt.analysis.pETs_to_pWCETs</h1>
+
+<div class="code">
+<span class="comment">(*&nbsp;---------------------------------&nbsp;AxpWCET&nbsp;---------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">axpwcet.rt.model</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <a class="idref" href="axpwcet.rt.model.task.html#"><span class="id" title="library">task</span></a> <a class="idref" href="axpwcet.rt.model.events.html#"><span class="id" title="library">events</span></a>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;----------------------------------&nbsp;Main&nbsp;----------------------------------&nbsp;*)</span><br/>
+</div>
+
+<div class="doc">
+In this file, we define the response-time monotonic transformation
+    presented in the paper "A Rigorous Axiomatic Definition of pWCET". 
+<div class="paragraph"> </div>
+
+<a id="lab14"></a><h1 class="section">Transformation</h1>
+ As discussed in the paper, there are potentially many different
+    response-time monotonic transformations (e.g., one can imagine a
+    transformation that maps probabilistic job costs to
+    WCETs). However, we are interested in one specific transformation
+    that decouples job-cost dependencies making costs IID random
+    variables.
+
+<div class="paragraph"> </div>
+
+    In this section, we define a response-time monotonic
+    transformation of the probability space that ensures the validity
+    of axiomatic pWCET (defined in <span class="inlinecode"><span class="id" title="library">rt.model.axiomatic_pWCET</span></span>). 
+</div>
+<div class="code">
+<span class="id" title="keyword">Section</span> <a id="Transformation" class="idref" href="#Transformation"><span class="id" title="section">Transformation</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Consider any type of tasks with a notion of pWCET. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="Task:1" class="idref" href="#Task:1"><span class="id" title="binder">Task</span></a> : <span class="id" title="definition">TaskType</span>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a id="pWCET_pmf:2" class="idref" href="#pWCET_pmf:2"><span class="id" title="binder">pWCET_pmf</span></a> : <a class="idref" href="axpwcet.rt.model.task.html#ProbWCET"><span class="id" title="class">ProbWCET</span></a> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#Task:1"><span class="id" title="variable">Task</span></a>}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Consider a finite set of jobs associated with the tasks. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="Job:3" class="idref" href="#Job:3"><span class="id" title="binder">Job</span></a> : <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.fintype.html#Finite.Exports.finType"><span class="id" title="abbreviation">finType</span></a>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a id="job_task:4" class="idref" href="#job_task:4"><span class="id" title="binder">job_task</span></a> : <span class="id" title="class">JobTask</span> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#Job:3"><span class="id" title="variable">Job</span></a> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#Transformation.Task"><span class="id" title="variable">Task</span></a>}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+For the sake of the construction, we introduce a concept of a
+      "system" <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#ProofOfTheorem1.S"><span class="id" title="variable">S</span></a></span> which is a record type containing a sample space
+      <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#e421ae02d100f06a08f803e3cae7ec72"><span class="id" title="projection">Ω_of</span></a></span> <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#ProofOfTheorem1.S"><span class="id" title="variable">S</span></a></span>, a measure <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#eddcf51f789c003fa41603cf8b048b30"><span class="id" title="projection">μ_of</span></a></span> <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#ProofOfTheorem1.S"><span class="id" title="variable">S</span></a></span>, arrival times <span class="inlinecode">𝓐<span class="id" title="var">_of</span></span> <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#ProofOfTheorem1.S"><span class="id" title="variable">S</span></a></span>, and
+      execution costs <span class="inlinecode">𝓒<span class="id" title="var">_of</span></span> <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#ProofOfTheorem1.S"><span class="id" title="variable">S</span></a></span>. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Record</span> <a id="system" class="idref" href="#system"><span class="id" title="record">system</span></a> := {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="e421ae02d100f06a08f803e3cae7ec72" class="idref" href="#e421ae02d100f06a08f803e3cae7ec72"><span class="id" title="projection">Ω_of</span></a> : <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.choice.html#Countable.Exports.countType"><span class="id" title="abbreviation">countType</span></a>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="eddcf51f789c003fa41603cf8b048b30" class="idref" href="#eddcf51f789c003fa41603cf8b048b30"><span class="id" title="projection">μ_of</span></a> : <a class="idref" href="axpwcet.util.notation.html#measure"><span class="id" title="definition">measure</span></a> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#419f777309d73415370e5140d71b4194"><span class="id" title="method">Ω_of</span></a>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="d4a8f9b89b76807f8f666b074e9c73ee" class="idref" href="#d4a8f9b89b76807f8f666b074e9c73ee"><span class="id" title="projection">𝓐</span></a><a id="d4a8f9b89b76807f8f666b074e9c73ee" class="idref" href="#d4a8f9b89b76807f8f666b074e9c73ee"><span class="id" title="projection">_of</span></a> : <a class="idref" href="axpwcet.rt.behavior.job.html#JobArrivalRV"><span class="id" title="class">JobArrivalRV</span></a> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#Transformation.Job"><span class="id" title="variable">Job</span></a> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#419f777309d73415370e5140d71b4194"><span class="id" title="method">Ω_of</span></a> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#29a7af33eab5e68168d45de878ea4eca"><span class="id" title="method">μ_of</span></a>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="b77deba138aaf7f13e6a448f41326298" class="idref" href="#b77deba138aaf7f13e6a448f41326298"><span class="id" title="projection">𝓒</span></a><a id="b77deba138aaf7f13e6a448f41326298" class="idref" href="#b77deba138aaf7f13e6a448f41326298"><span class="id" title="projection">_of</span></a> : <a class="idref" href="axpwcet.rt.behavior.job.html#JobCostRV"><span class="id" title="class">JobCostRV</span></a> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#Transformation.Job"><span class="id" title="variable">Job</span></a> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#419f777309d73415370e5140d71b4194"><span class="id" title="method">Ω_of</span></a> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#29a7af33eab5e68168d45de878ea4eca"><span class="id" title="method">μ_of</span></a>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Given a pWCET, we can construct a new random variable describing
+      job costs that are distributed the same way as pWCET's
+      probability mass function (PMF) <span class="inlinecode"><a class="idref" href="axpwcet.rt.model.task.html#pWCET_pmf"><span class="id" title="projection">pWCET_pmf</span></a></span>. Note that this
+      procedure involves defining a new sample space (the set of
+      natural numbers), a new measure (that coincides with pWCET's
+      PMF), and a new job-cost function.
+
+<div class="paragraph"> </div>
+
+      The definition might be a bit too involved, so one might think
+      about this function as follows. pWCET of a task assigns
+      probabilities to each natural number. We can take these
+      probabilities and construct a new probability space where <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#d313a5a446fa6be1ab2b8a11bb47f934"><span class="id" title="variable">Ω</span></a></span> <span class="inlinecode">=</span>
+      <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a></span>, <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#f0973cf9c2ebf2f4f9e3ec57d7d4eef5"><span class="id" title="variable">μ</span></a></span> <span class="inlinecode"><span class="id" title="var">c</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="axpwcet.rt.model.task.html#pWCET_pmf"><span class="id" title="projection">pWCET_pmf</span></a></span> <span class="inlinecode"><span class="id" title="var">c</span></span>. Next, we can define a random variable
+      on this space as <span class="inlinecode"><span class="id" title="keyword">fun</span></span> <span class="inlinecode"><span class="id" title="var">c</span></span> <span class="inlinecode">⇒</span> <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#Some"><span class="id" title="constructor">Some</span></a></span> <span class="inlinecode"><span class="id" title="var">c</span></span>; all this variable does is
+      converting a natural number <span class="inlinecode"><span class="id" title="var">c</span></span> to <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#Some"><span class="id" title="constructor">Some</span></a></span> <span class="inlinecode"><span class="id" title="var">c</span></span>, which is a Coq way
+      of constructing the type <span class="inlinecode">𝕎</span> <span class="inlinecode">∪</span> <span class="inlinecode">⊥</span>. Note that <span class="inlinecode"><span class="id" title="keyword">fun</span></span> <span class="inlinecode"><span class="id" title="var">c</span></span> <span class="inlinecode">⇒</span> <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#Some"><span class="id" title="constructor">Some</span></a></span> <span class="inlinecode"><span class="id" title="var">c</span></span> is a
+      pET on <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#d313a5a446fa6be1ab2b8a11bb47f934"><span class="id" title="variable">Ω</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a></span>. Indeed, its type is <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#d313a5a446fa6be1ab2b8a11bb47f934"><span class="id" title="variable">Ω</span></a></span> <span class="inlinecode">→</span> <span class="inlinecode">𝕎</span> <span class="inlinecode">∪</span> <span class="inlinecode">⊥</span>.
+
+<div class="paragraph"> </div>
+
+      Next, we use this random variable to construct pETs on the
+      initial sample space <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#e421ae02d100f06a08f803e3cae7ec72"><span class="id" title="projection">Ω_of</span></a></span> <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#ProofOfTheorem1.S"><span class="id" title="variable">S</span></a></span>. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Definition</span> <a id="pWCET_to_RVpWCET" class="idref" href="#pWCET_to_RVpWCET"><span class="id" title="definition">pWCET_to_RVpWCET</span></a> (<a id="tsk:10" class="idref" href="#tsk:10"><span class="id" title="binder">tsk</span></a> : <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#Transformation.Task"><span class="id" title="variable">Task</span></a>) :<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Specif.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">{</span></a><a id="90bd2951153be36b3c006721e6ebac3f" class="idref" href="#90bd2951153be36b3c006721e6ebac3f"><span class="id" title="binder">Ω</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Specif.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">:</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.choice.html#Countable.Exports.countType"><span class="id" title="abbreviation">countType</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Specif.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">&amp;</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Specif.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">{</span></a><a id="c181b43235b5166e7ad4cfccfd423b63" class="idref" href="#c181b43235b5166e7ad4cfccfd423b63"><span class="id" title="binder">μ</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Specif.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">:</span></a> (<a class="idref" href="axpwcet.util.notation.html#measure"><span class="id" title="definition">measure</span></a>) <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#90bd2951153be36b3c006721e6ebac3f"><span class="id" title="variable">Ω</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Specif.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">&amp;</span></a> <a class="idref" href="axpwcet.rt.behavior.job.html#JobCostRV"><span class="id" title="class">JobCostRV</span></a> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#Transformation.Job"><span class="id" title="variable">Job</span></a> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#90bd2951153be36b3c006721e6ebac3f"><span class="id" title="variable">Ω</span></a> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#c181b43235b5166e7ad4cfccfd423b63"><span class="id" title="variable">μ</span></a><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Specif.html#cc5e56ba3765e2d6b17e66d19b966f1d"><span class="id" title="notation">}}</span></a> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#Transformation.pWCET_pmf"><span class="id" title="variable">pWCET_pmf</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;</div>
+
+<div class="doc">
+Destruct <span class="inlinecode"><a class="idref" href="axpwcet.rt.model.task.html#pWCET_pmf"><span class="id" title="projection">pWCET_pmf</span></a></span> into subpart. 
+</div>
+<div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="axpwcet.rt.model.task.html#Build_ProbWCET"><span class="id" title="constructor">Build_ProbWCET</span></a> <span class="id" title="var">pWCET</span> <span class="id" title="var">nonneg</span> <span class="id" title="var">sum1</span> ⇒<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;<span class="inlinecode"><span class="id" title="var">Ω</span></span> <span class="inlinecode">:=</span> <span class="inlinecode"><span class="id" title="var">ℕ</span></span>&nbsp;*)</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Specif.html#existT"><span class="id" title="constructor">existT</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.choice.html#3fd72847645c366340e6e9be05776bd8"><span class="id" title="notation">[</span></a><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.choice.html#3fd72847645c366340e6e9be05776bd8"><span class="id" title="notation">countType</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.choice.html#3fd72847645c366340e6e9be05776bd8"><span class="id" title="notation">of</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.choice.html#3fd72847645c366340e6e9be05776bd8"><span class="id" title="notation">]</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;<span class="inlinecode"><span class="id" title="var">μ</span></span> <span class="inlinecode"><span class="id" title="var">c</span></span> <span class="inlinecode">:=</span> <span class="inlinecode"><span class="id" title="var">pWCET_pmf</span></span> <span class="inlinecode"><span class="id" title="var">c</span></span>&nbsp;*)</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Specif.html#existT"><span class="id" title="constructor">existT</span></a> (<span class="id" title="constructor">mkDistrib</span> <span class="id" title="var">_</span> (<span class="id" title="var">pWCET</span> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#tsk:10"><span class="id" title="variable">tsk</span></a>) (<span class="id" title="var">nonneg</span> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#tsk:10"><span class="id" title="variable">tsk</span></a>) (<span class="id" title="var">sum1</span> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#tsk:10"><span class="id" title="variable">tsk</span></a>))<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;<span class="inlinecode"><span class="id" title="var">job_cost</span></span> <span class="inlinecode"><span class="id" title="var">c</span></span> <span class="inlinecode">:=</span> <span class="inlinecode"><span class="id" title="var">c</span></span>&nbsp;*)</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="keyword">fun</span> <a id="j:14" class="idref" href="#j:14"><span class="id" title="binder">j</span></a> ⇒ <span class="id" title="constructor">mkRvar</span> <span class="id" title="var">_</span> (<span class="id" title="keyword">fun</span> <a id="w:15" class="idref" href="#w:15"><span class="id" title="binder">w</span></a> ⇒ <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#Some"><span class="id" title="constructor">Some</span></a> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#w:15"><span class="id" title="variable">w</span></a>)))<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Suppose we are given a system <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#ProofOfTheorem1.S"><span class="id" title="variable">S</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode">(<a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#d313a5a446fa6be1ab2b8a11bb47f934"><span class="id" title="variable">Ω</span></a>,</span> <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#f0973cf9c2ebf2f4f9e3ec57d7d4eef5"><span class="id" title="variable">μ</span></a>,</span> <span class="inlinecode">𝓐,</span> <span class="inlinecode">𝓒)</span> and a job
+      <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.ProofOfLemma.j"><span class="id" title="variable">j</span></a></span>. To construct a new system <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#ProofOfTheorem1.S'"><span class="id" title="variable">S'</span></a></span> with <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.ProofOfLemma.j"><span class="id" title="variable">j</span></a></span>'s cost replaced
+      with pWCET, we define <span class="inlinecode">(<span class="id" title="var">Ω'</span>,</span> <span class="inlinecode"><span class="id" title="var">μ'</span>,</span> <span class="inlinecode">𝓐',</span> <span class="inlinecode">𝓒')</span> as follows.  Let <span class="inlinecode">(<span class="id" title="var">Ωj</span>,</span>
+      <span class="inlinecode"><span class="id" title="var">μj</span>,</span> <span class="inlinecode"><span class="id" title="var">Cj</span>)</span> <span class="inlinecode">:=</span> <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#pWCET_to_RVpWCET"><span class="id" title="definition">pWCET_to_RVpWCET</span></a>(<span class="id" title="var">job_task</span></span> <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.ProofOfLemma.j"><span class="id" title="variable">j</span></a>)</span>. Then, ... 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Definition</span> <a id="replace_job_pET" class="idref" href="#replace_job_pET"><span class="id" title="definition">replace_job_pET</span></a>  (<a id="j:16" class="idref" href="#j:16"><span class="id" title="binder">j</span></a> : <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#Transformation.Job"><span class="id" title="variable">Job</span></a>) (<a id="S:17" class="idref" href="#S:17"><span class="id" title="binder">S</span></a> : <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#system"><span class="id" title="record">system</span></a>) : <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#system"><span class="id" title="record">system</span></a> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#S:17"><span class="id" title="variable">S</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#Build_system"><span class="id" title="constructor">Build_system</span></a> <span class="id" title="var">Ω</span> <span class="id" title="var">μ</span> 𝓐 𝓒 ⇒<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#pWCET_to_RVpWCET"><span class="id" title="definition">pWCET_to_RVpWCET</span></a> (<a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#Transformation.job_task"><span class="id" title="variable">job_task</span></a> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#j:16"><span class="id" title="variable">j</span></a>) <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Specif.html#existT"><span class="id" title="constructor">existT</span></a> <span class="id" title="var">Ωj</span> (<a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Specif.html#existT"><span class="id" title="constructor">existT</span></a> <span class="id" title="var">μj</span> <span class="id" title="var">Cj</span>) ⇒<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+
+<div class="doc">
+1. <span class="inlinecode"><span class="id" title="var">Ω'</span></span> <span class="inlinecode">:=</span> <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#d313a5a446fa6be1ab2b8a11bb47f934"><span class="id" title="variable">Ω</span></a></span> <span class="inlinecode">×</span> <span class="inlinecode"><span class="id" title="var">Ωj</span></span> 
+</div>
+<div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">let</span> <a id="b8260320731ef7d350d381f4d30b7eda" class="idref" href="#b8260320731ef7d350d381f4d30b7eda"><span class="id" title="binder">Ω'</span></a> := <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.choice.html#3fd72847645c366340e6e9be05776bd8"><span class="id" title="notation">[</span></a><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.choice.html#3fd72847645c366340e6e9be05776bd8"><span class="id" title="notation">countType</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.choice.html#3fd72847645c366340e6e9be05776bd8"><span class="id" title="notation">of</span></a> (<span class="id" title="var">Ω</span> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#11c698c8685bb8ab1cf725545c085ac4"><span class="id" title="notation">×</span></a> <span class="id" title="var">Ωj</span>)%<span class="id" title="keyword">type</span><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.choice.html#3fd72847645c366340e6e9be05776bd8"><span class="id" title="notation">]</span></a> <span class="id" title="tactic">in</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+
+<div class="doc">
+2. <span class="inlinecode"><span class="id" title="var">μ'</span></span> <span class="inlinecode">:=</span> <span class="inlinecode"><span class="id" title="keyword">fun</span></span> <span class="inlinecode">(ω,</span> <span class="inlinecode">ω<a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.ProofOfLemma.j"><span class="id" title="variable">j</span></a>)</span> <span class="inlinecode">⇒</span> <span class="inlinecode">(<a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#f0973cf9c2ebf2f4f9e3ec57d7d4eef5"><span class="id" title="variable">μ</span></a></span> <span class="inlinecode">ω)</span> <span class="inlinecode">×</span> <span class="inlinecode">(<span class="id" title="var">μj</span></span> <span class="inlinecode">ω<a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.ProofOfLemma.j"><span class="id" title="variable">j</span></a>)</span> 
+</div>
+<div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">let</span> <a id="bd4eb4701a36cf3bab1458ff15f019c1" class="idref" href="#bd4eb4701a36cf3bab1458ff15f019c1"><span class="id" title="binder">μ'</span></a> := <span class="id" title="definition">distrib_prod</span> <span class="id" title="var">μ</span> <span class="id" title="var">μj</span> <span class="id" title="tactic">in</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+
+<div class="doc">
+3. <span class="inlinecode">𝓐'(<span class="id" title="var">jo</span>)</span> <span class="inlinecode">:=</span> <span class="inlinecode">𝓐(<span class="id" title="var">jo</span>)</span> 
+</div>
+<div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">let</span> <a id="427324e761a19b7b64d2d709cc30095b" class="idref" href="#427324e761a19b7b64d2d709cc30095b"><span class="id" title="binder">𝓐'</span></a> := <span class="id" title="keyword">fun</span> <a id="jo:21" class="idref" href="#jo:21"><span class="id" title="binder">jo</span></a> ⇒ <span class="id" title="constructor">mkRvar</span> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#bd4eb4701a36cf3bab1458ff15f019c1"><span class="id" title="variable">μ'</span></a> (<span class="id" title="keyword">fun</span> '<a id="pat:23" class="idref" href="#pat:23"><span class="id" title="binder">(ω,</span></a> <a id="pat:23" class="idref" href="#pat:23"><span class="id" title="binder">_</span></a><a id="pat:23" class="idref" href="#pat:23"><span class="id" title="binder">)</span></a> ⇒ 𝓐 <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#jo:21"><span class="id" title="variable">jo</span></a> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#3c1b7b98ffcf224c74e6709741efb6e7"><span class="id" title="variable">ω</span></a>) <span class="id" title="tactic">in</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+
+<div class="doc">
+4. <span class="inlinecode">𝓒'(<span class="id" title="var">jo</span>)</span> <span class="inlinecode">:=</span> <span class="inlinecode"><span class="id" title="keyword">fun</span></span> <span class="inlinecode">(ω,</span> <span class="inlinecode">ω<a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.ProofOfLemma.j"><span class="id" title="variable">j</span></a>)</span> <span class="inlinecode">⇒</span> <span class="inlinecode"><span class="id" title="keyword">if</span></span> <span class="inlinecode">(<a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.ProofOfLemma.j"><span class="id" title="variable">j</span></a></span> <span class="inlinecode">==</span> <span class="inlinecode"><span class="id" title="var">jo</span>)</span> <span class="inlinecode"><span class="id" title="keyword">then</span></span> <span class="inlinecode">(<span class="id" title="var">Cj</span></span> <span class="inlinecode"><span class="id" title="var">jo</span>)</span> <span class="inlinecode"><span class="id" title="keyword">else</span></span> <span class="inlinecode">(𝓒</span> <span class="inlinecode"><span class="id" title="var">jo</span>)</span>. 
+</div>
+<div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">let</span> <a id="c9e28f0a10fb6c20cef3160d0526a3ef" class="idref" href="#c9e28f0a10fb6c20cef3160d0526a3ef"><span class="id" title="binder">𝓒'</span></a> := <span class="id" title="keyword">fun</span> <a id="jo:25" class="idref" href="#jo:25"><span class="id" title="binder">jo</span></a> ⇒ <span class="id" title="constructor">mkRvar</span> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#bd4eb4701a36cf3bab1458ff15f019c1"><span class="id" title="variable">μ'</span></a> (<span class="id" title="keyword">fun</span> '<a id="pat:28" class="idref" href="#pat:28"><span class="id" title="binder">(ω,</span></a> <a id="pat:28" class="idref" href="#pat:28"><span class="id" title="binder">ω</span></a><a id="pat:28" class="idref" href="#pat:28"><span class="id" title="binder">__j</span></a><a id="pat:28" class="idref" href="#pat:28"><span class="id" title="binder">)</span></a> ⇒<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.ssr.ssreflect.html#::boolean_if_scope:'if'_x_'then'_x_'else'_x"><span class="id" title="notation">if</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.ssr.ssreflect.html#::boolean_if_scope:'if'_x_'then'_x_'else'_x"><span class="id" title="notation">(</span></a><a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#j:16"><span class="id" title="variable">j</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#df45e8c2e8370fd4f0f7c4fdaf208180"><span class="id" title="notation">==</span></a> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#jo:25"><span class="id" title="variable">jo</span></a><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.ssr.ssreflect.html#::boolean_if_scope:'if'_x_'then'_x_'else'_x"><span class="id" title="notation">)</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.ssr.ssreflect.html#::boolean_if_scope:'if'_x_'then'_x_'else'_x"><span class="id" title="notation">then</span></a> <span class="id" title="var">Cj</span> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#j:16"><span class="id" title="variable">j</span></a> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#d13f90dc1dc33dd8e8b4d89bb4e125a6"><span class="id" title="variable">ω</span></a><a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#d13f90dc1dc33dd8e8b4d89bb4e125a6"><span class="id" title="variable">__j</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.ssr.ssreflect.html#::boolean_if_scope:'if'_x_'then'_x_'else'_x"><span class="id" title="notation">else</span></a> 𝓒 <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#jo:25"><span class="id" title="variable">jo</span></a> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#f7cb0877736c7cf6376cc85f8eebc1a6"><span class="id" title="variable">ω</span></a>) <span class="id" title="tactic">in</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#Build_system"><span class="id" title="constructor">Build_system</span></a> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#b8260320731ef7d350d381f4d30b7eda"><span class="id" title="variable">Ω'</span></a> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#bd4eb4701a36cf3bab1458ff15f019c1"><span class="id" title="variable">μ'</span></a> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#427324e761a19b7b64d2d709cc30095b"><span class="id" title="variable">𝓐'</span></a> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#c9e28f0a10fb6c20cef3160d0526a3ef"><span class="id" title="variable">𝓒'</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We can repeat function <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#replace_job_pET"><span class="id" title="definition">replace_job_pET</span></a></span> for a set of jobs with a
+      simple iteration via <span class="inlinecode"><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.seq.html#foldr"><span class="id" title="definition">foldr</span></a></span>. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Definition</span> <a id="replace_all_jobs_pETs" class="idref" href="#replace_all_jobs_pETs"><span class="id" title="definition">replace_all_jobs_pETs</span></a> (<a id="c405e3e56b5a9006ab6eefb7980a367a" class="idref" href="#c405e3e56b5a9006ab6eefb7980a367a"><span class="id" title="binder">Ωμ</span></a> : <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#system"><span class="id" title="record">system</span></a>) (<a id="js:31" class="idref" href="#js:31"><span class="id" title="binder">js</span></a> : <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.seq.html#seq"><span class="id" title="abbreviation">seq</span></a> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#Transformation.Job"><span class="id" title="variable">Job</span></a>) : <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#system"><span class="id" title="record">system</span></a> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.seq.html#foldr"><span class="id" title="definition">foldr</span></a> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#replace_job_pET"><span class="id" title="definition">replace_job_pET</span></a> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#c405e3e56b5a9006ab6eefb7980a367a"><span class="id" title="variable">Ωμ</span></a> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#js:31"><span class="id" title="variable">js</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+To replace <i>all</i> job costs, we need to repeat the procedure for
+      all job (i.e., <span class="inlinecode"><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.bigop.html#index_enum"><span class="id" title="definition">index_enum</span></a></span> <span class="inlinecode"><span class="id" title="var">Job</span></span>)
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Definition</span> <a id="replace_all_pETs" class="idref" href="#replace_all_pETs"><span class="id" title="definition">replace_all_pETs</span></a> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#replace_all_jobs_pETs"><span class="id" title="definition">replace_all_jobs_pETs</span></a><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.ssr.ssrfun.html#d89396f990d6b54d736cfe259e498cf4"><span class="id" title="notation">^~(</span></a><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.bigop.html#index_enum"><span class="id" title="definition">index_enum</span></a> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#Transformation.Job"><span class="id" title="variable">Job</span></a><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.ssr.ssrfun.html#d89396f990d6b54d736cfe259e498cf4"><span class="id" title="notation">)</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="axpwcet.rt.analysis.pETs_to_pWCETs.html#Transformation"><span class="id" title="section">Transformation</span></a>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

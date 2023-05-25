@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<title>axpwcet.rt.behavior.schedule</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Library axpwcet.rt.behavior.schedule</h1>
+
+<div class="code">
+<span class="comment">(*&nbsp;---------------------------------&nbsp;Prosa&nbsp;----------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">prosa</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <span class="id" title="library">behavior.all</span>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;--------------------------------&nbsp;AxpWCET&nbsp;---------------------------------&nbsp;&nbsp;*)</span><br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">axpwcet.util</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <a class="idref" href="axpwcet.util.boolp.html#"><span class="id" title="library">boolp</span></a> <a class="idref" href="axpwcet.util.notation.html#"><span class="id" title="library">notation</span></a>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;----------------------------------&nbsp;Main&nbsp;----------------------------------&nbsp;*)</span><br/>
+</div>
+
+<div class="doc">
+Schedule is a function that maps a time instant to a processor
+    state <span class="inlinecode"><span class="id" title="var">PState</span></span>. A probabilistic schedule is a random variable with
+    a codomain in schedules. 
+<div class="paragraph"> </div>
+
+ It is required by <span class="inlinecode"><span class="id" title="var">coq</span>-<span class="id" title="var">proba</span></span> library that codomain is an
+    <span class="inlinecode"><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#Equality.Exports.eqType"><span class="id" title="abbreviation">eqType</span></a></span>; however, a schedule is a function, which means that
+    there is no decidable equality defined on schedules. We resolve
+    this issue by using a wrapper `{classic _}` that uses axioms of
+    classical logic to make any equality decidable. 
+<div class="paragraph"> </div>
+
+ In addition, note that even though we introduce a horizon after
+    which a system under analysis is terminated, it does not change
+    the type of the scheduler. The point is that the horizon is
+    introduced as an additional parameter to some of the definitions
+    and does not change the type of the scheduler (<span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a></span> <span class="inlinecode">→</span> <span class="inlinecode"><span class="id" title="var">PState</span></span>). 
+</div>
+<div class="code">
+<span class="id" title="keyword">Definition</span> <a id="pr_schedule" class="idref" href="#pr_schedule"><span class="id" title="definition">pr_schedule</span></a> {<a id="c3d482fd3513878b11e14abf9e72362d" class="idref" href="#c3d482fd3513878b11e14abf9e72362d"><span class="id" title="binder">Ω</span></a>} (<a id="64252de629bdd27d41a7716d98f42d82" class="idref" href="#64252de629bdd27d41a7716d98f42d82"><span class="id" title="binder">μ</span></a> : <a class="idref" href="axpwcet.util.notation.html#measure"><span class="id" title="definition">measure</span></a> <a class="idref" href="axpwcet.rt.behavior.schedule.html#c3d482fd3513878b11e14abf9e72362d"><span class="id" title="variable">Ω</span></a>) {<a id="Job:3" class="idref" href="#Job:3"><span class="id" title="binder">Job</span></a> : <span class="id" title="definition">JobType</span>} (<a id="PState:4" class="idref" href="#PState:4"><span class="id" title="binder">PState</span></a> : <span class="id" title="class">ProcessorState</span> <a class="idref" href="axpwcet.rt.behavior.schedule.html#Job:3"><span class="id" title="variable">Job</span></a>) : <span class="id" title="keyword">Type</span> :=<br/>
+&nbsp;&nbsp;<span class="id" title="record">rvar</span> <a class="idref" href="axpwcet.rt.behavior.schedule.html#64252de629bdd27d41a7716d98f42d82"><span class="id" title="variable">μ</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">[</span></a><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">eqType</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">of</span></a> <a class="idref" href="axpwcet.util.boolp.html#645f16a05b4a0a088d9d94c6b782d08e"><span class="id" title="notation">{</span></a><a class="idref" href="axpwcet.util.boolp.html#645f16a05b4a0a088d9d94c6b782d08e"><span class="id" title="notation">classic</span></a> <a class="idref" href="axpwcet.util.boolp.html#645f16a05b4a0a088d9d94c6b782d08e"><span class="id" title="notation">(</span></a><span class="id" title="definition">schedule</span> <a class="idref" href="axpwcet.rt.behavior.schedule.html#PState:4"><span class="id" title="variable">PState</span></a><a class="idref" href="axpwcet.util.boolp.html#645f16a05b4a0a088d9d94c6b782d08e"><span class="id" title="notation">)}</span></a><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">]</span></a>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<title>axpwcet.rt.model.min_inter_arrival</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Library axpwcet.rt.model.min_inter_arrival</h1>
+
+<div class="code">
+<span class="comment">(*&nbsp;---------------------------------&nbsp;Prosa&nbsp;----------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <span class="id" title="library">prosa.model.task.concept</span>.<br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <span class="id" title="library">prosa.model.task.arrival.sporadic</span>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;---------------------------------&nbsp;AxpWCET&nbsp;---------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">axpwcet.rt.behavior</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <a class="idref" href="axpwcet.rt.behavior.job.html#"><span class="id" title="library">job</span></a> <a class="idref" href="axpwcet.rt.behavior.arrival_sequence.html#"><span class="id" title="library">arrival_sequence</span></a>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;----------------------------------&nbsp;Main&nbsp;----------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">Section</span> <a id="MinimumInterArrival" class="idref" href="#MinimumInterArrival"><span class="id" title="section">MinimumInterArrival</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Consider a probability space <span class="inlinecode">(<a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#d313a5a446fa6be1ab2b8a11bb47f934"><span class="id" title="variable">Ω</span></a>,</span> <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#f0973cf9c2ebf2f4f9e3ec57d7d4eef5"><span class="id" title="variable">μ</span></a>)</span>, ... 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="c3d482fd3513878b11e14abf9e72362d" class="idref" href="#c3d482fd3513878b11e14abf9e72362d"><span class="id" title="binder">Ω</span></a>} {<a id="64252de629bdd27d41a7716d98f42d82" class="idref" href="#64252de629bdd27d41a7716d98f42d82"><span class="id" title="binder">μ</span></a> : <a class="idref" href="axpwcet.util.notation.html#measure"><span class="id" title="definition">measure</span></a> <a class="idref" href="axpwcet.rt.model.min_inter_arrival.html#c3d482fd3513878b11e14abf9e72362d"><span class="id" title="variable">Ω</span></a>}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+... any type of tasks with minimum inter-arrival time defined by
+      a function <span class="inlinecode"><span class="id" title="definition">task_min_inter_arrival_time</span></span> from a type-class
+      <span class="inlinecode"><span class="id" title="class">SporadicModel</span></span>, ... 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="Task:3" class="idref" href="#Task:3"><span class="id" title="binder">Task</span></a> : <span class="id" title="definition">TaskType</span>} `{<a id="H:4" class="idref" href="#H:4"><span class="id" title="binder">SporadicModel</span></a> <a id="H:4" class="idref" href="#H:4"><span class="id" title="binder">Task</span></a>}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+... and any fin-type of jobs associated with these tasks. Assume
+      that the jobs have probabilistic arrival times defined by
+      <span class="inlinecode"><a class="idref" href="axpwcet.rt.behavior.job.html#job_arrival"><span class="id" title="projection">job_arrival</span></a></span>. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="Job:5" class="idref" href="#Job:5"><span class="id" title="binder">Job</span></a> : <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.fintype.html#Finite.Exports.finType"><span class="id" title="abbreviation">finType</span></a>}.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="job_arrival:6" class="idref" href="#job_arrival:6"><span class="id" title="binder">job_arrival</span></a> : <a class="idref" href="axpwcet.rt.behavior.job.html#JobCostRV"><span class="id" title="class">JobCostRV</span></a> <a class="idref" href="axpwcet.rt.model.min_inter_arrival.html#MinimumInterArrival.Job"><span class="id" title="variable">Job</span></a> <a class="idref" href="axpwcet.rt.model.min_inter_arrival.html#70cb6f6e30c4aad794dcf4e7e2380b7d"><span class="id" title="variable">Ω</span></a> <a class="idref" href="axpwcet.rt.model.min_inter_arrival.html#598b45ed5dd88d18bb93edbd5c0a2cae"><span class="id" title="variable">μ</span></a>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a id="job_task:7" class="idref" href="#job_task:7"><span class="id" title="binder">job_task</span></a> : <span class="id" title="class">JobTask</span> <a class="idref" href="axpwcet.rt.model.min_inter_arrival.html#MinimumInterArrival.Job"><span class="id" title="variable">Job</span></a> <a class="idref" href="axpwcet.rt.model.min_inter_arrival.html#MinimumInterArrival.Task"><span class="id" title="variable">Task</span></a>}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+For convenience, we denote the probabilistic arrival sequence as <span class="inlinecode"><a class="idref" href="axpwcet.rt.model.axiomatic_pWCET.html#c09e0550ee3b70679bc80c4e335964d7"><span class="id" title="variable">ξ_pr</span></a></span>. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Let</span> <a id="dee4f77075f620648f7d60a22105e667" class="idref" href="#dee4f77075f620648f7d60a22105e667"><span class="id" title="variable">ξ_pr</span></a> := <a class="idref" href="axpwcet.rt.behavior.arrival_sequence.html#arr_seq"><span class="id" title="definition">arr_seq</span></a>  (<span class="id" title="var">job_arrival</span> := <a class="idref" href="axpwcet.rt.model.min_inter_arrival.html#MinimumInterArrival.job_arrival"><span class="id" title="variable">job_arrival</span></a>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We say that <span class="inlinecode"><span class="id" title="definition">task_min_inter_arrival_time</span></span> (defined by
+    <span class="inlinecode"><span class="id" title="class">SporadicModel</span></span>) is a valid minimum inter-arrival time iff
+
+<div class="paragraph"> </div>
+
+    for any evolution <span class="inlinecode">ω</span> <span class="inlinecode">∈</span> <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#d313a5a446fa6be1ab2b8a11bb47f934"><span class="id" title="variable">Ω</span></a></span>, any time instants <span class="inlinecode"><span class="id" title="var">t1</span></span> and <span class="inlinecode"><span class="id" title="var">t2</span></span> such
+    that <span class="inlinecode"><span class="id" title="var">t1</span></span> <span class="inlinecode">≤</span> <span class="inlinecode"><span class="id" title="var">t2</span></span>, and any two distinct jobs <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.ProofOfLemma.j"><span class="id" title="variable">j</span></a></span> and <span class="inlinecode"><span class="id" title="var">j'</span></span> of the same
+    task task (<span class="inlinecode"><span class="id" title="var">job_task</span></span> <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.ProofOfLemma.j"><span class="id" title="variable">j</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">job_task</span></span> <span class="inlinecode"><span class="id" title="var">j'</span></span>), the fact that <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.ProofOfLemma.j"><span class="id" title="variable">j</span></a></span> arrives
+    at <span class="inlinecode"><span class="id" title="var">t1</span></span> and <span class="inlinecode"><span class="id" title="var">j'</span></span> arrives at <span class="inlinecode"><span class="id" title="var">t2</span></span> implies that the difference
+    between time instances <span class="inlinecode"><span class="id" title="var">t1</span></span> and <span class="inlinecode"><span class="id" title="var">t2</span></span> is at least
+    <span class="inlinecode"><span class="id" title="definition">task_min_inter_arrival_time</span></span> <span class="inlinecode">(<span class="id" title="var">job_task</span></span> <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.ProofOfLemma.j"><span class="id" title="variable">j</span></a>)</span>. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Definition</span> <a id="valid_min_inter_arrival" class="idref" href="#valid_min_inter_arrival"><span class="id" title="definition">valid_min_inter_arrival</span></a> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">∀</span> <a id="1544baf9c9b1997778bf064543e6961c" class="idref" href="#1544baf9c9b1997778bf064543e6961c"><span class="id" title="binder">ω</span></a>, <span class="id" title="keyword">∀</span> <a id="t1:9" class="idref" href="#t1:9"><span class="id" title="binder">t1</span></a> <a id="t2:10" class="idref" href="#t2:10"><span class="id" title="binder">t2</span></a>, <span class="id" title="keyword">∀</span> <a id="j:11" class="idref" href="#j:11"><span class="id" title="binder">j</span></a> <a id="j':12" class="idref" href="#j':12"><span class="id" title="binder">j'</span></a>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="axpwcet.rt.model.min_inter_arrival.html#MinimumInterArrival.job_task"><span class="id" title="variable">job_task</span></a> <a class="idref" href="axpwcet.rt.model.min_inter_arrival.html#j:11"><span class="id" title="variable">j</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="axpwcet.rt.model.min_inter_arrival.html#MinimumInterArrival.job_task"><span class="id" title="variable">job_task</span></a> <a class="idref" href="axpwcet.rt.model.min_inter_arrival.html#j':12"><span class="id" title="variable">j'</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<a class="idref" href="axpwcet.rt.model.min_inter_arrival.html#t1:9"><span class="id" title="variable">t1</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.ssrnat.html#cb53cf0ee22c036a03b4a9281c68b5a3"><span class="id" title="notation">≤</span></a> <a class="idref" href="axpwcet.rt.model.min_inter_arrival.html#t2:10"><span class="id" title="variable">t2</span></a>)%<span class="id" title="var">nat</span> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">∧</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">(</span></a><a class="idref" href="axpwcet.rt.model.min_inter_arrival.html#j:11"><span class="id" title="variable">j</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.ssr.ssrbool.html#b09457274bcb94927e289b8a9e9cd3f7"><span class="id" title="notation">\</span></a><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.ssr.ssrbool.html#b09457274bcb94927e289b8a9e9cd3f7"><span class="id" title="notation">in</span></a> <a class="idref" href="axpwcet.rt.model.min_inter_arrival.html#dee4f77075f620648f7d60a22105e667"><span class="id" title="variable">ξ_pr</span></a> <a class="idref" href="axpwcet.rt.model.min_inter_arrival.html#1544baf9c9b1997778bf064543e6961c"><span class="id" title="variable">ω</span></a> <a class="idref" href="axpwcet.rt.model.min_inter_arrival.html#t1:9"><span class="id" title="variable">t1</span></a><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">)</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">∧</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">(</span></a><a class="idref" href="axpwcet.rt.model.min_inter_arrival.html#j':12"><span class="id" title="variable">j'</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.ssr.ssrbool.html#b09457274bcb94927e289b8a9e9cd3f7"><span class="id" title="notation">\</span></a><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.ssr.ssrbool.html#b09457274bcb94927e289b8a9e9cd3f7"><span class="id" title="notation">in</span></a> <a class="idref" href="axpwcet.rt.model.min_inter_arrival.html#dee4f77075f620648f7d60a22105e667"><span class="id" title="variable">ξ_pr</span></a> <a class="idref" href="axpwcet.rt.model.min_inter_arrival.html#1544baf9c9b1997778bf064543e6961c"><span class="id" title="variable">ω</span></a> <a class="idref" href="axpwcet.rt.model.min_inter_arrival.html#t2:10"><span class="id" title="variable">t2</span></a><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">)</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">∧</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">(</span></a><a class="idref" href="axpwcet.rt.model.min_inter_arrival.html#j:11"><span class="id" title="variable">j</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#c385a484ee9d1b4e0615924561a9b75e"><span class="id" title="notation">!=</span></a> <a class="idref" href="axpwcet.rt.model.min_inter_arrival.html#j':12"><span class="id" title="variable">j'</span></a><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">)</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<a class="idref" href="axpwcet.rt.model.min_inter_arrival.html#t2:10"><span class="id" title="variable">t2</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.ssrnat.html#::nat_scope:x_'-'_x"><span class="id" title="notation">-</span></a> <a class="idref" href="axpwcet.rt.model.min_inter_arrival.html#t1:9"><span class="id" title="variable">t1</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.ssrnat.html#73030c22bc0b1fa771c65aa5414c65f9"><span class="id" title="notation">≥</span></a> <span class="id" title="definition">task_min_inter_arrival_time</span> (<a class="idref" href="axpwcet.rt.model.min_inter_arrival.html#MinimumInterArrival.job_task"><span class="id" title="variable">job_task</span></a> <a class="idref" href="axpwcet.rt.model.min_inter_arrival.html#j:11"><span class="id" title="variable">j</span></a>))%<span class="id" title="var">nat</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="axpwcet.rt.model.min_inter_arrival.html#MinimumInterArrival"><span class="id" title="section">MinimumInterArrival</span></a>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

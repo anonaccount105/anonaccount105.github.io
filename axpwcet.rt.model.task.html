@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<title>axpwcet.rt.model.task</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Library axpwcet.rt.model.task</h1>
+
+<div class="code">
+<span class="comment">(*&nbsp;---------------------------------&nbsp;Prosa&nbsp;----------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">prosa.model</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <span class="id" title="library">task.concept</span>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;---------------------------------&nbsp;AxpWCET&nbsp;---------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">axpwcet.probability</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <a class="idref" href="axpwcet.probability.nrvar.html#"><span class="id" title="library">nrvar</span></a>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;----------------------------------&nbsp;Main&nbsp;----------------------------------&nbsp;*)</span><br/>
+</div>
+
+<div class="doc">
+Definition of pWCET's probability mass function. The typeclass
+    contains three elements: (1) a function called <span class="inlinecode"><a class="idref" href="axpwcet.rt.model.task.html#pWCET_pmf"><span class="id" title="projection">pWCET_pmf</span></a></span> that
+    takes a <span class="inlinecode"><span class="id" title="var">Task</span></span> and a <span class="inlinecode"><span class="id" title="definition">work</span></span> as input and returns a value in <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Reals.Rdefinitions.html#RbaseSymbolsImpl.R"><span class="id" title="axiom">R</span></a></span>
+    that is supposed to denote the "probability" of a task to take a
+    certain value, (2) a proof-term that <span class="inlinecode"><a class="idref" href="axpwcet.rt.model.task.html#pWCET_pmf"><span class="id" title="projection">pWCET_pmf</span></a></span> is non-negative
+    for any task and any work value, and (3) a proof-term that
+    <span class="inlinecode"><a class="idref" href="axpwcet.rt.model.task.html#pWCET_pmf"><span class="id" title="projection">pWCET_pmf</span></a></span> sums up to 1.
+
+<div class="paragraph"> </div>
+
+    It is important to note that even though <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Reals.Rdefinitions.html#RbaseSymbolsImpl.R"><span class="id" title="axiom">R</span></a></span> represents the set of
+    real numbers, in the context of probability theory, probabilities
+    are always represented by values between <span class="inlinecode">0</span> and <span class="inlinecode">1</span>. Therefore,
+    the <span class="inlinecode"><a class="idref" href="axpwcet.rt.model.task.html#pWCET_pmf"><span class="id" title="projection">pWCET_pmf</span></a></span> function actually returns a value within the
+    closed interval <span class="inlinecode">[0,1]</span>, representing the probability of a
+    specific <span class="inlinecode"><span class="id" title="var">Task</span></span> completing within a given <span class="inlinecode"><span class="id" title="definition">work</span></span> time. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Class</span> <a id="ProbWCET" class="idref" href="#ProbWCET"><span class="id" title="record">ProbWCET</span></a> (<a id="Task:1" class="idref" href="#Task:1"><span class="id" title="binder">Task</span></a> : <span class="id" title="definition">TaskType</span>) := {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a id="pWCET_pmf" class="idref" href="#pWCET_pmf"><span class="id" title="projection">pWCET_pmf</span></a> : <a class="idref" href="axpwcet.rt.model.task.html#Task:1"><span class="id" title="variable">Task</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">(</span></a><span class="id" title="definition">work</span> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Reals.Rdefinitions.html#RbaseSymbolsImpl.R"><span class="id" title="axiom">R</span></a><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">)</span></a>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a id="pWCET_nonnegative" class="idref" href="#pWCET_nonnegative"><span class="id" title="projection">pWCET_nonnegative</span></a> : <span class="id" title="keyword">∀</span> (<a id="tsk:4" class="idref" href="#tsk:4"><span class="id" title="binder">tsk</span></a> : <a class="idref" href="axpwcet.rt.model.task.html#Task:1"><span class="id" title="variable">Task</span></a>), <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Unicode.Utf8_core.html#e15f3fa8414cf45e36c73a91b3f5f2c2"><span class="id" title="notation">∀</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Unicode.Utf8_core.html#e15f3fa8414cf45e36c73a91b3f5f2c2"><span class="id" title="notation">(</span></a><a id="w:5" class="idref" href="#w:5"><span class="id" title="binder">w</span></a> : <span class="id" title="definition">work</span><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Unicode.Utf8_core.html#e15f3fa8414cf45e36c73a91b3f5f2c2"><span class="id" title="notation">),</span></a> <a class="idref" href="axpwcet.rt.model.task.html#pWCET_pmf:3"><span class="id" title="method">pWCET_pmf</span></a> <a class="idref" href="axpwcet.rt.model.task.html#tsk:4"><span class="id" title="variable">tsk</span></a> <a class="idref" href="axpwcet.rt.model.task.html#w:5"><span class="id" title="variable">w</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Reals.Rdefinitions.html#7822f196a19e8673dbc60a529f728eb7"><span class="id" title="notation">≥</span></a> 0;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a id="pWCET_sum1" class="idref" href="#pWCET_sum1"><span class="id" title="projection">pWCET_sum1</span></a> : <span class="id" title="keyword">∀</span> (<a id="tsk:7" class="idref" href="#tsk:7"><span class="id" title="binder">tsk</span></a> : <a class="idref" href="axpwcet.rt.model.task.html#Task:1"><span class="id" title="variable">Task</span></a>), <span class="id" title="definition">is_series</span> (<span class="id" title="definition">countable_sum</span> (<a class="idref" href="axpwcet.rt.model.task.html#pWCET_pmf:3"><span class="id" title="method">pWCET_pmf</span></a> <a class="idref" href="axpwcet.rt.model.task.html#tsk:7"><span class="id" title="variable">tsk</span></a>)) 1<br/>
+&nbsp;&nbsp;}.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;------------------------------&nbsp;Definitions&nbsp;-------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">Section</span> <a id="CDFPWCET" class="idref" href="#CDFPWCET"><span class="id" title="section">CDFPWCET</span></a>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="31d7cf2ba18d558123591ac2814f8c07" class="idref" href="#31d7cf2ba18d558123591ac2814f8c07"><span class="id" title="binder">Ω</span></a>} (<a id="5587be393abab7d9461a4b3f4fb7e097" class="idref" href="#5587be393abab7d9461a4b3f4fb7e097"><span class="id" title="binder">μ</span></a> : <a class="idref" href="axpwcet.util.notation.html#measure"><span class="id" title="definition">measure</span></a> <a class="idref" href="axpwcet.rt.model.task.html#31d7cf2ba18d558123591ac2814f8c07"><span class="id" title="variable">Ω</span></a>).<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="Task:11" class="idref" href="#Task:11"><span class="id" title="binder">Task</span></a> : <span class="id" title="definition">TaskType</span>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a id="pWCET:12" class="idref" href="#pWCET:12"><span class="id" title="binder">pWCET</span></a> : <a class="idref" href="axpwcet.rt.model.task.html#ProbWCET"><span class="id" title="class">ProbWCET</span></a> <a class="idref" href="axpwcet.rt.model.task.html#Task:11"><span class="id" title="variable">Task</span></a>}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Next, we define a more common form of pWCET as a CDF. Note that
+      since <span class="inlinecode"><a class="idref" href="axpwcet.rt.model.task.html#pWCET_pmf"><span class="id" title="projection">pWCET_pmf</span></a></span> is not an actual random variable, we cannot
+      re-use the existing definition of CDF. Hence, we simply define
+      <span class="inlinecode"><a class="idref" href="axpwcet.rt.model.task.html#pWCET_cdf"><span class="id" title="definition">pWCET_cdf</span></a></span> <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.ProofOfLemma.tsk"><span class="id" title="variable">tsk</span></a></span> <span class="inlinecode"><span class="id" title="var">w0</span></span> as a sum of <span class="inlinecode"><a class="idref" href="axpwcet.rt.model.task.html#pWCET_pmf"><span class="id" title="projection">pWCET_pmf</span></a></span> <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.ProofOfLemma.tsk"><span class="id" title="variable">tsk</span></a></span> <span class="inlinecode"><span class="id" title="var">w</span></span> of all <span class="inlinecode"><span class="id" title="var">w</span></span> <span class="inlinecode">≤</span>
+      <span class="inlinecode"><span class="id" title="var">w0</span></span>. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Definition</span> <a id="pWCET_cdf" class="idref" href="#pWCET_cdf"><span class="id" title="definition">pWCET_cdf</span></a> (<a id="tsk:13" class="idref" href="#tsk:13"><span class="id" title="binder">tsk</span></a> : <a class="idref" href="axpwcet.rt.model.task.html#CDFPWCET.Task"><span class="id" title="variable">Task</span></a>) (<a id="w0:14" class="idref" href="#w0:14"><span class="id" title="binder">w0</span></a> : <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a>) :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="axpwcet.util.notation.html#1c32189827dbccac59a487a3e4a4f1e1"><span class="id" title="notation">∑[∞]</span></a><a class="idref" href="axpwcet.util.notation.html#1c32189827dbccac59a487a3e4a4f1e1"><span class="id" title="notation">_</span></a><a class="idref" href="axpwcet.util.notation.html#1c32189827dbccac59a487a3e4a4f1e1"><span class="id" title="notation">{</span></a><a id="w:15" class="idref" href="#w:15"><span class="id" title="binder">w</span></a> <a class="idref" href="axpwcet.util.notation.html#1c32189827dbccac59a487a3e4a4f1e1"><span class="id" title="notation">&lt;-</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a><a class="idref" href="axpwcet.util.notation.html#1c32189827dbccac59a487a3e4a4f1e1"><span class="id" title="notation">}</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.ssr.ssreflect.html#::boolean_if_scope:'if'_x_'then'_x_'else'_x"><span class="id" title="notation">if</span></a> (<a class="idref" href="axpwcet.rt.model.task.html#w:15"><span class="id" title="variable">w</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.ssrnat.html#cb53cf0ee22c036a03b4a9281c68b5a3"><span class="id" title="notation">≤</span></a> <a class="idref" href="axpwcet.rt.model.task.html#w0:14"><span class="id" title="variable">w0</span></a>)%<span class="id" title="var">nat</span> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.ssr.ssreflect.html#::boolean_if_scope:'if'_x_'then'_x_'else'_x"><span class="id" title="notation">then</span></a> <a class="idref" href="axpwcet.rt.model.task.html#pWCET_pmf"><span class="id" title="method">pWCET_pmf</span></a> <a class="idref" href="axpwcet.rt.model.task.html#tsk:13"><span class="id" title="variable">tsk</span></a> <a class="idref" href="axpwcet.rt.model.task.html#w:15"><span class="id" title="variable">w</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.ssr.ssreflect.html#::boolean_if_scope:'if'_x_'then'_x_'else'_x"><span class="id" title="notation">else</span></a> 0.<br/>
+
+<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="axpwcet.rt.model.task.html#CDFPWCET"><span class="id" title="section">CDFPWCET</span></a>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

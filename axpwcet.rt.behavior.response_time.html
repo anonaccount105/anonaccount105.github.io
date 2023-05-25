@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<title>axpwcet.rt.behavior.response_time</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Library axpwcet.rt.behavior.response_time</h1>
+
+<div class="code">
+<span class="comment">(*&nbsp;---------------------------------&nbsp;AxpWCET&nbsp;---------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">axpwcet.util</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <a class="idref" href="axpwcet.util.etime.html#"><span class="id" title="library">etime</span></a>.<br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">axpwcet.rt.behavior</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <a class="idref" href="axpwcet.rt.behavior.service.html#"><span class="id" title="library">service</span></a>.<br/>
+<span class="id" title="keyword">Local Open</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">nat_scope</span>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;----------------------------------&nbsp;Main&nbsp;----------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">Section</span> <a id="PrResponseTime" class="idref" href="#PrResponseTime"><span class="id" title="section">PrResponseTime</span></a>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="c3d482fd3513878b11e14abf9e72362d" class="idref" href="#c3d482fd3513878b11e14abf9e72362d"><span class="id" title="binder">Ω</span></a>} {<a id="64252de629bdd27d41a7716d98f42d82" class="idref" href="#64252de629bdd27d41a7716d98f42d82"><span class="id" title="binder">μ</span></a> : <a class="idref" href="axpwcet.util.notation.html#measure"><span class="id" title="definition">measure</span></a> <a class="idref" href="axpwcet.rt.behavior.response_time.html#c3d482fd3513878b11e14abf9e72362d"><span class="id" title="variable">Ω</span></a>}.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="Job:3" class="idref" href="#Job:3"><span class="id" title="binder">Job</span></a> : <span class="id" title="definition">JobType</span>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a id="job_arrival:4" class="idref" href="#job_arrival:4"><span class="id" title="binder">job_arrival</span></a> : <a class="idref" href="axpwcet.rt.behavior.job.html#JobArrivalRV"><span class="id" title="class">JobArrivalRV</span></a> <a class="idref" href="axpwcet.rt.behavior.response_time.html#Job:3"><span class="id" title="variable">Job</span></a> <a class="idref" href="axpwcet.rt.behavior.response_time.html#efbdcc15d4edd8d4e28a7362c993bcf9"><span class="id" title="variable">Ω</span></a> <a class="idref" href="axpwcet.rt.behavior.response_time.html#275ebb3a3bb8bd34a3fd5e42fc6dca39"><span class="id" title="variable">μ</span></a>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a id="job_cost:5" class="idref" href="#job_cost:5"><span class="id" title="binder">job_cost</span></a> : <a class="idref" href="axpwcet.rt.behavior.job.html#JobCostRV"><span class="id" title="class">JobCostRV</span></a> <a class="idref" href="axpwcet.rt.behavior.response_time.html#Job:3"><span class="id" title="variable">Job</span></a> <a class="idref" href="axpwcet.rt.behavior.response_time.html#efbdcc15d4edd8d4e28a7362c993bcf9"><span class="id" title="variable">Ω</span></a> <a class="idref" href="axpwcet.rt.behavior.response_time.html#275ebb3a3bb8bd34a3fd5e42fc6dca39"><span class="id" title="variable">μ</span></a>}.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="PState:6" class="idref" href="#PState:6"><span class="id" title="binder">PState</span></a> : <span class="id" title="class">ProcessorState</span> <a class="idref" href="axpwcet.rt.behavior.response_time.html#PrResponseTime.Job"><span class="id" title="variable">Job</span></a>}.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Variable</span> <a id="PrResponseTime.sched" class="idref" href="#PrResponseTime.sched"><span class="id" title="variable">sched</span></a> : <a class="idref" href="axpwcet.rt.behavior.schedule.html#pr_schedule"><span class="id" title="definition">pr_schedule</span></a> <a class="idref" href="axpwcet.rt.behavior.response_time.html#275ebb3a3bb8bd34a3fd5e42fc6dca39"><span class="id" title="variable">μ</span></a> <a class="idref" href="axpwcet.rt.behavior.response_time.html#PrResponseTime.PState"><span class="id" title="variable">PState</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We use a variable <span class="inlinecode"><a class="idref" href="axpwcet.rt.model.scheduler.html#SustainableScheduler.horizon"><span class="id" title="variable">horizon</span></a></span> to denote the time instant when the
+      system is terminated. If a job completes beyond this time, it
+      will be considered as having an infinite response time. Notice
+      that the horizon has the option type; we use <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#None"><span class="id" title="constructor">None</span></a></span> to denote
+      the case when the termination time is not set, so the system
+      runs forever. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Variable</span> <a id="PrResponseTime.horizon" class="idref" href="#PrResponseTime.horizon"><span class="id" title="variable">horizon</span></a> : <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#option"><span class="id" title="inductive">option</span></a> <span class="id" title="definition">instant</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+In this section, we introduce a definition of the response time
+      of a job using the limited principle of omniscience (LPO), which
+      is a simple, classically true, proposition that is not true in
+      intuitionistic mathematics stating that <span class="inlinecode">(∀</span> <span class="inlinecode"><span class="id" title="var">n</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a>,</span> <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.valid_pWCET_remains_valid.html#ValidpWCETRemainsValid.ProofOfLemma.P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><span class="id" title="var">n</span></span> <span class="inlinecode">∨</span> <span class="inlinecode">¬</span> <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.valid_pWCET_remains_valid.html#ValidpWCETRemainsValid.ProofOfLemma.P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><span class="id" title="var">n</span>)</span>
+      <span class="inlinecode">→</span> <span class="inlinecode">{<span class="id" title="var">n</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a></span> <span class="inlinecode">|</span> <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.valid_pWCET_remains_valid.html#ValidpWCETRemainsValid.ProofOfLemma.P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><span class="id" title="var">n</span>}</span> <span class="inlinecode">+</span> <span class="inlinecode">{∀</span> <span class="inlinecode"><span class="id" title="var">n</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a>,</span> <span class="inlinecode">¬</span> <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.valid_pWCET_remains_valid.html#ValidpWCETRemainsValid.ProofOfLemma.P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><span class="id" title="var">n</span>}</span>. The advantage of such
+      an approach is that we are not restricted by the decidability
+      rules, so we can handle a case when the response time of a job
+      is infinite. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Section</span> <a id="PrResponseTime.LPO_ResponseTime" class="idref" href="#PrResponseTime.LPO_ResponseTime"><span class="id" title="section">LPO_ResponseTime</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+To apply LPO, we first need to prove its precondition <span class="inlinecode">∀</span> <span class="inlinecode"><span class="id" title="var">n</span></span> <span class="inlinecode">:</span>
+        <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a>,</span> <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.valid_pWCET_remains_valid.html#ValidpWCETRemainsValid.ProofOfLemma.P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><span class="id" title="var">n</span></span> <span class="inlinecode">∨</span> <span class="inlinecode">¬</span> <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.valid_pWCET_remains_valid.html#ValidpWCETRemainsValid.ProofOfLemma.P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><span class="id" title="var">n</span></span>. 
+</div>
+<div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Definition</span> <a id="completed_by_is_dec" class="idref" href="#completed_by_is_dec"><span class="id" title="definition">completed_by_is_dec</span></a> :<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">∀</span> (<a id="0ca13ed3bfdd4371c3b7e497b552fc2f" class="idref" href="#0ca13ed3bfdd4371c3b7e497b552fc2f"><span class="id" title="binder">ω</span></a> : <a class="idref" href="axpwcet.rt.behavior.response_time.html#efbdcc15d4edd8d4e28a7362c993bcf9"><span class="id" title="variable">Ω</span></a>) (<a id="j:10" class="idref" href="#j:10"><span class="id" title="binder">j</span></a> : <a class="idref" href="axpwcet.rt.behavior.response_time.html#PrResponseTime.Job"><span class="id" title="variable">Job</span></a>) (<a id="compl_time:11" class="idref" href="#compl_time:11"><span class="id" title="binder">compl_time</span></a> : <span class="id" title="definition">instant</span>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="axpwcet.rt.behavior.service.html#pr_completed_by"><span class="id" title="definition">pr_completed_by</span></a> <a class="idref" href="axpwcet.rt.behavior.response_time.html#PrResponseTime.sched"><span class="id" title="variable">sched</span></a> <a class="idref" href="axpwcet.rt.behavior.response_time.html#j:10"><span class="id" title="variable">j</span></a> <a class="idref" href="axpwcet.rt.behavior.response_time.html#compl_time:11"><span class="id" title="variable">compl_time</span></a> <a class="idref" href="axpwcet.rt.behavior.response_time.html#0ca13ed3bfdd4371c3b7e497b552fc2f"><span class="id" title="variable">ω</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Unicode.Utf8_core.html#9b27a55e56b4bfcc20e5b8cbd0156a3e"><span class="id" title="notation">∨</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Unicode.Utf8_core.html#b02645851bc60f28087c4c8d90376442"><span class="id" title="notation">¬</span></a> <a class="idref" href="axpwcet.rt.behavior.service.html#pr_completed_by"><span class="id" title="definition">pr_completed_by</span></a> <a class="idref" href="axpwcet.rt.behavior.response_time.html#PrResponseTime.sched"><span class="id" title="variable">sched</span></a> <a class="idref" href="axpwcet.rt.behavior.response_time.html#j:10"><span class="id" title="variable">j</span></a> <a class="idref" href="axpwcet.rt.behavior.response_time.html#compl_time:11"><span class="id" title="variable">compl_time</span></a> <a class="idref" href="axpwcet.rt.behavior.response_time.html#0ca13ed3bfdd4371c3b7e497b552fc2f"><span class="id" title="variable">ω</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Next, <span class="inlinecode"><span class="id" title="lemma">LPO_min</span></span> finds the minimum time instant <span class="inlinecode"><a class="idref" href="axpwcet.probability.stochastic_order.html#StochasticDomination.AddrvRespectsStochasticOrderHelpers.t"><span class="id" title="variable">t</span></a></span> such that
+        <span class="inlinecode"><a class="idref" href="axpwcet.rt.behavior.response_time.html#completed_by_is_dec"><span class="id" title="definition">completed_by_is_dec</span></a></span> <span class="inlinecode">ω</span> <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.ProofOfLemma.j"><span class="id" title="variable">j</span></a></span>, and, if such a time instant does
+        not exist, <span class="inlinecode"><span class="id" title="lemma">LPO_min</span></span> returns None. 
+</div>
+<div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Definition</span> <a id="min_completion_time" class="idref" href="#min_completion_time"><span class="id" title="definition">min_completion_time</span></a> (<a id="71343bcbf5305793dbb87c723b1f2bc4" class="idref" href="#71343bcbf5305793dbb87c723b1f2bc4"><span class="id" title="binder">ω</span></a> : <a class="idref" href="axpwcet.rt.behavior.response_time.html#efbdcc15d4edd8d4e28a7362c993bcf9"><span class="id" title="variable">Ω</span></a>) (<a id="j:13" class="idref" href="#j:13"><span class="id" title="binder">j</span></a> : <a class="idref" href="axpwcet.rt.behavior.response_time.html#PrResponseTime.Job"><span class="id" title="variable">Job</span></a>) :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="lemma">LPO_min</span> (<span class="id" title="keyword">fun</span> <a id="compl_time:14" class="idref" href="#compl_time:14"><span class="id" title="binder">compl_time</span></a> ⇒ <a class="idref" href="axpwcet.rt.behavior.service.html#pr_completed_by"><span class="id" title="definition">pr_completed_by</span></a> <a class="idref" href="axpwcet.rt.behavior.response_time.html#PrResponseTime.sched"><span class="id" title="variable">sched</span></a> <a class="idref" href="axpwcet.rt.behavior.response_time.html#j:13"><span class="id" title="variable">j</span></a> <a class="idref" href="axpwcet.rt.behavior.response_time.html#compl_time:14"><span class="id" title="variable">compl_time</span></a> <a class="idref" href="axpwcet.rt.behavior.response_time.html#71343bcbf5305793dbb87c723b1f2bc4"><span class="id" title="variable">ω</span></a>) (<a class="idref" href="axpwcet.rt.behavior.response_time.html#completed_by_is_dec"><span class="id" title="definition">completed_by_is_dec</span></a> <a class="idref" href="axpwcet.rt.behavior.response_time.html#71343bcbf5305793dbb87c723b1f2bc4"><span class="id" title="variable">ω</span></a> <a class="idref" href="axpwcet.rt.behavior.response_time.html#j:13"><span class="id" title="variable">j</span></a>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We use both <span class="inlinecode"><span class="id" title="lemma">LPO_min</span></span> and <span class="inlinecode"><a class="idref" href="axpwcet.rt.model.scheduler.html#SustainableScheduler.horizon"><span class="id" title="variable">horizon</span></a></span> to define the response
+        time of a job. We need to consider the following cases:
+
+<div class="paragraph"> </div>
+
+        1. Job does not arrive ==&gt; response time = <span class="inlinecode"><a class="idref" href="axpwcet.util.etime.html#Undef"><span class="id" title="constructor">Undef</span></a></span>
+
+<div class="paragraph"> </div>
+
+        2. Job arrives but never completes ==&gt; response time = <span class="inlinecode"><a class="idref" href="axpwcet.util.etime.html#Infty"><span class="id" title="constructor">Infty</span></a></span>
+
+<div class="paragraph"> </div>
+
+        3. Job arrives at time instant <span class="inlinecode"><span class="id" title="var">a</span></span>, completes at a time
+        instant <span class="inlinecode"><span class="id" title="var">ct</span></span>, and <span class="inlinecode"><a class="idref" href="axpwcet.rt.model.scheduler.html#SustainableScheduler.horizon"><span class="id" title="variable">horizon</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#None"><span class="id" title="constructor">None</span></a></span> ==&gt; response time = <span class="inlinecode"><span class="id" title="var">cr</span></span> <span class="inlinecode">-</span>
+        <span class="inlinecode"><span class="id" title="var">a</span></span>
+
+<div class="paragraph"> </div>
+
+        4. Job arrives at time instant <span class="inlinecode"><span class="id" title="var">a</span></span>, completes at a time
+        instant <span class="inlinecode"><span class="id" title="var">ct</span></span>, <span class="inlinecode"><a class="idref" href="axpwcet.rt.model.scheduler.html#SustainableScheduler.horizon"><span class="id" title="variable">horizon</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#Some"><span class="id" title="constructor">Some</span></a></span> <span class="inlinecode"><span class="id" title="var">h</span></span>, and <span class="inlinecode"><span class="id" title="var">ct</span></span> <span class="inlinecode">≥</span> <span class="inlinecode"><span class="id" title="var">h</span></span> ==&gt; response
+        time = <span class="inlinecode"><a class="idref" href="axpwcet.util.etime.html#Infty"><span class="id" title="constructor">Infty</span></a></span>
+
+<div class="paragraph"> </div>
+
+        5. Finally, if the job arrives at time instant <span class="inlinecode"><span class="id" title="var">a</span></span>, completes
+        at a time instant <span class="inlinecode"><span class="id" title="var">ct</span></span>, <span class="inlinecode"><a class="idref" href="axpwcet.rt.model.scheduler.html#SustainableScheduler.horizon"><span class="id" title="variable">horizon</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#Some"><span class="id" title="constructor">Some</span></a></span> <span class="inlinecode"><span class="id" title="var">h</span></span>, and <span class="inlinecode"><span class="id" title="var">ct</span></span> <span class="inlinecode">&lt;</span> <span class="inlinecode"><span class="id" title="var">h</span></span> ==&gt;
+        response time = <span class="inlinecode"><span class="id" title="var">cr</span></span> <span class="inlinecode">-</span> <span class="inlinecode"><span class="id" title="var">a</span></span>. 
+</div>
+<div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Definition</span> <a id="response_time" class="idref" href="#response_time"><span class="id" title="definition">response_time</span></a> (<a id="j:15" class="idref" href="#j:15"><span class="id" title="binder">j</span></a> : <a class="idref" href="axpwcet.rt.behavior.response_time.html#PrResponseTime.Job"><span class="id" title="variable">Job</span></a>) : <span class="id" title="record">rvar</span> <a class="idref" href="axpwcet.rt.behavior.response_time.html#275ebb3a3bb8bd34a3fd5e42fc6dca39"><span class="id" title="variable">μ</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">[</span></a><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">eqType</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">of</span></a> <a class="idref" href="axpwcet.util.etime.html#etime"><span class="id" title="inductive">etime</span></a><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">]</span></a> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="constructor">mkRvar</span> <a class="idref" href="axpwcet.rt.behavior.response_time.html#275ebb3a3bb8bd34a3fd5e42fc6dca39"><span class="id" title="variable">μ</span></a> (<span class="id" title="keyword">fun</span> <a id="fc829d156dfba5c0cb6027d260527304" class="idref" href="#fc829d156dfba5c0cb6027d260527304"><span class="id" title="binder">ω</span></a>:<a class="idref" href="axpwcet.rt.behavior.response_time.html#efbdcc15d4edd8d4e28a7362c993bcf9"><span class="id" title="variable">Ω</span></a> ⇒<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="axpwcet.rt.behavior.response_time.html#PrResponseTime.job_arrival"><span class="id" title="variable">job_arrival</span></a> <a class="idref" href="axpwcet.rt.behavior.response_time.html#j:15"><span class="id" title="variable">j</span></a> <a class="idref" href="axpwcet.rt.behavior.response_time.html#fc829d156dfba5c0cb6027d260527304"><span class="id" title="variable">ω</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#None"><span class="id" title="constructor">None</span></a> ⇒ <a class="idref" href="axpwcet.util.etime.html#Undef"><span class="id" title="constructor">Undef</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#Some"><span class="id" title="constructor">Some</span></a> <span class="id" title="var">ar</span> ⇒<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="axpwcet.rt.behavior.response_time.html#min_completion_time"><span class="id" title="definition">min_completion_time</span></a> <a class="idref" href="axpwcet.rt.behavior.response_time.html#fc829d156dfba5c0cb6027d260527304"><span class="id" title="variable">ω</span></a> <a class="idref" href="axpwcet.rt.behavior.response_time.html#j:15"><span class="id" title="variable">j</span></a>, <a class="idref" href="axpwcet.rt.behavior.response_time.html#PrResponseTime.horizon"><span class="id" title="variable">horizon</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Specif.html#inright"><span class="id" title="constructor">inright</span></a> <span class="id" title="var">_</span>, <span class="id" title="var">_</span> ⇒ <a class="idref" href="axpwcet.util.etime.html#Infty"><span class="id" title="constructor">Infty</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Specif.html#inleft"><span class="id" title="constructor">inleft</span></a> (<a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Specif.html#exist"><span class="id" title="constructor">exist</span></a> <span class="id" title="var">compl_time</span> <span class="id" title="var">_</span>), <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#None"><span class="id" title="constructor">None</span></a> ⇒ <a class="idref" href="axpwcet.util.etime.html#Fin"><span class="id" title="constructor">Fin</span></a> (<span class="id" title="var">compl_time</span> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.ssrnat.html#::nat_scope:x_'-'_x"><span class="id" title="notation">-</span></a> <span class="id" title="var">ar</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Specif.html#inleft"><span class="id" title="constructor">inleft</span></a> (<a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Specif.html#exist"><span class="id" title="constructor">exist</span></a> <span class="id" title="var">compl_time</span> <span class="id" title="var">_</span>), <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#Some"><span class="id" title="constructor">Some</span></a> <span class="id" title="var">h</span> ⇒<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.ssr.ssreflect.html#::boolean_if_scope:'if'_x_'then'_x_'else'_x"><span class="id" title="notation">if</span></a> <span class="id" title="var">compl_time</span> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.ssrnat.html#73030c22bc0b1fa771c65aa5414c65f9"><span class="id" title="notation">≥</span></a> <span class="id" title="var">h</span> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.ssr.ssreflect.html#::boolean_if_scope:'if'_x_'then'_x_'else'_x"><span class="id" title="notation">then</span></a> <a class="idref" href="axpwcet.util.etime.html#Infty"><span class="id" title="constructor">Infty</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.ssr.ssreflect.html#::boolean_if_scope:'if'_x_'then'_x_'else'_x"><span class="id" title="notation">else</span></a> <a class="idref" href="axpwcet.util.etime.html#Fin"><span class="id" title="constructor">Fin</span></a> (<span class="id" title="var">compl_time</span> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.ssrnat.html#::nat_scope:x_'-'_x"><span class="id" title="notation">-</span></a> <span class="id" title="var">ar</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;).<br/>
+
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Definition</span> <a id="response_time_exceeds" class="idref" href="#response_time_exceeds"><span class="id" title="definition">response_time_exceeds</span></a> (<a id="j:18" class="idref" href="#j:18"><span class="id" title="binder">j</span></a> : <a class="idref" href="axpwcet.rt.behavior.response_time.html#PrResponseTime.Job"><span class="id" title="variable">Job</span></a>) (<a id="R:19" class="idref" href="#R:19"><span class="id" title="binder">R</span></a> : <span class="id" title="definition">duration</span>) : <a class="idref" href="axpwcet.probability.brvar.html#brvar"><span class="id" title="definition">brvar</span></a> <a class="idref" href="axpwcet.rt.behavior.response_time.html#275ebb3a3bb8bd34a3fd5e42fc6dca39"><span class="id" title="variable">μ</span></a> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="constructor">mkRvar</span> <a class="idref" href="axpwcet.rt.behavior.response_time.html#275ebb3a3bb8bd34a3fd5e42fc6dca39"><span class="id" title="variable">μ</span></a> (<span class="id" title="keyword">fun</span> <a id="20456928aa12c5556b47e0248e05de5d" class="idref" href="#20456928aa12c5556b47e0248e05de5d"><span class="id" title="binder">ω</span></a>:<a class="idref" href="axpwcet.rt.behavior.response_time.html#efbdcc15d4edd8d4e28a7362c993bcf9"><span class="id" title="variable">Ω</span></a> ⇒ <a class="idref" href="axpwcet.util.etime.html#exceeds"><span class="id" title="definition">exceeds</span></a> (<a class="idref" href="axpwcet.rt.behavior.response_time.html#response_time"><span class="id" title="definition">response_time</span></a> <a class="idref" href="axpwcet.rt.behavior.response_time.html#j:18"><span class="id" title="variable">j</span></a> <a class="idref" href="axpwcet.rt.behavior.response_time.html#20456928aa12c5556b47e0248e05de5d"><span class="id" title="variable">ω</span></a>) <a class="idref" href="axpwcet.rt.behavior.response_time.html#R:19"><span class="id" title="variable">R</span></a>).<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">End</span> <a class="idref" href="axpwcet.rt.behavior.response_time.html#PrResponseTime.LPO_ResponseTime"><span class="id" title="section">LPO_ResponseTime</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="axpwcet.rt.behavior.response_time.html#PrResponseTime"><span class="id" title="section">PrResponseTime</span></a>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

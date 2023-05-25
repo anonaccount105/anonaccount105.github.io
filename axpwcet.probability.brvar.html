@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<title>axpwcet.probability.brvar</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Library axpwcet.probability.brvar</h1>
+
+<div class="code">
+<span class="comment">(*&nbsp;---------------------------------&nbsp;AxpWCET&nbsp;---------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">axpwcet.util</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <a class="idref" href="axpwcet.util.notation.html#"><span class="id" title="library">notation</span></a> <a class="idref" href="axpwcet.util.stdpp.html#"><span class="id" title="library">stdpp</span></a>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;-------------------------------&nbsp;Definition&nbsp;-------------------------------&nbsp;*)</span><br/>
+</div>
+
+<div class="doc">
+For the sake of clarity, we define a random variable over a
+    countable set <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#d313a5a446fa6be1ab2b8a11bb47f934"><span class="id" title="variable">Ω</span></a></span> with measure <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#f0973cf9c2ebf2f4f9e3ec57d7d4eef5"><span class="id" title="variable">μ</span></a></span>, whose values are in the
+    booleans <span class="inlinecode"><a class="idref" href="axpwcet.probability.brvar.html#brvar"><span class="id" title="definition">brvar</span></a></span>. The random variable is defined using the general
+    random variable notion <span class="inlinecode"><span class="id" title="record">rvar</span></span>, which takes a set <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#d313a5a446fa6be1ab2b8a11bb47f934"><span class="id" title="variable">Ω</span></a></span>, a measure
+    <span class="inlinecode"><a class="idref" href="axpwcet.rt.analysis.axiomatic_pWCET_step.html#f0973cf9c2ebf2f4f9e3ec57d7d4eef5"><span class="id" title="variable">μ</span></a></span>, and a type <span class="inlinecode"><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#Equality.Exports.eqType"><span class="id" title="abbreviation">eqType</span></a></span> <span class="inlinecode"><span class="id" title="keyword">of</span></span> <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a></span> as arguments. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Definition</span> <a id="brvar" class="idref" href="#brvar"><span class="id" title="definition">brvar</span></a> {<a id="c3d482fd3513878b11e14abf9e72362d" class="idref" href="#c3d482fd3513878b11e14abf9e72362d"><span class="id" title="binder">Ω</span></a>} (<a id="64252de629bdd27d41a7716d98f42d82" class="idref" href="#64252de629bdd27d41a7716d98f42d82"><span class="id" title="binder">μ</span></a> : <a class="idref" href="axpwcet.util.notation.html#measure"><span class="id" title="definition">measure</span></a> <a class="idref" href="axpwcet.probability.brvar.html#c3d482fd3513878b11e14abf9e72362d"><span class="id" title="variable">Ω</span></a>) :=<br/>
+&nbsp;&nbsp;@<span class="id" title="record">rvar</span> <a class="idref" href="axpwcet.probability.brvar.html#c3d482fd3513878b11e14abf9e72362d"><span class="id" title="variable">Ω</span></a> <a class="idref" href="axpwcet.probability.brvar.html#64252de629bdd27d41a7716d98f42d82"><span class="id" title="variable">μ</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">[</span></a><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">eqType</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">of</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">]</span></a>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;--------------------------------&nbsp;Instances&nbsp;-------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">Instance</span> <a id="rvar_neg" class="idref" href="#rvar_neg"><span class="id" title="instance">rvar_neg</span></a> {<a id="bef33a011ae1873a10da5deb40659f29" class="idref" href="#bef33a011ae1873a10da5deb40659f29"><span class="id" title="binder">Ω</span></a>} {<a id="6941aac8dfa5391e43b8a4017a2cdcaf" class="idref" href="#6941aac8dfa5391e43b8a4017a2cdcaf"><span class="id" title="binder">μ</span></a> : <a class="idref" href="axpwcet.util.notation.html#measure"><span class="id" title="definition">measure</span></a> <a class="idref" href="axpwcet.probability.brvar.html#bef33a011ae1873a10da5deb40659f29"><span class="id" title="variable">Ω</span></a>} : <a class="idref" href="axpwcet.util.notation.html#NegOp"><span class="id" title="class">NegOp</span></a> (<a class="idref" href="axpwcet.probability.brvar.html#brvar"><span class="id" title="definition">brvar</span></a> <a class="idref" href="axpwcet.probability.brvar.html#6941aac8dfa5391e43b8a4017a2cdcaf"><span class="id" title="variable">μ</span></a>) :=<br/>
+&nbsp;&nbsp;{ <a class="idref" href="axpwcet.util.notation.html#neg_op"><span class="id" title="definition">neg_op</span></a> <a id="A:5" class="idref" href="#A:5"><span class="id" title="binder">A</span></a> := <span class="id" title="constructor">mkRvar</span> <span class="id" title="var">μ</span> (<span class="id" title="keyword">fun</span> <a id="a9968bec8fad1bf5c85df7412da2ff5a" class="idref" href="#a9968bec8fad1bf5c85df7412da2ff5a"><span class="id" title="binder">ω</span></a> ⇒ <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.ssr.ssrbool.html#b3ebd0deddd84fd60e149cb5ef719351"><span class="id" title="notation">~~</span></a> <a class="idref" href="axpwcet.probability.brvar.html#A:5"><span class="id" title="variable">A</span></a> <a class="idref" href="axpwcet.probability.brvar.html#a9968bec8fad1bf5c85df7412da2ff5a"><span class="id" title="variable">ω</span></a>) }.<br/>
+
+<br/>
+<span class="id" title="keyword">Instance</span> <a id="rvar_union" class="idref" href="#rvar_union"><span class="id" title="instance">rvar_union</span></a> {<a id="f34640d0840c4816ac7dc09dabf54dc8" class="idref" href="#f34640d0840c4816ac7dc09dabf54dc8"><span class="id" title="binder">Ω</span></a>} {<a id="c02cfe87908bdf8fff101a12505e6b1e" class="idref" href="#c02cfe87908bdf8fff101a12505e6b1e"><span class="id" title="binder">μ</span></a> : <a class="idref" href="axpwcet.util.notation.html#measure"><span class="id" title="definition">measure</span></a> <a class="idref" href="axpwcet.probability.brvar.html#f34640d0840c4816ac7dc09dabf54dc8"><span class="id" title="variable">Ω</span></a>} : <a class="idref" href="axpwcet.util.stdpp.html#Union"><span class="id" title="class">Union</span></a> (<a class="idref" href="axpwcet.probability.brvar.html#brvar"><span class="id" title="definition">brvar</span></a> <a class="idref" href="axpwcet.probability.brvar.html#c02cfe87908bdf8fff101a12505e6b1e"><span class="id" title="variable">μ</span></a>) :=<br/>
+&nbsp;&nbsp;{ <a class="idref" href="axpwcet.util.stdpp.html#union"><span class="id" title="definition">union</span></a> <a id="A:9" class="idref" href="#A:9"><span class="id" title="binder">A</span></a> <a id="B:10" class="idref" href="#B:10"><span class="id" title="binder">B</span></a> := <span class="id" title="constructor">mkRvar</span> <span class="id" title="var">μ</span> (<span class="id" title="keyword">fun</span> <a id="fe06ff3f082872b711a586c4067009dd" class="idref" href="#fe06ff3f082872b711a586c4067009dd"><span class="id" title="binder">ω</span></a> ⇒ <a class="idref" href="axpwcet.probability.brvar.html#A:9"><span class="id" title="variable">A</span></a> <a class="idref" href="axpwcet.probability.brvar.html#fe06ff3f082872b711a586c4067009dd"><span class="id" title="variable">ω</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#081ff67d3116402bb680e8692aa39185"><span class="id" title="notation">||</span></a> <a class="idref" href="axpwcet.probability.brvar.html#B:10"><span class="id" title="variable">B</span></a> <a class="idref" href="axpwcet.probability.brvar.html#fe06ff3f082872b711a586c4067009dd"><span class="id" title="variable">ω</span></a>) }.<br/>
+
+<br/>
+<span class="id" title="keyword">Instance</span> <a id="rvar_intersection" class="idref" href="#rvar_intersection"><span class="id" title="instance">rvar_intersection</span></a> {<a id="fa66121b45ef59422b017a50ec451f1d" class="idref" href="#fa66121b45ef59422b017a50ec451f1d"><span class="id" title="binder">Ω</span></a>} {<a id="d027f5d6af74b181c07c5e4200404787" class="idref" href="#d027f5d6af74b181c07c5e4200404787"><span class="id" title="binder">μ</span></a> : <a class="idref" href="axpwcet.util.notation.html#measure"><span class="id" title="definition">measure</span></a> <a class="idref" href="axpwcet.probability.brvar.html#fa66121b45ef59422b017a50ec451f1d"><span class="id" title="variable">Ω</span></a>} : <a class="idref" href="axpwcet.util.stdpp.html#Intersection"><span class="id" title="class">Intersection</span></a> (<a class="idref" href="axpwcet.probability.brvar.html#brvar"><span class="id" title="definition">brvar</span></a> <a class="idref" href="axpwcet.probability.brvar.html#d027f5d6af74b181c07c5e4200404787"><span class="id" title="variable">μ</span></a>) :=<br/>
+&nbsp;&nbsp;{ <a class="idref" href="axpwcet.util.stdpp.html#intersection"><span class="id" title="definition">intersection</span></a> <a id="A:14" class="idref" href="#A:14"><span class="id" title="binder">A</span></a> <a id="B:15" class="idref" href="#B:15"><span class="id" title="binder">B</span></a> := <span class="id" title="constructor">mkRvar</span> <span class="id" title="var">μ</span> (<span class="id" title="keyword">fun</span> <a id="fc829d156dfba5c0cb6027d260527304" class="idref" href="#fc829d156dfba5c0cb6027d260527304"><span class="id" title="binder">ω</span></a> ⇒ <a class="idref" href="axpwcet.probability.brvar.html#A:14"><span class="id" title="variable">A</span></a> <a class="idref" href="axpwcet.probability.brvar.html#fc829d156dfba5c0cb6027d260527304"><span class="id" title="variable">ω</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#::bool_scope:x_'&amp;&amp;'_x"><span class="id" title="notation">&amp;&amp;</span></a> <a class="idref" href="axpwcet.probability.brvar.html#B:15"><span class="id" title="variable">B</span></a> <a class="idref" href="axpwcet.probability.brvar.html#fc829d156dfba5c0cb6027d260527304"><span class="id" title="variable">ω</span></a>) }.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>
