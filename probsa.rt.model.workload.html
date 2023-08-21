@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<title>probsa.rt.model.workload</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Library probsa.rt.model.workload</h1>
+
+<div class="code">
+<span class="comment">(*&nbsp;--------------------------------&nbsp;Prosa&nbsp;---------------------------------&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;Compiled&nbsp;with&nbsp;commit&nbsp;<span class="inlinecode">0<span class="id" title="var">b7a65db</span></span>&nbsp;*)</span><br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">prosa.model</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <span class="id" title="library">priority.classes</span>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;--------------------------------&nbsp;ProBsa&nbsp;--------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">probsa.rt.behavior</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <a class="idref" href="probsa.rt.behavior.job.html#"><span class="id" title="library">job</span></a> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#"><span class="id" title="library">arrival_sequence</span></a> <a class="idref" href="probsa.rt.behavior.schedule.html#"><span class="id" title="library">schedule</span></a>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;--------------------------------&nbsp;Main&nbsp;----------------------------------&nbsp;*)</span><br/>
+</div>
+
+<div class="doc">
+Remark: this file is not needed for the proof of the main lemma. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Section</span> <a id="WorkloadDefinition" class="idref" href="#WorkloadDefinition"><span class="id" title="section">WorkloadDefinition</span></a>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="comment">(*&nbsp;TODO:&nbsp;comment&nbsp;*)</span><br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="c3d482fd3513878b11e14abf9e72362d" class="idref" href="#c3d482fd3513878b11e14abf9e72362d"><span class="id" title="binder">Ω</span></a>} {<a id="64252de629bdd27d41a7716d98f42d82" class="idref" href="#64252de629bdd27d41a7716d98f42d82"><span class="id" title="binder">μ</span></a> : <a class="idref" href="probsa.util.notation.html#measure"><span class="id" title="definition">measure</span></a> <a class="idref" href="probsa.rt.model.workload.html#c3d482fd3513878b11e14abf9e72362d"><span class="id" title="variable">Ω</span></a>}.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="comment">(*&nbsp;TODO:&nbsp;comment&nbsp;*)</span><br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="Job:3" class="idref" href="#Job:3"><span class="id" title="binder">Job</span></a> : <span class="id" title="definition">JobType</span>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a id="job_cost:4" class="idref" href="#job_cost:4"><span class="id" title="binder">job_cost</span></a> : <a class="idref" href="probsa.rt.behavior.job.html#JobCostRV"><span class="id" title="class">JobCostRV</span></a> <a class="idref" href="probsa.rt.model.workload.html#Job:3"><span class="id" title="variable">Job</span></a> <a class="idref" href="probsa.rt.model.workload.html#4368f05c7ce0deb27200d62d169adc02"><span class="id" title="variable">Ω</span></a> <a class="idref" href="probsa.rt.model.workload.html#f9a2e06d77e0f03091fa9a56db2f6f7f"><span class="id" title="variable">μ</span></a>}.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="comment">(*&nbsp;TODO:&nbsp;comment&nbsp;*)</span><br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="PState:5" class="idref" href="#PState:5"><span class="id" title="binder">PState</span></a> : <span class="id" title="class">ProcessorState</span> <a class="idref" href="probsa.rt.model.workload.html#WorkloadDefinition.Job"><span class="id" title="variable">Job</span></a>}.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Variable</span> <a id="WorkloadDefinition.sched" class="idref" href="#WorkloadDefinition.sched"><span class="id" title="variable">sched</span></a> : <a class="idref" href="probsa.rt.behavior.schedule.html#pr_schedule"><span class="id" title="definition">pr_schedule</span></a> <a class="idref" href="probsa.rt.model.workload.html#f9a2e06d77e0f03091fa9a56db2f6f7f"><span class="id" title="variable">μ</span></a> <a class="idref" href="probsa.rt.model.workload.html#WorkloadDefinition.PState"><span class="id" title="variable">PState</span></a>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Definition</span> <a id="workload_of_jobs" class="idref" href="#workload_of_jobs"><span class="id" title="definition">workload_of_jobs</span></a> (<a id="Q:7" class="idref" href="#Q:7"><span class="id" title="binder">Q</span></a> : <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.ssr.ssrbool.html#pred"><span class="id" title="definition">pred</span></a> <a class="idref" href="probsa.rt.model.workload.html#WorkloadDefinition.Job"><span class="id" title="variable">Job</span></a>) (<a id="jobs:8" class="idref" href="#jobs:8"><span class="id" title="binder">jobs</span></a> : <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.seq.html#seq"><span class="id" title="abbreviation">seq</span></a> <a class="idref" href="probsa.rt.model.workload.html#WorkloadDefinition.Job"><span class="id" title="variable">Job</span></a>) : <a class="idref" href="probsa.probability.nrvar.html#nrvar"><span class="id" title="definition">nrvar</span></a> <a class="idref" href="probsa.rt.model.workload.html#f9a2e06d77e0f03091fa9a56db2f6f7f"><span class="id" title="variable">μ</span></a> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="constructor">mkRvar</span> <a class="idref" href="probsa.rt.model.workload.html#f9a2e06d77e0f03091fa9a56db2f6f7f"><span class="id" title="variable">μ</span></a> (<span class="id" title="keyword">fun</span> <a id="0ca13ed3bfdd4371c3b7e497b552fc2f" class="idref" href="#0ca13ed3bfdd4371c3b7e497b552fc2f"><span class="id" title="binder">ω</span></a>:<a class="idref" href="probsa.rt.model.workload.html#4368f05c7ce0deb27200d62d169adc02"><span class="id" title="variable">Ω</span></a> ⇒ <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.bigop.html#f9660601caed2f1f92279ff134c53c8a"><span class="id" title="notation">\</span></a><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.bigop.html#f9660601caed2f1f92279ff134c53c8a"><span class="id" title="notation">sum_</span></a><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.bigop.html#f9660601caed2f1f92279ff134c53c8a"><span class="id" title="notation">(</span></a><a id="j:12" class="idref" href="#j:12"><span class="id" title="binder">j</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.bigop.html#f9660601caed2f1f92279ff134c53c8a"><span class="id" title="notation">&lt;-</span></a> <a class="idref" href="probsa.rt.model.workload.html#jobs:8"><span class="id" title="variable">jobs</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.bigop.html#f9660601caed2f1f92279ff134c53c8a"><span class="id" title="notation">|</span></a> <a class="idref" href="probsa.rt.model.workload.html#Q:7"><span class="id" title="variable">Q</span></a> <a class="idref" href="probsa.rt.model.workload.html#j:10"><span class="id" title="variable">j</span></a><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.bigop.html#f9660601caed2f1f92279ff134c53c8a"><span class="id" title="notation">)</span></a> <a class="idref" href="probsa.rt.model.workload.html#WorkloadDefinition.job_cost"><span class="id" title="variable">job_cost</span></a> <a class="idref" href="probsa.rt.model.workload.html#j:10"><span class="id" title="variable">j</span></a> <a class="idref" href="probsa.rt.model.workload.html#0ca13ed3bfdd4371c3b7e497b552fc2f"><span class="id" title="variable">ω</span></a>).<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="comment">(*&nbsp;TODO:&nbsp;define&nbsp;"workload_between"&nbsp;*)</span><br/>
+&nbsp;&nbsp;<span class="comment">(*&nbsp;Definition&nbsp;workload_between&nbsp;(Q&nbsp;:&nbsp;pred&nbsp;Job)&nbsp;(jobs&nbsp;:&nbsp;seq&nbsp;Job)&nbsp;:&nbsp;nrvar&nbsp;μ&nbsp;:=&nbsp;*)</span><br/>
+&nbsp;&nbsp;<span class="comment">(*&nbsp;&nbsp;&nbsp;mkRvar&nbsp;μ&nbsp;(fun&nbsp;ω:Ω&nbsp;=&gt;&nbsp;\sum_(j&nbsp;&lt;-&nbsp;jobs&nbsp;|&nbsp;Q&nbsp;j)&nbsp;job_cost&nbsp;j&nbsp;ω).&nbsp;&nbsp;&nbsp;*)</span><br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="JLFP:13" class="idref" href="#JLFP:13"><span class="id" title="binder">JLFP</span></a> : <span class="id" title="class">JLFP_policy</span> <a class="idref" href="probsa.rt.model.workload.html#WorkloadDefinition.Job"><span class="id" title="variable">Job</span></a>}.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Variable</span> <a id="WorkloadDefinition.arr_seq" class="idref" href="#WorkloadDefinition.arr_seq"><span class="id" title="variable">arr_seq</span></a> : <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#pr_arrival_sequence"><span class="id" title="definition">pr_arrival_sequence</span></a> <a class="idref" href="probsa.rt.model.workload.html#f9a2e06d77e0f03091fa9a56db2f6f7f"><span class="id" title="variable">μ</span></a> <a class="idref" href="probsa.rt.model.workload.html#WorkloadDefinition.Job"><span class="id" title="variable">Job</span></a>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Definition</span> <a id="workload_of_hep_jobs" class="idref" href="#workload_of_hep_jobs"><span class="id" title="definition">workload_of_hep_jobs</span></a> (<a id="j:15" class="idref" href="#j:15"><span class="id" title="binder">j</span></a> : <a class="idref" href="probsa.rt.model.workload.html#WorkloadDefinition.Job"><span class="id" title="variable">Job</span></a>) (<a id="t1:16" class="idref" href="#t1:16"><span class="id" title="binder">t1</span></a> <a id="t2:17" class="idref" href="#t2:17"><span class="id" title="binder">t2</span></a> : <span class="id" title="definition">instant</span>) : <a class="idref" href="probsa.probability.nrvar.html#nrvar"><span class="id" title="definition">nrvar</span></a> <a class="idref" href="probsa.rt.model.workload.html#f9a2e06d77e0f03091fa9a56db2f6f7f"><span class="id" title="variable">μ</span></a> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="constructor">mkRvar</span> <a class="idref" href="probsa.rt.model.workload.html#f9a2e06d77e0f03091fa9a56db2f6f7f"><span class="id" title="variable">μ</span></a> (<span class="id" title="keyword">fun</span> <a id="15c5e92d3edb93b34c8d6e48f6b357a6" class="idref" href="#15c5e92d3edb93b34c8d6e48f6b357a6"><span class="id" title="binder">ω</span></a>:<a class="idref" href="probsa.rt.model.workload.html#4368f05c7ce0deb27200d62d169adc02"><span class="id" title="variable">Ω</span></a> ⇒<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="probsa.rt.model.workload.html#workload_of_jobs"><span class="id" title="definition">workload_of_jobs</span></a> (<span class="id" title="keyword">fun</span> <a id="j_hp:19" class="idref" href="#j_hp:19"><span class="id" title="binder">j_hp</span></a> ⇒ <span class="id" title="definition">hep_job</span> <a class="idref" href="probsa.rt.model.workload.html#j_hp:19"><span class="id" title="variable">j_hp</span></a> <a class="idref" href="probsa.rt.model.workload.html#j:15"><span class="id" title="variable">j</span></a>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="definition">arrivals_between</span> (<a class="idref" href="probsa.rt.model.workload.html#WorkloadDefinition.arr_seq"><span class="id" title="variable">arr_seq</span></a> <a class="idref" href="probsa.rt.model.workload.html#15c5e92d3edb93b34c8d6e48f6b357a6"><span class="id" title="variable">ω</span></a>) <a class="idref" href="probsa.rt.model.workload.html#t1:16"><span class="id" title="variable">t1</span></a> <a class="idref" href="probsa.rt.model.workload.html#t2:17"><span class="id" title="variable">t2</span></a>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="probsa.rt.model.workload.html#15c5e92d3edb93b34c8d6e48f6b357a6"><span class="id" title="variable">ω</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;).<br/>
+
+<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="probsa.rt.model.workload.html#WorkloadDefinition"><span class="id" title="section">WorkloadDefinition</span></a>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

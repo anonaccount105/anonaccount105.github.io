@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<title>probsa.rt.behavior.arrival_sequence</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Library probsa.rt.behavior.arrival_sequence</h1>
+
+<div class="code">
+<span class="comment">(*&nbsp;---------------------------------&nbsp;Prosa&nbsp;----------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">prosa</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <span class="id" title="library">util.all</span>.<br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">prosa</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <span class="id" title="library">behavior.all</span>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;--------------------------------&nbsp;ProBsa&nbsp;---------------------------------&nbsp;&nbsp;*)</span><br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">probsa.util</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <a class="idref" href="probsa.util.boolp.html#"><span class="id" title="library">boolp</span></a>.<br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">probsa.rt.behavior</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <a class="idref" href="probsa.rt.behavior.job.html#"><span class="id" title="library">job</span></a>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;------------------------------&nbsp;Definitions&nbsp;-------------------------------&nbsp;*)</span><br/>
+</div>
+
+<div class="doc">
+Arrival sequence is a function that maps a time instant to a
+    sequence of jobs that arrive at this time instant. A probabilistic
+    arrival sequence is a random variable with a codomain in arrival
+    sequences. 
+<div class="paragraph"> </div>
+
+ It is required by <span class="inlinecode"><span class="id" title="var">coq</span>-<span class="id" title="var">proba</span></span> library that codomain is an
+    <span class="inlinecode"><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#Equality.Exports.eqType"><span class="id" title="abbreviation">eqType</span></a></span>; however, an arrival sequence is a function, which means
+    that there is no decidable equality defined on
+    schedules. Similarly to <span class="inlinecode"><a class="idref" href="probsa.rt.behavior.schedule.html#pr_schedule"><span class="id" title="definition">pr_schedule</span></a></span>, we resolve this issue using
+    classical logic. However, unlike the <span class="inlinecode"><a class="idref" href="probsa.rt.behavior.schedule.html#pr_schedule"><span class="id" title="definition">pr_schedule</span></a></span>, <span class="inlinecode"><span class="id" title="var">Coq</span></span> is able
+    to derive <span class="inlinecode"><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#Equality.Exports.eqType"><span class="id" title="abbreviation">eqType</span></a></span> automatically due to the simpler definition of
+    an arrival sequence. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Definition</span> <a id="pr_arrival_sequence" class="idref" href="#pr_arrival_sequence"><span class="id" title="definition">pr_arrival_sequence</span></a> {<a id="c3d482fd3513878b11e14abf9e72362d" class="idref" href="#c3d482fd3513878b11e14abf9e72362d"><span class="id" title="binder">Ω</span></a>} (<a id="64252de629bdd27d41a7716d98f42d82" class="idref" href="#64252de629bdd27d41a7716d98f42d82"><span class="id" title="binder">μ</span></a> : <a class="idref" href="probsa.util.notation.html#measure"><span class="id" title="definition">measure</span></a> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#c3d482fd3513878b11e14abf9e72362d"><span class="id" title="variable">Ω</span></a>) (<a id="Job:3" class="idref" href="#Job:3"><span class="id" title="binder">Job</span></a> : <span class="id" title="definition">JobType</span>) : <span class="id" title="keyword">Type</span> :=<br/>
+&nbsp;&nbsp;<span class="id" title="record">rvar</span> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#64252de629bdd27d41a7716d98f42d82"><span class="id" title="variable">μ</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">[</span></a><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">eqType</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">of</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">(</span></a><span class="id" title="definition">arrival_sequence</span> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#Job:3"><span class="id" title="variable">Job</span></a><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">)]</span></a>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;--------------------------------------------------------------------------&nbsp;*)</span><br/>
+</div>
+
+<div class="doc">
+<a id="lab10"></a><h3 class="section"><span class="inlinecode"><a class="idref" href="probsa.rt.behavior.job.html#job_arrival"><span class="id" title="projection">job_arrival</span></a></span> <span class="inlinecode">→</span> <span class="inlinecode"><a class="idref" href="probsa.rt.behavior.arrival_sequence.html#pr_arrival_sequence"><span class="id" title="definition">pr_arrival_sequence</span></a></span> for <span class="inlinecode"><span class="id" title="var">Job</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" title="var">Finite</span></span></h3>
+ If <span class="inlinecode"><span class="id" title="var">Job</span></span> is a <span class="inlinecode"><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.fintype.html#Finite.Exports.finType"><span class="id" title="abbreviation">finType</span></a></span>, one can derive a probabilistic arrival
+    sequence from <span class="inlinecode"><a class="idref" href="probsa.rt.behavior.job.html#JobArrivalRV"><span class="id" title="record">JobArrivalRV</span></a></span>. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Section</span> <a id="ArrSeqForFinTypeJobs" class="idref" href="#ArrSeqForFinTypeJobs"><span class="id" title="section">ArrSeqForFinTypeJobs</span></a>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="d3ff669e2403880e05633ecb2b018b1c" class="idref" href="#d3ff669e2403880e05633ecb2b018b1c"><span class="id" title="binder">Ω</span></a>} {<a id="566531c797713c0164dec72a7140e19b" class="idref" href="#566531c797713c0164dec72a7140e19b"><span class="id" title="binder">μ</span></a> : <a class="idref" href="probsa.util.notation.html#measure"><span class="id" title="definition">measure</span></a> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#d3ff669e2403880e05633ecb2b018b1c"><span class="id" title="variable">Ω</span></a>}.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="Job:6" class="idref" href="#Job:6"><span class="id" title="binder">Job</span></a> : <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.fintype.html#Finite.Exports.finType"><span class="id" title="abbreviation">finType</span></a>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a id="job_arrival:7" class="idref" href="#job_arrival:7"><span class="id" title="binder">job_arrival</span></a> : <a class="idref" href="probsa.rt.behavior.job.html#JobArrivalRV"><span class="id" title="class">JobArrivalRV</span></a> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#Job:6"><span class="id" title="variable">Job</span></a> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#470b40c7eab34ee74003f068e9b4d297"><span class="id" title="variable">Ω</span></a> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#c5e55755335065756176f1592d8c2e24"><span class="id" title="variable">μ</span></a>}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The set of jobs that arrive at a time instant <span class="inlinecode"><a class="idref" href="probsa.probability.stochastic_order.html#StochasticDomination.AddrvRespectsStochasticOrderHelpers.t"><span class="id" title="variable">t</span></a></span> in a scenario
+      <span class="inlinecode">ω</span> is simply <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.j"><span class="id" title="variable">j</span></a></span> <span class="inlinecode">&lt;-</span> <span class="inlinecode"><span class="id" title="var">Job</span></span> <span class="inlinecode">|</span> <span class="inlinecode"><a class="idref" href="probsa.rt.behavior.job.html#job_arrival"><span class="id" title="projection">job_arrival</span></a></span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.j"><span class="id" title="variable">j</span></a></span> <span class="inlinecode">ω</span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="probsa.probability.stochastic_order.html#StochasticDomination.AddrvRespectsStochasticOrderHelpers.t"><span class="id" title="variable">t</span></a></span>. Note that since
+      the number of jobs is finite, we can just check every single job
+      if it arrives at time <span class="inlinecode"><a class="idref" href="probsa.probability.stochastic_order.html#StochasticDomination.AddrvRespectsStochasticOrderHelpers.t"><span class="id" title="variable">t</span></a></span> in a scenario <span class="inlinecode">ω</span>. 
+<div class="paragraph"> </div>
+
+ Due to the fact that <span class="inlinecode"><span class="id" title="library">arrival_sequence</span></span> is an arrow type
+      (<span class="inlinecode"><span class="id" title="definition">instant</span></span> <span class="inlinecode">→</span> <span class="inlinecode"><span class="id" title="library">seq</span></span> <span class="inlinecode"><span class="id" title="var">Job</span></span>), Coq cannot automatically derive the right
+      type. Therefore, we need to steer the Coq's coercion and type
+      systems towards the right type via annotation <span class="inlinecode"><a class="idref" href="probsa.probability.law_of_total_prob.html#LawOfTotalProbability.B"><span class="id" title="variable">B</span></a></span> <span class="inlinecode">:=</span>
+      <span class="inlinecode"><span class="id" title="var">Equality.clone</span></span> <span class="inlinecode"><span class="id" title="var">_</span></span> <span class="inlinecode"><span class="id" title="var">_</span></span>. This technicality does not change the
+      intuitive meaning; therefore, we do not explain it here. An
+      interested reader can inspect the resulting term using commands
+      <span class="inlinecode"><span class="id" title="keyword">Set</span></span> <span class="inlinecode"><span class="id" title="keyword">Printing</span></span> <span class="inlinecode"><span class="id" title="keyword">All</span></span> and <span class="inlinecode"><span class="id" title="keyword">Print</span></span> <span class="inlinecode"><a class="idref" href="probsa.rt.model.workload.html#WorkloadDefinition.arr_seq"><span class="id" title="variable">arr_seq</span></a></span>. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Definition</span> <a id="arr_seq" class="idref" href="#arr_seq"><span class="id" title="definition">arr_seq</span></a> : <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#pr_arrival_sequence"><span class="id" title="definition">pr_arrival_sequence</span></a> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#c5e55755335065756176f1592d8c2e24"><span class="id" title="variable">μ</span></a> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#ArrSeqForFinTypeJobs.Job"><span class="id" title="variable">Job</span></a> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="constructor">mkRvar</span> <span class="id" title="var">_</span> (<span class="id" title="var">B</span> := <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#Equality.clone"><span class="id" title="definition">Equality.clone</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="keyword">fun</span> <a id="1544baf9c9b1997778bf064543e6961c" class="idref" href="#1544baf9c9b1997778bf064543e6961c"><span class="id" title="binder">ω</span></a> <a id="t:9" class="idref" href="#t:9"><span class="id" title="binder">t</span></a> ⇒<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.seq.html#3de67eb42556f00623e74d6756c5ab67"><span class="id" title="notation">[</span></a><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.seq.html#3de67eb42556f00623e74d6756c5ab67"><span class="id" title="notation">seq</span></a> <a id="j:10" class="idref" href="#j:10"><span class="id" title="binder">j</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.seq.html#3de67eb42556f00623e74d6756c5ab67"><span class="id" title="notation">&lt;-</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.bigop.html#index_enum"><span class="id" title="definition">index_enum</span></a> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#ArrSeqForFinTypeJobs.Job"><span class="id" title="variable">Job</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.seq.html#3de67eb42556f00623e74d6756c5ab67"><span class="id" title="notation">|</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">if</span> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#ArrSeqForFinTypeJobs.job_arrival"><span class="id" title="variable">job_arrival</span></a> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#j:10"><span class="id" title="variable">j</span></a> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#1544baf9c9b1997778bf064543e6961c"><span class="id" title="variable">ω</span></a> <span class="id" title="keyword">is</span> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#Some"><span class="id" title="constructor">Some</span></a> <span class="id" title="var">ta</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">then</span> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#t:9"><span class="id" title="variable">t</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#df45e8c2e8370fd4f0f7c4fdaf208180"><span class="id" title="notation">==</span></a> <span class="id" title="var">ta</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">else</span> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#false"><span class="id" title="constructor">false</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.seq.html#3de67eb42556f00623e74d6756c5ab67"><span class="id" title="notation">]</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;).<br/>
+
+<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#ArrSeqForFinTypeJobs"><span class="id" title="section">ArrSeqForFinTypeJobs</span></a>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;---------------------------------&nbsp;Lemmas&nbsp;---------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">Section</span> <a id="ArrSeqAndJobArrivalAgree" class="idref" href="#ArrSeqAndJobArrivalAgree"><span class="id" title="section">ArrSeqAndJobArrivalAgree</span></a>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="90bd2951153be36b3c006721e6ebac3f" class="idref" href="#90bd2951153be36b3c006721e6ebac3f"><span class="id" title="binder">Ω</span></a>} {<a id="c181b43235b5166e7ad4cfccfd423b63" class="idref" href="#c181b43235b5166e7ad4cfccfd423b63"><span class="id" title="binder">μ</span></a> : <a class="idref" href="probsa.util.notation.html#measure"><span class="id" title="definition">measure</span></a> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#90bd2951153be36b3c006721e6ebac3f"><span class="id" title="variable">Ω</span></a>}.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="Job:13" class="idref" href="#Job:13"><span class="id" title="binder">Job</span></a> : <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.fintype.html#Finite.Exports.finType"><span class="id" title="abbreviation">finType</span></a>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a id="job_arrival:14" class="idref" href="#job_arrival:14"><span class="id" title="binder">job_arrival</span></a> : <a class="idref" href="probsa.rt.behavior.job.html#JobArrivalRV"><span class="id" title="class">JobArrivalRV</span></a> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#Job:13"><span class="id" title="variable">Job</span></a> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#6e96346d0c3ba0f485faf819688fd706"><span class="id" title="variable">Ω</span></a> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#48062e4faed55ed7bb1ab62a7410aa6e"><span class="id" title="variable">μ</span></a>}.<br/>
+
+<br/>
+ 
+<br/>
+
+<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Lemma</span> <a id="eq_arr_seq_impl_eq_job_arrival" class="idref" href="#eq_arr_seq_impl_eq_job_arrival"><span class="id" title="lemma">eq_arr_seq_impl_eq_job_arrival</span></a> :<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Unicode.Utf8_core.html#e15f3fa8414cf45e36c73a91b3f5f2c2"><span class="id" title="notation">∀</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Unicode.Utf8_core.html#e15f3fa8414cf45e36c73a91b3f5f2c2"><span class="id" title="notation">(</span></a><a id="j:35" class="idref" href="#j:35"><span class="id" title="binder">j</span></a> : <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#ArrSeqAndJobArrivalAgree.Job"><span class="id" title="variable">Job</span></a>) (<a id="7f4c797cc7084902a72eb12b562218d5" class="idref" href="#7f4c797cc7084902a72eb12b562218d5"><span class="id" title="binder">ω</span></a> <a id="9ede580ec2fda64a100a2fe084a0b823" class="idref" href="#9ede580ec2fda64a100a2fe084a0b823"><span class="id" title="binder">ω'</span></a> : <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#6e96346d0c3ba0f485faf819688fd706"><span class="id" title="variable">Ω</span></a><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Unicode.Utf8_core.html#e15f3fa8414cf45e36c73a91b3f5f2c2"><span class="id" title="notation">),</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">(</span></a><span class="id" title="keyword">∀</span> <a id="t:38" class="idref" href="#t:38"><span class="id" title="binder">t</span></a>, <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#arr_seq"><span class="id" title="definition">arr_seq</span></a> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#7f4c797cc7084902a72eb12b562218d5"><span class="id" title="variable">ω</span></a> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#t:38"><span class="id" title="variable">t</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#arr_seq"><span class="id" title="definition">arr_seq</span></a> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#9ede580ec2fda64a100a2fe084a0b823"><span class="id" title="variable">ω'</span></a> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#t:38"><span class="id" title="variable">t</span></a><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">)</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="probsa.rt.behavior.arrival_sequence.html#ArrSeqAndJobArrivalAgree.job_arrival"><span class="id" title="variable">job_arrival</span></a> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#j:35"><span class="id" title="variable">j</span></a> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#7f4c797cc7084902a72eb12b562218d5"><span class="id" title="variable">ω</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#ArrSeqAndJobArrivalAgree.job_arrival"><span class="id" title="variable">job_arrival</span></a> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#j:35"><span class="id" title="variable">j</span></a> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#9ede580ec2fda64a100a2fe084a0b823"><span class="id" title="variable">ω'</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#ArrSeqAndJobArrivalAgree"><span class="id" title="section">ArrSeqAndJobArrivalAgree</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Global Opaque</span> <a class="idref" href="probsa.rt.behavior.arrival_sequence.html#arr_seq"><span class="id" title="definition">arr_seq</span></a> <span class="id" title="definition">arrival_sequence</span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<title>probsa.rt.analysis.axiomatic_pWCET_full</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Library probsa.rt.analysis.axiomatic_pWCET_full</h1>
+
+<div class="code">
+<span class="comment">(*&nbsp;---------------------------------&nbsp;Prosa&nbsp;----------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">prosa.model</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <span class="id" title="library">processor.ideal</span>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;---------------------------------&nbsp;ProBsa&nbsp;---------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">probsa.util</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <a class="idref" href="probsa.util.misc.html#"><span class="id" title="library">misc</span></a> <a class="idref" href="probsa.util.bigop_inf.html#"><span class="id" title="library">bigop_inf</span></a>.<br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">probsa.probability</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <a class="idref" href="probsa.probability.pred.html#"><span class="id" title="library">pred</span></a> <a class="idref" href="probsa.probability.law_of_total_prob.html#"><span class="id" title="library">law_of_total_prob</span></a>.<br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">probsa.rt.model</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <a class="idref" href="probsa.rt.model.task.html#"><span class="id" title="library">task</span></a> <a class="idref" href="probsa.rt.model.events.html#"><span class="id" title="library">events</span></a> <a class="idref" href="probsa.rt.model.axiomatic_pWCET.html#"><span class="id" title="library">axiomatic_pWCET</span></a> <a class="idref" href="probsa.rt.model.scheduler.html#"><span class="id" title="library">scheduler</span></a> <a class="idref" href="probsa.rt.model.rt_monotonic.html#"><span class="id" title="library">rt_monotonic</span></a>.<br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">probsa.rt.analysis</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#"><span class="id" title="library">pETs_to_pWCETs</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#"><span class="id" title="library">partition_transfer</span></a><br/>
+&nbsp;&nbsp;<a class="idref" href="probsa.rt.analysis.valid_pWCET_remains_valid.html#"><span class="id" title="library">valid_pWCET_remains_valid</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#"><span class="id" title="library">axiomatic_pWCET_step</span></a>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;--------------------------------&nbsp;SSReflect&nbsp;-------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">mathcomp</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.finfun.html#"><span class="id" title="library">finfun</span></a>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;----------------------------------&nbsp;Main&nbsp;----------------------------------&nbsp;*)</span><br/>
+</div>
+
+<div class="doc">
+In this file, we prove the correctness of the response-time
+    monotonic transformation presented in the paper "A Rigorous
+    Axiomatic Definition of pWCET". 
+<div class="paragraph"> </div>
+
+<a id="lab12"></a><h1 class="section">Proof of Theorem 2</h1>
+
+</div>
+<div class="code">
+<span class="id" title="keyword">Section</span> <a id="MainLemma" class="idref" href="#MainLemma"><span class="id" title="section">MainLemma</span></a>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Variable</span> <a id="MainLemma.horizon" class="idref" href="#MainLemma.horizon"><span class="id" title="variable">horizon</span></a> : <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#option"><span class="id" title="inductive">option</span></a> <span class="id" title="definition">instant</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="Job:2" class="idref" href="#Job:2"><span class="id" title="binder">Job</span></a> : <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.fintype.html#Finite.Exports.finType"><span class="id" title="abbreviation">finType</span></a>}.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="Task:3" class="idref" href="#Task:3"><span class="id" title="binder">Task</span></a> : <span class="id" title="definition">TaskType</span>}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Consider a system that is described by a ground truth sample
+      space <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#2b9501143c475da893d448032f6a15d1"><span class="id" title="variable">Ωg</span></a></span> and a ground truth probability measure <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#51d59d4546cb16b019582f7dd6932cce"><span class="id" title="variable">μg</span></a></span>. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Variables</span> (<a id="2b9501143c475da893d448032f6a15d1" class="idref" href="#2b9501143c475da893d448032f6a15d1"><span class="id" title="variable">Ωg</span></a> : <span class="id" title="var">_</span>) (<a id="51d59d4546cb16b019582f7dd6932cce" class="idref" href="#51d59d4546cb16b019582f7dd6932cce"><span class="id" title="variable">μg</span></a> : <a class="idref" href="probsa.util.notation.html#measure"><span class="id" title="definition">measure</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#a29e67f785a33a15fe9d365262df330a"><span class="id" title="variable">Ωg</span></a>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Next, consider our two essential parameters -- <span class="inlinecode"><a class="idref" href="probsa.rt.behavior.job.html#job_cost"><span class="id" title="projection">job_cost</span></a></span> and
+      <span class="inlinecode"><a class="idref" href="probsa.rt.behavior.job.html#job_arrival"><span class="id" title="projection">job_arrival</span></a></span>. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="job_task:6" class="idref" href="#job_task:6"><span class="id" title="binder">job_task</span></a> : <span class="id" title="class">JobTask</span> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#MainLemma.Job"><span class="id" title="variable">Job</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#MainLemma.Task"><span class="id" title="variable">Task</span></a>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a id="job_cost:7" class="idref" href="#job_cost:7"><span class="id" title="binder">job_cost</span></a> : <a class="idref" href="probsa.rt.behavior.job.html#JobCostRV"><span class="id" title="class">JobCostRV</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#MainLemma.Job"><span class="id" title="variable">Job</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#2b9501143c475da893d448032f6a15d1"><span class="id" title="variable">Ωg</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#51d59d4546cb16b019582f7dd6932cce"><span class="id" title="variable">μg</span></a>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a id="job_arrival:8" class="idref" href="#job_arrival:8"><span class="id" title="binder">job_arrival</span></a> : <a class="idref" href="probsa.rt.behavior.job.html#JobArrivalRV"><span class="id" title="class">JobArrivalRV</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#MainLemma.Job"><span class="id" title="variable">Job</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#2b9501143c475da893d448032f6a15d1"><span class="id" title="variable">Ωg</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#51d59d4546cb16b019582f7dd6932cce"><span class="id" title="variable">μg</span></a>}.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="pWCET_pmf:9" class="idref" href="#pWCET_pmf:9"><span class="id" title="binder">pWCET_pmf</span></a> : <a class="idref" href="probsa.rt.model.task.html#ProbWCET"><span class="id" title="class">ProbWCET</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#MainLemma.Task"><span class="id" title="variable">Task</span></a>}.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Hypothesis</span> <a id="MainLemma.H_axiomatic_pWCET" class="idref" href="#MainLemma.H_axiomatic_pWCET"><span class="id" title="variable">H_axiomatic_pWCET</span></a> :<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="probsa.rt.model.axiomatic_pWCET.html#axiomatic_pWCET"><span class="id" title="definition">axiomatic_pWCET</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#51d59d4546cb16b019582f7dd6932cce"><span class="id" title="variable">μg</span></a> (<span class="id" title="var">job_arrival</span> := <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#MainLemma.job_arrival"><span class="id" title="variable">job_arrival</span></a>) (<span class="id" title="var">job_cost</span> := <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#MainLemma.job_cost"><span class="id" title="variable">job_cost</span></a>).<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Let</span> <a id="MainLemma.initial_system" class="idref" href="#MainLemma.initial_system"><span class="id" title="variable">initial_system</span></a> := <a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#Build_system"><span class="id" title="constructor">Build_system</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#2b9501143c475da893d448032f6a15d1"><span class="id" title="variable">Ωg</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#51d59d4546cb16b019582f7dd6932cce"><span class="id" title="variable">μg</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#MainLemma.job_arrival"><span class="id" title="variable">job_arrival</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#MainLemma.job_cost"><span class="id" title="variable">job_cost</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Let</span> <a id="MainLemma.simplifid_system" class="idref" href="#MainLemma.simplifid_system"><span class="id" title="variable">simplifid_system</span></a> : <a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#system"><span class="id" title="record">system</span></a> := <a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#replace_all_pETs"><span class="id" title="definition">replace_all_pETs</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#MainLemma.initial_system"><span class="id" title="variable">initial_system</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Replace jobs' pETs with pWCET 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Let</span>                 <a id="56a37ddcef4870fb6d038c3b26e71cca" class="idref" href="#56a37ddcef4870fb6d038c3b26e71cca"><span class="id" title="variable">Ωs</span></a> : <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.choice.html#Countable.Exports.countType"><span class="id" title="abbreviation">countType</span></a>              := <a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#e421ae02d100f06a08f803e3cae7ec72"><span class="id" title="projection">Ω_of</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#MainLemma.simplifid_system"><span class="id" title="variable">simplifid_system</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Let</span>                 <a id="239577e22833681d0b8b116f4a5b46ca" class="idref" href="#239577e22833681d0b8b116f4a5b46ca"><span class="id" title="variable">μs</span></a> : <a class="idref" href="probsa.util.notation.html#measure"><span class="id" title="definition">measure</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#56a37ddcef4870fb6d038c3b26e71cca"><span class="id" title="variable">Ωs</span></a>             := <a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#eddcf51f789c003fa41603cf8b048b30"><span class="id" title="projection">μ_of</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#MainLemma.simplifid_system"><span class="id" title="variable">simplifid_system</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Instance</span> <a id="job_arrival_s" class="idref" href="#job_arrival_s"><span class="id" title="instance">job_arrival_s</span></a> : <a class="idref" href="probsa.rt.behavior.job.html#JobArrivalRV"><span class="id" title="class">JobArrivalRV</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#MainLemma.Job"><span class="id" title="variable">Job</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#56a37ddcef4870fb6d038c3b26e71cca"><span class="id" title="variable">Ωs</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#239577e22833681d0b8b116f4a5b46ca"><span class="id" title="variable">μs</span></a> := <a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#d4a8f9b89b76807f8f666b074e9c73ee"><span class="id" title="projection">𝓐</span></a><a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#d4a8f9b89b76807f8f666b074e9c73ee"><span class="id" title="projection">_of</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#MainLemma.simplifid_system"><span class="id" title="variable">simplifid_system</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Instance</span>    <a id="job_cost_s" class="idref" href="#job_cost_s"><span class="id" title="instance">job_cost_s</span></a> : <a class="idref" href="probsa.rt.behavior.job.html#JobCostRV"><span class="id" title="class">JobCostRV</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#MainLemma.Job"><span class="id" title="variable">Job</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#56a37ddcef4870fb6d038c3b26e71cca"><span class="id" title="variable">Ωs</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#239577e22833681d0b8b116f4a5b46ca"><span class="id" title="variable">μs</span></a>    := <a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#b77deba138aaf7f13e6a448f41326298"><span class="id" title="projection">𝓒</span></a><a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#b77deba138aaf7f13e6a448f41326298"><span class="id" title="projection">_of</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#MainLemma.simplifid_system"><span class="id" title="variable">simplifid_system</span></a>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Variable</span> <a id="ac55927532c34b89a7cb2235cc9f7fe0" class="idref" href="#ac55927532c34b89a7cb2235cc9f7fe0"><span class="id" title="variable">ζ</span></a> : @<a class="idref" href="probsa.rt.model.scheduler.html#6bed1dbbed7c0e3bf782ad7265fc1dfe"><span class="id" title="definition">scheduler</span></a><a class="idref" href="probsa.rt.model.scheduler.html#6bed1dbbed7c0e3bf782ad7265fc1dfe"><span class="id" title="definition">𝗔𝗖</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#MainLemma.Job"><span class="id" title="variable">Job</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Hypothesis</span> <a id="MainLemma.H_rt_monotonic" class="idref" href="#MainLemma.H_rt_monotonic"><span class="id" title="variable">H_rt_monotonic</span></a> : <a class="idref" href="probsa.rt.model.scheduler.html#rt_monotonic_scheduler"><span class="id" title="definition">rt_monotonic_scheduler</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#MainLemma.horizon"><span class="id" title="variable">horizon</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#ac55927532c34b89a7cb2235cc9f7fe0"><span class="id" title="variable">ζ</span></a>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Let</span> <a id="MainLemma.sched1" class="idref" href="#MainLemma.sched1"><span class="id" title="variable">sched1</span></a> := @<a class="idref" href="probsa.rt.model.scheduler.html#compute_pr_schedule"><span class="id" title="definition">compute_pr_schedule</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#2b9501143c475da893d448032f6a15d1"><span class="id" title="variable">Ωg</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#51d59d4546cb16b019582f7dd6932cce"><span class="id" title="variable">μg</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#MainLemma.Job"><span class="id" title="variable">Job</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#ac55927532c34b89a7cb2235cc9f7fe0"><span class="id" title="variable">ζ</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Let</span> <a id="MainLemma.sched2" class="idref" href="#MainLemma.sched2"><span class="id" title="variable">sched2</span></a> := @<a class="idref" href="probsa.rt.model.scheduler.html#compute_pr_schedule"><span class="id" title="definition">compute_pr_schedule</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#56a37ddcef4870fb6d038c3b26e71cca"><span class="id" title="variable">Ωs</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#239577e22833681d0b8b116f4a5b46ca"><span class="id" title="variable">μs</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#MainLemma.Job"><span class="id" title="variable">Job</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#ac55927532c34b89a7cb2235cc9f7fe0"><span class="id" title="variable">ζ</span></a>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Theorem</span> <a id="probabilistic_rt_monotonicity_of_iid_pWCET" class="idref" href="#probabilistic_rt_monotonicity_of_iid_pWCET"><span class="id" title="lemma">probabilistic_rt_monotonicity_of_iid_pWCET</span></a> :<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Unicode.Utf8_core.html#e15f3fa8414cf45e36c73a91b3f5f2c2"><span class="id" title="notation">∀</span></a> <a id="j:13" class="idref" href="#j:13"><span class="id" title="binder">j</span></a> : <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#MainLemma.Job"><span class="id" title="variable">Job</span></a><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Unicode.Utf8_core.html#e15f3fa8414cf45e36c73a91b3f5f2c2"><span class="id" title="notation">,</span></a> <a class="idref" href="probsa.rt.behavior.response_time.html#response_time"><span class="id" title="definition">response_time</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#MainLemma.sched1"><span class="id" title="variable">sched1</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#MainLemma.horizon"><span class="id" title="variable">horizon</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#j:13"><span class="id" title="variable">j</span></a> <a class="idref" href="probsa.probability.dominance_relation.html#d6b276de6cc79a0d8d5fcd5ed0d7a595"><span class="id" title="notation">⪯</span></a> <a class="idref" href="probsa.rt.behavior.response_time.html#response_time"><span class="id" title="definition">response_time</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#MainLemma.sched2"><span class="id" title="variable">sched2</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#MainLemma.horizon"><span class="id" title="variable">horizon</span></a> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#j:13"><span class="id" title="variable">j</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#MainLemma"><span class="id" title="section">MainLemma</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Print</span> <span class="id" title="keyword">Assumptions</span> <a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#probabilistic_rt_monotonicity_of_iid_pWCET"><span class="id" title="lemma">probabilistic_rt_monotonicity_of_iid_pWCET</span></a>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

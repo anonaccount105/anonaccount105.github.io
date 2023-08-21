@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<title>probsa.rt.model.WCET</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Library probsa.rt.model.WCET</h1>
+
+<div class="code">
+<span class="comment">(*&nbsp;---------------------------------&nbsp;Prosa&nbsp;----------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <span class="id" title="library">prosa.model.task.concept</span>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;---------------------------------&nbsp;ProBsa&nbsp;---------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">probsa.rt.behavior</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <a class="idref" href="probsa.rt.behavior.job.html#"><span class="id" title="library">job</span></a>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;----------------------------------&nbsp;Main&nbsp;----------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">Section</span> <a id="WCET" class="idref" href="#WCET"><span class="id" title="section">WCET</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Consider a probability space <span class="inlinecode">(<a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#3917dc18d4b72e035d4e160fd9caaceb"><span class="id" title="variable">Ω</span></a>,</span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#57ef97b357f4ce81b251f1f7c70df932"><span class="id" title="variable">μ</span></a>)</span>, ... 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="c3d482fd3513878b11e14abf9e72362d" class="idref" href="#c3d482fd3513878b11e14abf9e72362d"><span class="id" title="binder">Ω</span></a>} {<a id="64252de629bdd27d41a7716d98f42d82" class="idref" href="#64252de629bdd27d41a7716d98f42d82"><span class="id" title="binder">μ</span></a> : <a class="idref" href="probsa.util.notation.html#measure"><span class="id" title="definition">measure</span></a> <a class="idref" href="probsa.rt.model.WCET.html#c3d482fd3513878b11e14abf9e72362d"><span class="id" title="variable">Ω</span></a>}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+... any type of tasks with costs defined by a function
+      <span class="inlinecode"><span class="id" title="var">task_cost</span></span>, ... 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="Task:3" class="idref" href="#Task:3"><span class="id" title="binder">Task</span></a> : <span class="id" title="definition">TaskType</span>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a id="task_cost:4" class="idref" href="#task_cost:4"><span class="id" title="binder">task_cost</span></a> : <span class="id" title="class">TaskCost</span> <a class="idref" href="probsa.rt.model.WCET.html#Task:3"><span class="id" title="variable">Task</span></a>}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+... and any type of jobs associated with these tasks. Assume
+      that the jobs have probabilistic costs defined by <span class="inlinecode"><a class="idref" href="probsa.rt.behavior.job.html#job_cost"><span class="id" title="projection">job_cost</span></a></span>. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="Job:5" class="idref" href="#Job:5"><span class="id" title="binder">Job</span></a> : <span class="id" title="definition">JobType</span>}.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="job_cost:6" class="idref" href="#job_cost:6"><span class="id" title="binder">job_cost</span></a> : <a class="idref" href="probsa.rt.behavior.job.html#JobCostRV"><span class="id" title="class">JobCostRV</span></a> <a class="idref" href="probsa.rt.model.WCET.html#WCET.Job"><span class="id" title="variable">Job</span></a> <a class="idref" href="probsa.rt.model.WCET.html#830f1957d37131bda8005ea14b62257c"><span class="id" title="variable">Ω</span></a> <a class="idref" href="probsa.rt.model.WCET.html#b84e4c6fa3dee0459bb23cc1b359746b"><span class="id" title="variable">μ</span></a>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a id="job_task:7" class="idref" href="#job_task:7"><span class="id" title="binder">job_task</span></a> : <span class="id" title="class">JobTask</span> <a class="idref" href="probsa.rt.model.WCET.html#WCET.Job"><span class="id" title="variable">Job</span></a> <a class="idref" href="probsa.rt.model.WCET.html#WCET.Task"><span class="id" title="variable">Task</span></a>}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We say that <span class="inlinecode"><span class="id" title="var">task_cost</span></span> is a valid WCET iff for any job <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.j"><span class="id" title="variable">j</span></a></span> and
+    its task <span class="inlinecode"><span class="id" title="var">job_task</span></span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.j"><span class="id" title="variable">j</span></a></span> the two conditions hold:
+
+<div class="paragraph"> </div>
+
+    (i) The job's cost is less than or equal to the task's cost in all
+    evolutions <span class="inlinecode">ω</span> <span class="inlinecode">∈</span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#3917dc18d4b72e035d4e160fd9caaceb"><span class="id" title="variable">Ω</span></a></span>. The statement uses the <span class="inlinecode"><a class="idref" href="probsa.probability.nrvar.html#odflt0"><span class="id" title="definition">odflt0</span></a></span> function to
+    safely extract the value of <span class="inlinecode"><a class="idref" href="probsa.rt.behavior.job.html#job_cost"><span class="id" title="projection">job_cost</span></a></span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.j"><span class="id" title="variable">j</span></a></span>, or fallback to zero if
+    <span class="inlinecode"><a class="idref" href="probsa.rt.behavior.job.html#job_cost"><span class="id" title="projection">job_cost</span></a></span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.j"><span class="id" title="variable">j</span></a></span> is <span class="inlinecode">⊥</span> for the given <span class="inlinecode">ω</span>.
+
+<div class="paragraph"> </div>
+
+    (ii) There exists an evolution <span class="inlinecode">ω</span> such that <span class="inlinecode"><a class="idref" href="probsa.rt.behavior.job.html#job_cost"><span class="id" title="projection">job_cost</span></a></span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.j"><span class="id" title="variable">j</span></a></span> exactly
+    matches the task's cost in <span class="inlinecode">ω</span>. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Definition</span> <a id="task_cost_is_valid_WCET" class="idref" href="#task_cost_is_valid_WCET"><span class="id" title="definition">task_cost_is_valid_WCET</span></a> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">∀</span> <a id="j:8" class="idref" href="#j:8"><span class="id" title="binder">j</span></a>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="keyword">∀</span> <a id="0ca13ed3bfdd4371c3b7e497b552fc2f" class="idref" href="#0ca13ed3bfdd4371c3b7e497b552fc2f"><span class="id" title="binder">ω</span></a>, <a class="idref" href="probsa.probability.nrvar.html#odflt0"><span class="id" title="definition">odflt0</span></a> (<a class="idref" href="probsa.rt.model.WCET.html#WCET.job_cost"><span class="id" title="variable">job_cost</span></a> <a class="idref" href="probsa.rt.model.WCET.html#j:8"><span class="id" title="variable">j</span></a>) <a class="idref" href="probsa.rt.model.WCET.html#0ca13ed3bfdd4371c3b7e497b552fc2f"><span class="id" title="variable">ω</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.ssrnat.html#cb53cf0ee22c036a03b4a9281c68b5a3"><span class="id" title="notation">≤</span></a> <a class="idref" href="probsa.rt.model.WCET.html#WCET.task_cost"><span class="id" title="variable">task_cost</span></a> (<a class="idref" href="probsa.rt.model.WCET.html#WCET.job_task"><span class="id" title="variable">job_task</span></a> <a class="idref" href="probsa.rt.model.WCET.html#j:8"><span class="id" title="variable">j</span></a>))%<span class="id" title="var">nat</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">∧</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">(</span></a><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#a883bdd010993579f99d60b3775bcf54"><span class="id" title="notation">∃</span></a> <a id="d0b23ea306fcd36def43b57e5859d86f" class="idref" href="#d0b23ea306fcd36def43b57e5859d86f"><span class="id" title="binder">ω</span></a><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#a883bdd010993579f99d60b3775bcf54"><span class="id" title="notation">,</span></a> <a class="idref" href="probsa.probability.nrvar.html#odflt0"><span class="id" title="definition">odflt0</span></a> (<a class="idref" href="probsa.rt.model.WCET.html#WCET.job_cost"><span class="id" title="variable">job_cost</span></a> <a class="idref" href="probsa.rt.model.WCET.html#j:8"><span class="id" title="variable">j</span></a>) <a class="idref" href="probsa.rt.model.WCET.html#d0b23ea306fcd36def43b57e5859d86f"><span class="id" title="variable">ω</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="probsa.rt.model.WCET.html#WCET.task_cost"><span class="id" title="variable">task_cost</span></a> (<a class="idref" href="probsa.rt.model.WCET.html#WCET.job_task"><span class="id" title="variable">job_task</span></a> <a class="idref" href="probsa.rt.model.WCET.html#j:8"><span class="id" title="variable">j</span></a>)<a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">)</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="probsa.rt.model.WCET.html#WCET"><span class="id" title="section">WCET</span></a>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

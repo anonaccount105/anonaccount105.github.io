@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<title>probsa.rt.analysis.partition_transfer</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Library probsa.rt.analysis.partition_transfer</h1>
+
+<div class="code">
+<span class="comment">(*&nbsp;---------------------------------&nbsp;ProBsa&nbsp;---------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">probsa.probability</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <a class="idref" href="probsa.probability.law_of_total_prob.html#"><span class="id" title="library">law_of_total_prob</span></a>.<br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">probsa.rt.analysis</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#"><span class="id" title="library">pETs_to_pWCETs</span></a>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;----------------------------------&nbsp;Main&nbsp;----------------------------------&nbsp;*)</span><br/>
+</div>
+
+<div class="doc">
+<a id="lab11"></a><h1 class="section">Partition Transfer</h1>
+ Given a partition <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.valid_pWCET_remains_valid.html#ValidpWCETRemainsValid.ProofOfLemma.P"><span class="id" title="variable">P</span></a></span> of <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#e421ae02d100f06a08f803e3cae7ec72"><span class="id" title="projection">Ω_of</span></a></span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#ProofOfTheorem1.S"><span class="id" title="variable">S</span></a></span>, we can modify partition <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.valid_pWCET_remains_valid.html#ValidpWCETRemainsValid.ProofOfLemma.P"><span class="id" title="variable">P</span></a></span> so
+    it is still a valid partition in a new system <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#e421ae02d100f06a08f803e3cae7ec72"><span class="id" title="projection">Ω_of</span></a></span>
+    <span class="inlinecode">(<span class="id" title="var">replace_jobs_pET</span></span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.j"><span class="id" title="variable">j</span></a></span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#ProofOfTheorem1.S"><span class="id" title="variable">S</span></a>)</span>. This section provides functions that do
+    this transformation.
+
+<div class="paragraph"> </div>
+
+    Note that both functions defined in this section work in the same
+    way as <span class="inlinecode"><a class="idref" href="probsa.probability.partition.html#partition_ext"><span class="id" title="definition">partition_ext</span></a></span> (defined in
+    <span class="inlinecode">/<span class="id" title="var">probability</span>/<span class="id" title="var">partition.v</span></span>). However, due to more sophisticated
+    types, we must repeat this construction, providing suitable types.
+    The main reason is that even though <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#e421ae02d100f06a08f803e3cae7ec72"><span class="id" title="projection">Ω_of</span></a></span> <span class="inlinecode">(<span class="id" title="var">replace_jobs_pET</span></span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.j"><span class="id" title="variable">j</span></a></span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#ProofOfTheorem1.S"><span class="id" title="variable">S</span></a>)</span>
+    can be eventually simplified to <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#3917dc18d4b72e035d4e160fd9caaceb"><span class="id" title="variable">Ω</span></a></span> <span class="inlinecode">×</span> <span class="inlinecode"><span class="id" title="var">ℕ</span></span>, Coq cannot see it. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Section</span> <a id="PartitionTransfer" class="idref" href="#PartitionTransfer"><span class="id" title="section">PartitionTransfer</span></a>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="Task:1" class="idref" href="#Task:1"><span class="id" title="binder">Task</span></a> : <span class="id" title="definition">TaskType</span>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a id="pWCET_pmf:2" class="idref" href="#pWCET_pmf:2"><span class="id" title="binder">pWCET_pmf</span></a> : <a class="idref" href="probsa.rt.model.task.html#ProbWCET"><span class="id" title="class">ProbWCET</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#Task:1"><span class="id" title="variable">Task</span></a>}.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="Job:3" class="idref" href="#Job:3"><span class="id" title="binder">Job</span></a> : <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.fintype.html#Finite.Exports.finType"><span class="id" title="abbreviation">finType</span></a>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a id="job_task:4" class="idref" href="#job_task:4"><span class="id" title="binder">job_task</span></a> : <span class="id" title="class">JobTask</span> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#Job:3"><span class="id" title="variable">Job</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#PartitionTransfer.Task"><span class="id" title="variable">Task</span></a>}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Functions <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.partition_transfer.html#proj1"><span class="id" title="definition">proj1</span></a></span> and <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.partition_transfer.html#proj2"><span class="id" title="definition">proj2</span></a></span> are equivalent to the usual
+      projections <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.partition_transfer.html#proj1"><span class="id" title="definition">proj1</span></a></span> and <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.partition_transfer.html#proj2"><span class="id" title="definition">proj2</span></a></span> with the difference that the
+      resulting type is <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#e421ae02d100f06a08f803e3cae7ec72"><span class="id" title="projection">Ω_of</span></a></span> <span class="inlinecode">(<span class="id" title="var">replace_jobs_pET</span></span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.j"><span class="id" title="variable">j</span></a></span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#ProofOfTheorem1.S"><span class="id" title="variable">S</span></a>)</span> <span class="inlinecode">→</span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#e421ae02d100f06a08f803e3cae7ec72"><span class="id" title="projection">Ω_of</span></a></span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#ProofOfTheorem1.S"><span class="id" title="variable">S</span></a></span>. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Definition</span> <a id="proj1" class="idref" href="#proj1"><span class="id" title="definition">proj1</span></a> (<a id="S:5" class="idref" href="#S:5"><span class="id" title="binder">S</span></a> : <a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#system"><span class="id" title="record">system</span></a>) (<a id="j:6" class="idref" href="#j:6"><span class="id" title="binder">j</span></a> : <a class="idref" href="probsa.rt.analysis.partition_transfer.html#PartitionTransfer.Job"><span class="id" title="variable">Job</span></a>) (<a id="dc4c44f2cc45d845942d1632a5e9a8bd" class="idref" href="#dc4c44f2cc45d845942d1632a5e9a8bd"><span class="id" title="binder">ω</span></a> : <a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#e421ae02d100f06a08f803e3cae7ec72"><span class="id" title="projection">Ω_of</span></a> (<a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#replace_job_pET"><span class="id" title="definition">replace_job_pET</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#j:6"><span class="id" title="variable">j</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#S:5"><span class="id" title="variable">S</span></a>)) : <a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#e421ae02d100f06a08f803e3cae7ec72"><span class="id" title="projection">Ω_of</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#S:5"><span class="id" title="variable">S</span></a>.<br/>
+ 
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Definition</span> <a id="proj2" class="idref" href="#proj2"><span class="id" title="definition">proj2</span></a> (<a id="S:8" class="idref" href="#S:8"><span class="id" title="binder">S</span></a> : <a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#system"><span class="id" title="record">system</span></a>) (<a id="j:9" class="idref" href="#j:9"><span class="id" title="binder">j</span></a> : <a class="idref" href="probsa.rt.analysis.partition_transfer.html#PartitionTransfer.Job"><span class="id" title="variable">Job</span></a>) (<a id="d0b23ea306fcd36def43b57e5859d86f" class="idref" href="#d0b23ea306fcd36def43b57e5859d86f"><span class="id" title="binder">ω</span></a> : <a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#e421ae02d100f06a08f803e3cae7ec72"><span class="id" title="projection">Ω_of</span></a> (<a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#replace_job_pET"><span class="id" title="definition">replace_job_pET</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#j:9"><span class="id" title="variable">j</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#S:8"><span class="id" title="variable">S</span></a>)) : <span class="id" title="definition">work</span>.<br/>
+ 
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Section</span> <a id="PartitionTransfer.ExtendPartition" class="idref" href="#PartitionTransfer.ExtendPartition"><span class="id" title="section">ExtendPartition</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Consider a system <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#ProofOfTheorem1.S"><span class="id" title="variable">S</span></a></span>. 
+</div>
+<div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Variable</span> <a id="PartitionTransfer.ExtendPartition.S" class="idref" href="#PartitionTransfer.ExtendPartition.S"><span class="id" title="variable">S</span></a> : @<a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#system"><span class="id" title="record">system</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#PartitionTransfer.Job"><span class="id" title="variable">Job</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Assume that there exists some partition <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.valid_pWCET_remains_valid.html#ValidpWCETRemainsValid.ProofOfLemma.P"><span class="id" title="variable">P</span></a></span>. 
+</div>
+<div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Variable</span> <a id="PartitionTransfer.ExtendPartition.P" class="idref" href="#PartitionTransfer.ExtendPartition.P"><span class="id" title="variable">P</span></a> : @<a class="idref" href="probsa.probability.partition.html#7e10c6526b8044fa677ab91fad7f6b86"><span class="id" title="record">Ω_partition</span></a> (<a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#e421ae02d100f06a08f803e3cae7ec72"><span class="id" title="projection">Ω_of</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#PartitionTransfer.ExtendPartition.S"><span class="id" title="variable">S</span></a>) (<a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#eddcf51f789c003fa41603cf8b048b30"><span class="id" title="projection">μ_of</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#PartitionTransfer.ExtendPartition.S"><span class="id" title="variable">S</span></a>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Next, let <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#ProofOfTheorem1.S'"><span class="id" title="variable">S'</span></a></span> be a system in which a job <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.j"><span class="id" title="variable">j</span></a></span>'s pET is
+        replaced with the corresponding pWCET via function
+        <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#replace_job_pET"><span class="id" title="definition">replace_job_pET</span></a></span>. 
+</div>
+<div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Variable</span> <a id="PartitionTransfer.ExtendPartition.j" class="idref" href="#PartitionTransfer.ExtendPartition.j"><span class="id" title="variable">j</span></a> : <a class="idref" href="probsa.rt.analysis.partition_transfer.html#PartitionTransfer.Job"><span class="id" title="variable">Job</span></a>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Let</span> <a id="PartitionTransfer.ExtendPartition.S'" class="idref" href="#PartitionTransfer.ExtendPartition.S'"><span class="id" title="variable">S'</span></a> := <a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#replace_job_pET"><span class="id" title="definition">replace_job_pET</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#PartitionTransfer.ExtendPartition.j"><span class="id" title="variable">j</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#PartitionTransfer.ExtendPartition.S"><span class="id" title="variable">S</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Then, we show that one can extend partition <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.valid_pWCET_remains_valid.html#ValidpWCETRemainsValid.ProofOfLemma.P"><span class="id" title="variable">P</span></a></span> to system <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#ProofOfTheorem1.S'"><span class="id" title="variable">S'</span></a></span>
+        via ignoring the additional dimension. That is, <span class="inlinecode">ω</span> <span class="inlinecode">∈</span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.valid_pWCET_remains_valid.html#ValidpWCETRemainsValid.ProofOfLemma.P"><span class="id" title="variable">P</span></a>◁{<span class="id" title="var">i</span>}</span>
+        iff <span class="inlinecode">(ω,</span> <span class="inlinecode"><span class="id" title="var">c</span>)</span> <span class="inlinecode">∈</span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.valid_pWCET_remains_valid.html#ValidpWCETRemainsValid.ProofOfLemma.P'"><span class="id" title="variable">P'</span></a>◁{<span class="id" title="var">i</span>}</span>.
+
+<div class="paragraph"> </div>
+
+        (Note that <span class="inlinecode"><a class="idref" href="probsa.probability.partition.html#p"><span class="id" title="projection">p</span></a></span> ignores the second component of <span class="inlinecode">ω'</span> by using
+        the projection.) 
+</div>
+<div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Program Definition</span> <a id="extend_partition" class="idref" href="#extend_partition"><span class="id" title="definition">extend_partition</span></a> : @<a class="idref" href="probsa.probability.partition.html#7e10c6526b8044fa677ab91fad7f6b86"><span class="id" title="record">Ω_partition</span></a> (<a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#e421ae02d100f06a08f803e3cae7ec72"><span class="id" title="projection">Ω_of</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#PartitionTransfer.ExtendPartition.S'"><span class="id" title="variable">S'</span></a>) (<a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#eddcf51f789c003fa41603cf8b048b30"><span class="id" title="projection">μ_of</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#PartitionTransfer.ExtendPartition.S'"><span class="id" title="variable">S'</span></a>) :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#PartitionTransfer.ExtendPartition.P"><span class="id" title="variable">P</span></a>, <a class="idref" href="probsa.rt.analysis.partition_transfer.html#PartitionTransfer.ExtendPartition.S"><span class="id" title="variable">S</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="probsa.probability.partition.html#792195be9d0912735f8e438ed83f1fe0"><span class="id" title="constructor">Build_Ω_partition</span></a> <span class="id" title="var">I</span> <span class="id" title="var">p</span> <span class="id" title="var">COV</span> <span class="id" title="var">DIS</span>, <a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#Build_system"><span class="id" title="constructor">Build_system</span></a> <span class="id" title="var">Ω</span> <span class="id" title="var">μ</span> 𝓐 𝓒 ⇒<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{|<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="probsa.probability.partition.html#I"><span class="id" title="projection">I</span></a> := <span class="id" title="var">I</span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="probsa.probability.partition.html#p"><span class="id" title="projection">p</span></a> := <span class="id" title="keyword">fun</span> <a id="i:16" class="idref" href="#i:16"><span class="id" title="binder">i</span></a> <a id="2b6d7ab1c0394f2631be6c4c29bec8ac" class="idref" href="#2b6d7ab1c0394f2631be6c4c29bec8ac"><span class="id" title="binder">ω'</span></a> ⇒ <span class="id" title="var">p</span> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#i:16"><span class="id" title="variable">i</span></a> (<a class="idref" href="probsa.rt.analysis.partition_transfer.html#proj1"><span class="id" title="definition">proj1</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#2b6d7ab1c0394f2631be6c4c29bec8ac"><span class="id" title="variable">ω'</span></a>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">End</span> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#PartitionTransfer.ExtendPartition"><span class="id" title="section">ExtendPartition</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Later in the proof we have to consider system <span class="inlinecode">(<a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#3917dc18d4b72e035d4e160fd9caaceb"><span class="id" title="variable">Ω</span></a>,</span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#57ef97b357f4ce81b251f1f7c70df932"><span class="id" title="variable">μ</span></a>|<a class="idref" href="probsa.probability.law_of_total_prob.html#LawOfTotalProbability.B"><span class="id" title="variable">B</span></a>)</span> with
+      measure restricted to some event <span class="inlinecode"><a class="idref" href="probsa.probability.law_of_total_prob.html#LawOfTotalProbability.B"><span class="id" title="variable">B</span></a></span>. One can extend a partition
+      of <span class="inlinecode">(<a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#3917dc18d4b72e035d4e160fd9caaceb"><span class="id" title="variable">Ω</span></a>,</span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#57ef97b357f4ce81b251f1f7c70df932"><span class="id" title="variable">μ</span></a>|<a class="idref" href="probsa.probability.law_of_total_prob.html#LawOfTotalProbability.B"><span class="id" title="variable">B</span></a>)</span> to a partition of <span class="inlinecode">(<span class="id" title="var">Ω'</span>,</span> <span class="inlinecode"><span class="id" title="var">μ'</span>|<span class="id" title="var">B'</span>)</span> using a similar
+      idea. The main difference is that the measure of the partition
+      is different -- <span class="inlinecode"><a class="idref" href="probsa.probability.conditional.html#restrict"><span class="id" title="definition">restrict</span></a></span> <span class="inlinecode">(<a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#eddcf51f789c003fa41603cf8b048b30"><span class="id" title="projection">μ_of</span></a></span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#ProofOfTheorem1.S'"><span class="id" title="variable">S'</span></a>)</span> <span class="inlinecode"><span class="id" title="var">B'</span></span>. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Section</span> <a id="PartitionTransfer.ExtendPartition" class="idref" href="#PartitionTransfer.ExtendPartition"><span class="id" title="section">ExtendPartition</span></a>.<br/>
+
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Program Definition</span> <a id="extend_partition'" class="idref" href="#extend_partition'"><span class="id" title="definition">extend_partition'</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<a id="S:18" class="idref" href="#S:18"><span class="id" title="binder">S</span></a> : <a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#system"><span class="id" title="record">system</span></a>) (<a id="j:19" class="idref" href="#j:19"><span class="id" title="binder">j</span></a> : <a class="idref" href="probsa.rt.analysis.partition_transfer.html#PartitionTransfer.Job"><span class="id" title="variable">Job</span></a>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<a id="B:20" class="idref" href="#B:20"><span class="id" title="binder">B</span></a> : <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.ssr.ssrbool.html#pred"><span class="id" title="definition">pred</span></a> (<a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#e421ae02d100f06a08f803e3cae7ec72"><span class="id" title="projection">Ω_of</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#S:18"><span class="id" title="variable">S</span></a>))<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a id="pos:21" class="idref" href="#pos:21"><span class="id" title="binder">pos</span></a> : <a class="idref" href="probsa.probability.conditional.html#PosProb"><span class="id" title="class">PosProb</span></a> (<a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#eddcf51f789c003fa41603cf8b048b30"><span class="id" title="projection">μ_of</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#S:18"><span class="id" title="variable">S</span></a>) <a class="idref" href="probsa.rt.analysis.partition_transfer.html#B:20"><span class="id" title="variable">B</span></a>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<a id="P:22" class="idref" href="#P:22"><span class="id" title="binder">P</span></a> : @<a class="idref" href="probsa.probability.partition.html#7e10c6526b8044fa677ab91fad7f6b86"><span class="id" title="record">Ω_partition</span></a> (<a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#e421ae02d100f06a08f803e3cae7ec72"><span class="id" title="projection">Ω_of</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#S:18"><span class="id" title="variable">S</span></a>) (<a class="idref" href="probsa.probability.conditional.html#restrict"><span class="id" title="definition">restrict</span></a> (<a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#eddcf51f789c003fa41603cf8b048b30"><span class="id" title="projection">μ_of</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#S:18"><span class="id" title="variable">S</span></a>) <a class="idref" href="probsa.rt.analysis.partition_transfer.html#B:20"><span class="id" title="variable">B</span></a>))<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<a id="B':23" class="idref" href="#B':23"><span class="id" title="binder">B'</span></a> : <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.ssr.ssrbool.html#pred"><span class="id" title="definition">pred</span></a> (<a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#e421ae02d100f06a08f803e3cae7ec72"><span class="id" title="projection">Ω_of</span></a> (<a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#replace_job_pET"><span class="id" title="definition">replace_job_pET</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#j:19"><span class="id" title="variable">j</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#S:18"><span class="id" title="variable">S</span></a>)))<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a id="pos':24" class="idref" href="#pos':24"><span class="id" title="binder">pos'</span></a> : <a class="idref" href="probsa.probability.conditional.html#PosProb"><span class="id" title="class">PosProb</span></a> (<a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#eddcf51f789c003fa41603cf8b048b30"><span class="id" title="projection">μ_of</span></a> (<a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#replace_job_pET"><span class="id" title="definition">replace_job_pET</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#j:19"><span class="id" title="variable">j</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#S:18"><span class="id" title="variable">S</span></a>)) <a class="idref" href="probsa.rt.analysis.partition_transfer.html#B':23"><span class="id" title="variable">B'</span></a>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<a id="Le:26" class="idref" href="#Le:26"><span class="id" title="binder">Le</span></a> : <span class="id" title="keyword">∀</span> <a id="10ed4dbccf8a2c9845f3f7d56c0fb12b" class="idref" href="#10ed4dbccf8a2c9845f3f7d56c0fb12b"><span class="id" title="binder">ω</span></a>, <a class="idref" href="probsa.rt.analysis.partition_transfer.html#B':23"><span class="id" title="variable">B'</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#10ed4dbccf8a2c9845f3f7d56c0fb12b"><span class="id" title="variable">ω</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#B:20"><span class="id" title="variable">B</span></a> (<a class="idref" href="probsa.rt.analysis.partition_transfer.html#proj1"><span class="id" title="definition">proj1</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#S:18"><span class="id" title="variable">S</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#j:19"><span class="id" title="variable">j</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#10ed4dbccf8a2c9845f3f7d56c0fb12b"><span class="id" title="variable">ω</span></a>)) :<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">let</span> <a id="S':27" class="idref" href="#S':27"><span class="id" title="binder">S'</span></a> := <a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#replace_job_pET"><span class="id" title="definition">replace_job_pET</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#j:19"><span class="id" title="variable">j</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#S:18"><span class="id" title="variable">S</span></a> <span class="id" title="tactic">in</span> @<a class="idref" href="probsa.probability.partition.html#7e10c6526b8044fa677ab91fad7f6b86"><span class="id" title="record">Ω_partition</span></a> (<a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#e421ae02d100f06a08f803e3cae7ec72"><span class="id" title="projection">Ω_of</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#S':27"><span class="id" title="variable">S'</span></a>) (<a class="idref" href="probsa.probability.conditional.html#restrict"><span class="id" title="definition">restrict</span></a> (<a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#eddcf51f789c003fa41603cf8b048b30"><span class="id" title="projection">μ_of</span></a> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#S':27"><span class="id" title="variable">S'</span></a>) <a class="idref" href="probsa.rt.analysis.partition_transfer.html#B':23"><span class="id" title="variable">B'</span></a>) :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#P:22"><span class="id" title="variable">P</span></a>, <a class="idref" href="probsa.rt.analysis.partition_transfer.html#S:18"><span class="id" title="variable">S</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="probsa.probability.partition.html#792195be9d0912735f8e438ed83f1fe0"><span class="id" title="constructor">Build_Ω_partition</span></a> <span class="id" title="var">I</span> <span class="id" title="var">p</span> <span class="id" title="var">COV</span> <span class="id" title="var">DIS</span>, <a class="idref" href="probsa.rt.analysis.pETs_to_pWCETs.html#Build_system"><span class="id" title="constructor">Build_system</span></a> <span class="id" title="var">Ω</span> <span class="id" title="var">μ</span> 𝓐 𝓒 ⇒<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{|<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="probsa.probability.partition.html#I"><span class="id" title="projection">I</span></a> := <span class="id" title="var">I</span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="probsa.probability.partition.html#p"><span class="id" title="projection">p</span></a> := <span class="id" title="keyword">fun</span> <a id="i:30" class="idref" href="#i:30"><span class="id" title="binder">i</span></a> <a id="6c64e5cb4c001bdbca51bc76062b52a1" class="idref" href="#6c64e5cb4c001bdbca51bc76062b52a1"><span class="id" title="binder">ω</span></a> ⇒ <span class="id" title="var">p</span> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#i:30"><span class="id" title="variable">i</span></a> (<a class="idref" href="probsa.rt.analysis.partition_transfer.html#proj1"><span class="id" title="definition">proj1</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#6c64e5cb4c001bdbca51bc76062b52a1"><span class="id" title="variable">ω</span></a>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">End</span> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#PartitionTransfer.ExtendPartition"><span class="id" title="section">ExtendPartition</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="probsa.rt.analysis.partition_transfer.html#PartitionTransfer"><span class="id" title="section">PartitionTransfer</span></a>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

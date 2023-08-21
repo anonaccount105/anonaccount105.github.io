@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<title>probsa.rt.behavior.job</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Library probsa.rt.behavior.job</h1>
+
+<div class="code">
+<span class="comment">(*&nbsp;---------------------------------&nbsp;Prosa&nbsp;----------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">prosa.behavior</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <span class="id" title="library">job</span>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;---------------------------------&nbsp;ProBsa&nbsp;---------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">probsa.probability</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <a class="idref" href="probsa.probability.nrvar.html#"><span class="id" title="library">nrvar</span></a>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;----------------------------------&nbsp;Main&nbsp;----------------------------------&nbsp;*)</span><br/>
+</div>
+
+<div class="doc">
+Definition of a generic type of parameter relating jobs to a
+    probabilistic (discrete) cost. Note that if a job <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.j"><span class="id" title="variable">j</span></a></span> does not
+    arrive in a scenario <span class="inlinecode">ω</span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#3917dc18d4b72e035d4e160fd9caaceb"><span class="id" title="variable">Ω</span></a></span>, then <span class="inlinecode"><a class="idref" href="probsa.rt.behavior.job.html#job_cost"><span class="id" title="projection">job_cost</span></a></span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.j"><span class="id" title="variable">j</span></a></span> <span class="inlinecode">ω</span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#None"><span class="id" title="constructor">None</span></a></span>. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Class</span> <a id="JobCostRV" class="idref" href="#JobCostRV"><span class="id" title="record">JobCostRV</span></a> (<a id="Job:1" class="idref" href="#Job:1"><span class="id" title="binder">Job</span></a> : <span class="id" title="definition">JobType</span>) (<a id="2c39639b51c62ebe8f2daf701f58be52" class="idref" href="#2c39639b51c62ebe8f2daf701f58be52"><span class="id" title="binder">Ω</span></a> : <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.choice.html#Countable.Exports.countType"><span class="id" title="abbreviation">countType</span></a>) (<a id="82c9a2b83ff1a357513c22dd4b5f63b0" class="idref" href="#82c9a2b83ff1a357513c22dd4b5f63b0"><span class="id" title="binder">μ</span></a> : <a class="idref" href="probsa.util.notation.html#measure"><span class="id" title="definition">measure</span></a> <a class="idref" href="probsa.rt.behavior.job.html#2c39639b51c62ebe8f2daf701f58be52"><span class="id" title="variable">Ω</span></a>) :=<br/>
+&nbsp;&nbsp;<a id="job_cost" class="idref" href="#job_cost"><span class="id" title="projection">job_cost</span></a> : <a class="idref" href="probsa.rt.behavior.job.html#Job:1"><span class="id" title="variable">Job</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Unicode.Utf8_core.html#c41c566ddac4c1298b9e7dd2bae1c794"><span class="id" title="notation">→</span></a> <span class="id" title="record">rvar</span> <a class="idref" href="probsa.rt.behavior.job.html#82c9a2b83ff1a357513c22dd4b5f63b0"><span class="id" title="variable">μ</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">[</span></a><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">eqType</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">of</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#option"><span class="id" title="inductive">option</span></a> <span class="id" title="definition">instant</span><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">]</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition of a generic type of parameter relating jobs to a
+    probabilistic arrival time. Note that if a job <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.j"><span class="id" title="variable">j</span></a></span> does not arrive
+    in a scenario <span class="inlinecode">ω</span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#3917dc18d4b72e035d4e160fd9caaceb"><span class="id" title="variable">Ω</span></a></span>, then <span class="inlinecode"><a class="idref" href="probsa.rt.behavior.job.html#job_arrival"><span class="id" title="projection">job_arrival</span></a></span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.j"><span class="id" title="variable">j</span></a></span> <span class="inlinecode">ω</span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#None"><span class="id" title="constructor">None</span></a></span>. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Class</span> <a id="JobArrivalRV" class="idref" href="#JobArrivalRV"><span class="id" title="record">JobArrivalRV</span></a> (<a id="Job:6" class="idref" href="#Job:6"><span class="id" title="binder">Job</span></a> : <span class="id" title="definition">JobType</span>) (<a id="f34640d0840c4816ac7dc09dabf54dc8" class="idref" href="#f34640d0840c4816ac7dc09dabf54dc8"><span class="id" title="binder">Ω</span></a> : <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.choice.html#Countable.Exports.countType"><span class="id" title="abbreviation">countType</span></a>) (<a id="c02cfe87908bdf8fff101a12505e6b1e" class="idref" href="#c02cfe87908bdf8fff101a12505e6b1e"><span class="id" title="binder">μ</span></a> : <a class="idref" href="probsa.util.notation.html#measure"><span class="id" title="definition">measure</span></a> <a class="idref" href="probsa.rt.behavior.job.html#f34640d0840c4816ac7dc09dabf54dc8"><span class="id" title="variable">Ω</span></a>) :=<br/>
+&nbsp;&nbsp;<a id="job_arrival" class="idref" href="#job_arrival"><span class="id" title="projection">job_arrival</span></a> : <a class="idref" href="probsa.rt.behavior.job.html#Job:6"><span class="id" title="variable">Job</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="record">rvar</span> <a class="idref" href="probsa.rt.behavior.job.html#c02cfe87908bdf8fff101a12505e6b1e"><span class="id" title="variable">μ</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">[</span></a><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">eqType</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">of</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#option"><span class="id" title="inductive">option</span></a> <span class="id" title="definition">instant</span><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">]</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition of a generic type of parameter relating jobs to a
+    probabilistic deadline. Note that if a job <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.j"><span class="id" title="variable">j</span></a></span> does not arrive
+    in a scenario <span class="inlinecode">ω</span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#3917dc18d4b72e035d4e160fd9caaceb"><span class="id" title="variable">Ω</span></a></span>, then <span class="inlinecode"><a class="idref" href="probsa.rt.behavior.job.html#job_deadline"><span class="id" title="projection">job_deadline</span></a></span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.j"><span class="id" title="variable">j</span></a></span> <span class="inlinecode">ω</span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#None"><span class="id" title="constructor">None</span></a></span>. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Class</span> <a id="JobDeadlineRV" class="idref" href="#JobDeadlineRV"><span class="id" title="record">JobDeadlineRV</span></a> (<a id="Job:11" class="idref" href="#Job:11"><span class="id" title="binder">Job</span></a> : <span class="id" title="definition">JobType</span>) (<a id="fa66121b45ef59422b017a50ec451f1d" class="idref" href="#fa66121b45ef59422b017a50ec451f1d"><span class="id" title="binder">Ω</span></a> : <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.choice.html#Countable.Exports.countType"><span class="id" title="abbreviation">countType</span></a>) (<a id="d027f5d6af74b181c07c5e4200404787" class="idref" href="#d027f5d6af74b181c07c5e4200404787"><span class="id" title="binder">μ</span></a> : <a class="idref" href="probsa.util.notation.html#measure"><span class="id" title="definition">measure</span></a> <a class="idref" href="probsa.rt.behavior.job.html#fa66121b45ef59422b017a50ec451f1d"><span class="id" title="variable">Ω</span></a>) :=<br/>
+&nbsp;&nbsp;<a id="job_deadline" class="idref" href="#job_deadline"><span class="id" title="projection">job_deadline</span></a> : <a class="idref" href="probsa.rt.behavior.job.html#Job:11"><span class="id" title="variable">Job</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Unicode.Utf8_core.html#c41c566ddac4c1298b9e7dd2bae1c794"><span class="id" title="notation">→</span></a> <span class="id" title="record">rvar</span> <a class="idref" href="probsa.rt.behavior.job.html#d027f5d6af74b181c07c5e4200404787"><span class="id" title="variable">μ</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">[</span></a><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">eqType</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">of</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#option"><span class="id" title="inductive">option</span></a> <span class="id" title="definition">instant</span><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#2b9222c46a529018a8ebb5be6355801c"><span class="id" title="notation">]</span></a>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;------------------------------&nbsp;Definitions&nbsp;-------------------------------&nbsp;*)</span><br/>
+
+<br/>
+</div>
+
+<div class="doc">
+In this section, we define a few notions based on job
+    parameters. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Section</span> <a id="DerivedNotions" class="idref" href="#DerivedNotions"><span class="id" title="section">DerivedNotions</span></a>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="4b05df6977d6b63ba09be3f80d791c9f" class="idref" href="#4b05df6977d6b63ba09be3f80d791c9f"><span class="id" title="binder">Ω</span></a>} {<a id="bb59e15c48d4c47e5f2c91d3a5793f1a" class="idref" href="#bb59e15c48d4c47e5f2c91d3a5793f1a"><span class="id" title="binder">μ</span></a> : <a class="idref" href="probsa.util.notation.html#measure"><span class="id" title="definition">measure</span></a> <a class="idref" href="probsa.rt.behavior.job.html#4b05df6977d6b63ba09be3f80d791c9f"><span class="id" title="variable">Ω</span></a>}.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="Job:18" class="idref" href="#Job:18"><span class="id" title="binder">Job</span></a> : <span class="id" title="definition">JobType</span>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a id="job_arrival:19" class="idref" href="#job_arrival:19"><span class="id" title="binder">job_arrival</span></a> : <a class="idref" href="probsa.rt.behavior.job.html#JobArrivalRV"><span class="id" title="class">JobArrivalRV</span></a> <a class="idref" href="probsa.rt.behavior.job.html#Job:18"><span class="id" title="variable">Job</span></a> <a class="idref" href="probsa.rt.behavior.job.html#eb07282d27a8242fc759bd7ddfb2b180"><span class="id" title="variable">Ω</span></a> <a class="idref" href="probsa.rt.behavior.job.html#391d84c04780a9bcb4d29847f72e7af1"><span class="id" title="variable">μ</span></a>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a id="job_cost:20" class="idref" href="#job_cost:20"><span class="id" title="binder">job_cost</span></a> : <a class="idref" href="probsa.rt.behavior.job.html#JobCostRV"><span class="id" title="class">JobCostRV</span></a> <a class="idref" href="probsa.rt.behavior.job.html#Job:18"><span class="id" title="variable">Job</span></a> <a class="idref" href="probsa.rt.behavior.job.html#eb07282d27a8242fc759bd7ddfb2b180"><span class="id" title="variable">Ω</span></a> <a class="idref" href="probsa.rt.behavior.job.html#391d84c04780a9bcb4d29847f72e7af1"><span class="id" title="variable">μ</span></a>}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Function <span class="inlinecode"><a class="idref" href="probsa.rt.behavior.job.html#compute_arrivals"><span class="id" title="definition">compute_arrivals</span></a></span> maps an evolution <span class="inlinecode">ω</span> to a
+      deterministic function that maps jobs to their arrival times (or
+      None, if a job does not arrive in <span class="inlinecode">ω</span>). 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Definition</span> <a id="compute_arrivals" class="idref" href="#compute_arrivals"><span class="id" title="definition">compute_arrivals</span></a> (<a id="56ce40feff852e623558d98846ec3742" class="idref" href="#56ce40feff852e623558d98846ec3742"><span class="id" title="binder">ω</span></a> : <a class="idref" href="probsa.rt.behavior.job.html#eb07282d27a8242fc759bd7ddfb2b180"><span class="id" title="variable">Ω</span></a>) : <a class="idref" href="probsa.rt.behavior.job.html#DerivedNotions.Job"><span class="id" title="variable">Job</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#option"><span class="id" title="inductive">option</span></a> <span class="id" title="definition">instant</span> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">fun</span> <a id="j:22" class="idref" href="#j:22"><span class="id" title="binder">j</span></a> ⇒ <a class="idref" href="probsa.rt.behavior.job.html#DerivedNotions.job_arrival"><span class="id" title="variable">job_arrival</span></a> <a class="idref" href="probsa.rt.behavior.job.html#j:22"><span class="id" title="variable">j</span></a> <a class="idref" href="probsa.rt.behavior.job.html#56ce40feff852e623558d98846ec3742"><span class="id" title="variable">ω</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Similarly, we define function <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.compute_costs"><span class="id" title="variable">compute_costs</span></a></span> that maps an
+      evolution <span class="inlinecode">ω</span> to a deterministic function that maps jobs to
+      their costs (or None, if a job does not arrive in <span class="inlinecode">ω</span>). 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Definition</span> <a id="compute_costs" class="idref" href="#compute_costs"><span class="id" title="definition">compute_costs</span></a> (<a id="27ea2e306dca91eb24c635aebb1a5be1" class="idref" href="#27ea2e306dca91eb24c635aebb1a5be1"><span class="id" title="binder">ω</span></a> : <a class="idref" href="probsa.rt.behavior.job.html#eb07282d27a8242fc759bd7ddfb2b180"><span class="id" title="variable">Ω</span></a>) : <a class="idref" href="probsa.rt.behavior.job.html#DerivedNotions.Job"><span class="id" title="variable">Job</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#option"><span class="id" title="inductive">option</span></a> <span class="id" title="definition">work</span> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">fun</span> <a id="j:24" class="idref" href="#j:24"><span class="id" title="binder">j</span></a> ⇒ <a class="idref" href="probsa.rt.behavior.job.html#DerivedNotions.job_cost"><span class="id" title="variable">job_cost</span></a> <a class="idref" href="probsa.rt.behavior.job.html#j:24"><span class="id" title="variable">j</span></a> <a class="idref" href="probsa.rt.behavior.job.html#27ea2e306dca91eb24c635aebb1a5be1"><span class="id" title="variable">ω</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="probsa.rt.behavior.job.html#DerivedNotions"><span class="id" title="section">DerivedNotions</span></a>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

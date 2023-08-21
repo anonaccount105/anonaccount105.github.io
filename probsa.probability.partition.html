@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<title>probsa.probability.partition</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Library probsa.probability.partition</h1>
+
+<div class="code">
+<span class="comment">(*&nbsp;----------------------------------&nbsp;Coq&nbsp;-----------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">Coq</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Program.Program.html#"><span class="id" title="library">Program</span></a>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;---------------------------------&nbsp;ProBsa&nbsp;---------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">probsa.util</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="probsa.util.notation.html#"><span class="id" title="library">notation</span></a>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;----------------------------------&nbsp;Main&nbsp;----------------------------------&nbsp;*)</span><br/>
+</div>
+
+<div class="doc">
+The following definition introduces the concept of an
+    <span class="inlinecode"><a class="idref" href="probsa.probability.partition.html#7e10c6526b8044fa677ab91fad7f6b86"><span class="id" title="record">Ω_partition</span></a></span>, which is a record consisting of the following
+    components:
+
+<div class="paragraph"> </div>
+
+    1. <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#3917dc18d4b72e035d4e160fd9caaceb"><span class="id" title="variable">Ω</span></a></span> - a countable sample space,
+
+<div class="paragraph"> </div>
+
+    2. <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#57ef97b357f4ce81b251f1f7c70df932"><span class="id" title="variable">μ</span></a></span> - a measure on <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#3917dc18d4b72e035d4e160fd9caaceb"><span class="id" title="variable">Ω</span></a></span>,
+
+<div class="paragraph"> </div>
+
+    3. <span class="inlinecode"><a class="idref" href="probsa.probability.partition.html#I"><span class="id" title="projection">I</span></a></span> - a countable set of indices,
+
+<div class="paragraph"> </div>
+
+    4. <span class="inlinecode"><a class="idref" href="probsa.probability.partition.html#p"><span class="id" title="projection">p</span></a></span> - a function that maps each index <span class="inlinecode"><span class="id" title="var">i</span></span> to a subset of <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#3917dc18d4b72e035d4e160fd9caaceb"><span class="id" title="variable">Ω</span></a></span>,
+
+<div class="paragraph"> </div>
+
+    5. a proof that the partition covers all <span class="inlinecode">ω</span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#3917dc18d4b72e035d4e160fd9caaceb"><span class="id" title="variable">Ω</span></a></span> with positive
+    probability,
+
+<div class="paragraph"> </div>
+
+    6. and a proof that for any two indices <span class="inlinecode"><span class="id" title="var">i</span></span> and <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.j"><span class="id" title="variable">j</span></a></span>, <span class="inlinecode"><a class="idref" href="probsa.probability.partition.html#p"><span class="id" title="projection">p</span></a></span> <span class="inlinecode"><span class="id" title="var">i</span></span> and <span class="inlinecode"><a class="idref" href="probsa.probability.partition.html#p"><span class="id" title="projection">p</span></a></span>
+    <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.j"><span class="id" title="variable">j</span></a></span> are disjoint.
+
+<div class="paragraph"> </div>
+
+    Intuitively, a partition is just a set of subsets that (i) cover
+    all positive-probability elements and (ii) are disjoint. In Coq,
+    we use the set of indices to refer to different elements of a
+    partition. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Record</span> <a id="7e10c6526b8044fa677ab91fad7f6b86" class="idref" href="#7e10c6526b8044fa677ab91fad7f6b86"><span class="id" title="record">Ω_partition</span></a> {<a id="c3d482fd3513878b11e14abf9e72362d" class="idref" href="#c3d482fd3513878b11e14abf9e72362d"><span class="id" title="binder">Ω</span></a>} {<a id="64252de629bdd27d41a7716d98f42d82" class="idref" href="#64252de629bdd27d41a7716d98f42d82"><span class="id" title="binder">μ</span></a> : <a class="idref" href="probsa.util.notation.html#measure"><span class="id" title="definition">measure</span></a> <a class="idref" href="probsa.probability.partition.html#c3d482fd3513878b11e14abf9e72362d"><span class="id" title="variable">Ω</span></a>} :=<br/>
+&nbsp;&nbsp;{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a id="I" class="idref" href="#I"><span class="id" title="projection">I</span></a> : <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.choice.html#Countable.Exports.countType"><span class="id" title="abbreviation">countType</span></a>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a id="p" class="idref" href="#p"><span class="id" title="projection">p</span></a> : <a class="idref" href="probsa.probability.partition.html#I:4"><span class="id" title="method">I</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.ssr.ssrbool.html#pred"><span class="id" title="definition">pred</span></a> <a class="idref" href="probsa.probability.partition.html#c3d482fd3513878b11e14abf9e72362d"><span class="id" title="variable">Ω</span></a>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a id="COV" class="idref" href="#COV"><span class="id" title="projection">COV</span></a> : <span class="id" title="keyword">∀</span> <a id="a9968bec8fad1bf5c85df7412da2ff5a" class="idref" href="#a9968bec8fad1bf5c85df7412da2ff5a"><span class="id" title="binder">ω</span></a>, <a class="idref" href="probsa.probability.partition.html#64252de629bdd27d41a7716d98f42d82"><span class="id" title="variable">μ</span></a> <a class="idref" href="probsa.probability.partition.html#a9968bec8fad1bf5c85df7412da2ff5a"><span class="id" title="variable">ω</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Reals.Rdefinitions.html#::R_scope:x_'&gt;'_x"><span class="id" title="notation">&gt;</span></a> 0 <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#a883bdd010993579f99d60b3775bcf54"><span class="id" title="notation">∃</span></a> <a id="i:7" class="idref" href="#i:7"><span class="id" title="binder">i</span></a><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#a883bdd010993579f99d60b3775bcf54"><span class="id" title="notation">,</span></a> <a class="idref" href="probsa.probability.partition.html#p:5"><span class="id" title="method">p</span></a> <a class="idref" href="probsa.probability.partition.html#i:7"><span class="id" title="variable">i</span></a> <a class="idref" href="probsa.probability.partition.html#a9968bec8fad1bf5c85df7412da2ff5a"><span class="id" title="variable">ω</span></a>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a id="DIS" class="idref" href="#DIS"><span class="id" title="projection">DIS</span></a> : <span class="id" title="keyword">∀</span> <a id="0ca13ed3bfdd4371c3b7e497b552fc2f" class="idref" href="#0ca13ed3bfdd4371c3b7e497b552fc2f"><span class="id" title="binder">ω</span></a>, <span class="id" title="keyword">∀</span> <a id="i:10" class="idref" href="#i:10"><span class="id" title="binder">i</span></a> <a id="j:11" class="idref" href="#j:11"><span class="id" title="binder">j</span></a>, <a class="idref" href="probsa.probability.partition.html#p:5"><span class="id" title="method">p</span></a> <a class="idref" href="probsa.probability.partition.html#i:10"><span class="id" title="variable">i</span></a> <a class="idref" href="probsa.probability.partition.html#0ca13ed3bfdd4371c3b7e497b552fc2f"><span class="id" title="variable">ω</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="probsa.probability.partition.html#p:5"><span class="id" title="method">p</span></a> <a class="idref" href="probsa.probability.partition.html#j:11"><span class="id" title="variable">j</span></a> <a class="idref" href="probsa.probability.partition.html#0ca13ed3bfdd4371c3b7e497b552fc2f"><span class="id" title="variable">ω</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="probsa.probability.partition.html#i:10"><span class="id" title="variable">i</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="probsa.probability.partition.html#j:11"><span class="id" title="variable">j</span></a><br/>
+&nbsp;&nbsp;}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Important notation: Given an <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#3917dc18d4b72e035d4e160fd9caaceb"><span class="id" title="variable">Ω</span></a></span>-partition <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#ProofOfTheorem1.S"><span class="id" title="variable">S</span></a></span> and an index <span class="inlinecode"><span class="id" title="var">i</span></span>,
+    we denote the <span class="inlinecode"><span class="id" title="var">i</span></span>'th set of <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#ProofOfTheorem1.S"><span class="id" title="variable">S</span></a></span> as <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#ProofOfTheorem1.S"><span class="id" title="variable">S</span></a>◁{<span class="id" title="var">i</span>}</span> (recall that partition
+    is a set of subsets). 
+</div>
+<div class="code">
+<span class="id" title="keyword">Notation</span> <a id="9fffc144466a513b07a0938229bae9d8" class="idref" href="#9fffc144466a513b07a0938229bae9d8"><span class="id" title="notation">&quot;</span></a>S '◁{' i '}'" := (<a class="idref" href="probsa.probability.partition.html#p"><span class="id" title="projection">p</span></a> <span class="id" title="var">S</span> <span class="id" title="var">i</span>)<br/>
+&nbsp;&nbsp;(<span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 30, <span class="id" title="var">format</span> "S ◁{ i }") : <span class="id" title="var">probability_scope</span>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;---------------------------&nbsp;Extra&nbsp;Definitions&nbsp;----------------------------&nbsp;*)</span><br/>
+
+<br/>
+</div>
+
+<div class="doc">
+One important type of partition is the partition into singletons
+ <span class="inlinecode">{</span> <span class="inlinecode">{ω}</span> <span class="inlinecode">|</span> <span class="inlinecode">ω</span> <span class="inlinecode">∈</span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#3917dc18d4b72e035d4e160fd9caaceb"><span class="id" title="variable">Ω</span></a></span> <span class="inlinecode">}</span>, since, as we show later, such a partition
+    trivially satisfies the <span class="inlinecode"><a class="idref" href="probsa.rt.model.axiomatic_pWCET.html#job_cost_partition_independence"><span class="id" title="definition">job_cost_partition_independence</span></a></span> defined in
+    <span class="inlinecode"><a class="idref" href="probsa.rt.model.axiomatic_pWCET.html#axiomatic_pWCET"><span class="id" title="definition">axiomatic_pWCET</span></a></span>. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Section</span> <a id="PartitionIntoSingletons" class="idref" href="#PartitionIntoSingletons"><span class="id" title="section">PartitionIntoSingletons</span></a>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="5a2160f2a8d988a9b50d9d6303b3bf31" class="idref" href="#5a2160f2a8d988a9b50d9d6303b3bf31"><span class="id" title="binder">Ω</span></a>} (<a id="7c8b1c219bc88250c0d512ae99f99ad0" class="idref" href="#7c8b1c219bc88250c0d512ae99f99ad0"><span class="id" title="binder">μ</span></a> : <a class="idref" href="probsa.util.notation.html#measure"><span class="id" title="definition">measure</span></a> <a class="idref" href="probsa.probability.partition.html#5a2160f2a8d988a9b50d9d6303b3bf31"><span class="id" title="variable">Ω</span></a>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+A singleton-partition contains <span class="inlinecode">|<a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#3917dc18d4b72e035d4e160fd9caaceb"><span class="id" title="variable">Ω</span></a>|</span> sets, each containing only
+      one element. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Program Definition</span> <a id="partition_into_singletons" class="idref" href="#partition_into_singletons"><span class="id" title="definition">partition_into_singletons</span></a> : @<a class="idref" href="probsa.probability.partition.html#7e10c6526b8044fa677ab91fad7f6b86"><span class="id" title="record">Ω_partition</span></a> <a class="idref" href="probsa.probability.partition.html#f71b108c568a8f7ad424cd3795e62c03"><span class="id" title="variable">Ω</span></a> <a class="idref" href="probsa.probability.partition.html#d1133baba250951c7324ee45b2be2b3f"><span class="id" title="variable">μ</span></a> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;{|<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="probsa.probability.partition.html#I"><span class="id" title="projection">I</span></a> := <a class="idref" href="probsa.probability.partition.html#f71b108c568a8f7ad424cd3795e62c03"><span class="id" title="variable">Ω</span></a>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="probsa.probability.partition.html#p"><span class="id" title="projection">p</span></a> := <span class="id" title="keyword">fun</span> <a id="9bf37afd3556b85d63ce50425efb5dbe" class="idref" href="#9bf37afd3556b85d63ce50425efb5dbe"><span class="id" title="binder">ω</span></a><a id="9bf37afd3556b85d63ce50425efb5dbe" class="idref" href="#9bf37afd3556b85d63ce50425efb5dbe"><span class="id" title="binder">_index</span></a> <a id="fc829d156dfba5c0cb6027d260527304" class="idref" href="#fc829d156dfba5c0cb6027d260527304"><span class="id" title="binder">ω</span></a> ⇒ <a class="idref" href="probsa.probability.partition.html#9bf37afd3556b85d63ce50425efb5dbe"><span class="id" title="variable">ω</span></a><a class="idref" href="probsa.probability.partition.html#9bf37afd3556b85d63ce50425efb5dbe"><span class="id" title="variable">_index</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#df45e8c2e8370fd4f0f7c4fdaf208180"><span class="id" title="notation">==</span></a> <a class="idref" href="probsa.probability.partition.html#fc829d156dfba5c0cb6027d260527304"><span class="id" title="variable">ω</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;|}.<br/>
+
+<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="probsa.probability.partition.html#PartitionIntoSingletons"><span class="id" title="section">PartitionIntoSingletons</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Sometimes, it is useful to combine different partitions into
+    one. Specifically, in the following section, we define an
+    identity-partition (id-partition, for short) and the product of
+    two partitions. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Section</span> <a id="PartitionProduct" class="idref" href="#PartitionProduct"><span class="id" title="section">PartitionProduct</span></a>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="cad247cf030de38557c2ab84603559cd" class="idref" href="#cad247cf030de38557c2ab84603559cd"><span class="id" title="binder">Ω</span></a>} {<a id="b6f90fec3ae68984b746c42c6f79f357" class="idref" href="#b6f90fec3ae68984b746c42c6f79f357"><span class="id" title="binder">μ</span></a> : <a class="idref" href="probsa.util.notation.html#measure"><span class="id" title="definition">measure</span></a> <a class="idref" href="probsa.probability.partition.html#cad247cf030de38557c2ab84603559cd"><span class="id" title="variable">Ω</span></a>}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+An id-partition is just one set that contains the entire <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#3917dc18d4b72e035d4e160fd9caaceb"><span class="id" title="variable">Ω</span></a></span>. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Program Definition</span> <a id="partition_id" class="idref" href="#partition_id"><span class="id" title="definition">partition_id</span></a> : @<a class="idref" href="probsa.probability.partition.html#7e10c6526b8044fa677ab91fad7f6b86"><span class="id" title="record">Ω_partition</span></a> <a class="idref" href="probsa.probability.partition.html#311bf173ddca38664593b4297f1fd51b"><span class="id" title="variable">Ω</span></a> <a class="idref" href="probsa.probability.partition.html#d24357e6af7a33ee21dcfc4beaf654d7"><span class="id" title="variable">μ</span></a> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;{|<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="probsa.probability.partition.html#I"><span class="id" title="projection">I</span></a> := <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.choice.html#3fd72847645c366340e6e9be05776bd8"><span class="id" title="notation">[</span></a><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.choice.html#3fd72847645c366340e6e9be05776bd8"><span class="id" title="notation">countType</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.choice.html#3fd72847645c366340e6e9be05776bd8"><span class="id" title="notation">of</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#unit"><span class="id" title="inductive">unit</span></a><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.choice.html#3fd72847645c366340e6e9be05776bd8"><span class="id" title="notation">]</span></a>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="probsa.probability.partition.html#p"><span class="id" title="projection">p</span></a> := <span class="id" title="keyword">fun</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> ⇒ <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#true"><span class="id" title="constructor">true</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;|}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Given two partitions with indices <span class="inlinecode"><span class="id" title="var">I1</span></span> and <span class="inlinecode"><span class="id" title="var">I2</span></span> and sets <span class="inlinecode"><span class="id" title="var">P1</span></span> <span class="inlinecode"><span class="id" title="var">i</span></span>
+      and <span class="inlinecode"><span class="id" title="var">P2</span></span> <span class="inlinecode"><span class="id" title="var">i</span></span> respectively, a product partition is a partition with
+      index <span class="inlinecode"><span class="id" title="var">I1</span></span> <span class="inlinecode">×</span> <span class="inlinecode"><span class="id" title="var">I2</span></span> and sets defined by a predicate that checks if
+      both <span class="inlinecode"><span class="id" title="var">P1</span></span> <span class="inlinecode"><span class="id" title="var">i1</span></span> and <span class="inlinecode"><span class="id" title="var">P2</span></span> <span class="inlinecode"><span class="id" title="var">i2</span></span> hold for a given tuple <span class="inlinecode">(<span class="id" title="var">i1</span>,</span> <span class="inlinecode"><span class="id" title="var">i2</span>)</span>. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Program Definition</span> <a id="partition_prod" class="idref" href="#partition_prod"><span class="id" title="definition">partition_prod</span></a> (<a id="P1:19" class="idref" href="#P1:19"><span class="id" title="binder">P1</span></a> <a id="P2:20" class="idref" href="#P2:20"><span class="id" title="binder">P2</span></a> : @<a class="idref" href="probsa.probability.partition.html#7e10c6526b8044fa677ab91fad7f6b86"><span class="id" title="record">Ω_partition</span></a> <a class="idref" href="probsa.probability.partition.html#311bf173ddca38664593b4297f1fd51b"><span class="id" title="variable">Ω</span></a> <a class="idref" href="probsa.probability.partition.html#d24357e6af7a33ee21dcfc4beaf654d7"><span class="id" title="variable">μ</span></a>) : @<a class="idref" href="probsa.probability.partition.html#7e10c6526b8044fa677ab91fad7f6b86"><span class="id" title="record">Ω_partition</span></a> <a class="idref" href="probsa.probability.partition.html#311bf173ddca38664593b4297f1fd51b"><span class="id" title="variable">Ω</span></a> <a class="idref" href="probsa.probability.partition.html#d24357e6af7a33ee21dcfc4beaf654d7"><span class="id" title="variable">μ</span></a> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="probsa.probability.partition.html#P1:19"><span class="id" title="variable">P1</span></a>, <a class="idref" href="probsa.probability.partition.html#P2:20"><span class="id" title="variable">P2</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="probsa.probability.partition.html#792195be9d0912735f8e438ed83f1fe0"><span class="id" title="constructor">Build_Ω_partition</span></a> <span class="id" title="var">I1</span> <span class="id" title="var">P1</span> <span class="id" title="var">CO1</span> <span class="id" title="var">DI1</span>, <a class="idref" href="probsa.probability.partition.html#792195be9d0912735f8e438ed83f1fe0"><span class="id" title="constructor">Build_Ω_partition</span></a> <span class="id" title="var">I2</span> <span class="id" title="var">P2</span> <span class="id" title="var">CO2</span> <span class="id" title="var">DI2</span> ⇒<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{|<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="probsa.probability.partition.html#I"><span class="id" title="projection">I</span></a> := <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.choice.html#3fd72847645c366340e6e9be05776bd8"><span class="id" title="notation">[</span></a><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.choice.html#3fd72847645c366340e6e9be05776bd8"><span class="id" title="notation">countType</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.choice.html#3fd72847645c366340e6e9be05776bd8"><span class="id" title="notation">of</span></a> <span class="id" title="var">I1</span> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#11c698c8685bb8ab1cf725545c085ac4"><span class="id" title="notation">×</span></a> <span class="id" title="var">I2</span><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.choice.html#3fd72847645c366340e6e9be05776bd8"><span class="id" title="notation">]</span></a>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="probsa.probability.partition.html#p"><span class="id" title="projection">p</span></a> := <span class="id" title="keyword">fun</span> '<a id="pat:25" class="idref" href="#pat:25"><span class="id" title="binder">(</span></a><a id="pat:25" class="idref" href="#pat:25"><span class="id" title="binder">i1</span></a><a id="pat:25" class="idref" href="#pat:25"><span class="id" title="binder">,</span></a> <a id="pat:25" class="idref" href="#pat:25"><span class="id" title="binder">i2</span></a><a id="pat:25" class="idref" href="#pat:25"><span class="id" title="binder">)</span></a> <a id="0e92317f85df845f451c2b66cc5e1ad7" class="idref" href="#0e92317f85df845f451c2b66cc5e1ad7"><span class="id" title="binder">ω</span></a> ⇒ <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#::bool_scope:x_'&amp;&amp;'_x"><span class="id" title="notation">(</span></a><a class="idref" href="probsa.probability.partition.html#P1:19"><span class="id" title="variable">P1</span></a> <a class="idref" href="probsa.probability.partition.html#i1:24"><span class="id" title="variable">i1</span></a> <a class="idref" href="probsa.probability.partition.html#0e92317f85df845f451c2b66cc5e1ad7"><span class="id" title="variable">ω</span></a><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#::bool_scope:x_'&amp;&amp;'_x"><span class="id" title="notation">)</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#::bool_scope:x_'&amp;&amp;'_x"><span class="id" title="notation">&amp;&amp;</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#::bool_scope:x_'&amp;&amp;'_x"><span class="id" title="notation">(</span></a><a class="idref" href="probsa.probability.partition.html#P2:20"><span class="id" title="variable">P2</span></a> <a class="idref" href="probsa.probability.partition.html#i2:23"><span class="id" title="variable">i2</span></a> <a class="idref" href="probsa.probability.partition.html#0e92317f85df845f451c2b66cc5e1ad7"><span class="id" title="variable">ω</span></a><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#::bool_scope:x_'&amp;&amp;'_x"><span class="id" title="notation">)</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="probsa.probability.partition.html#PartitionProduct"><span class="id" title="section">PartitionProduct</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+In this section, we define a way to extend a partition on a set
+    <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#3917dc18d4b72e035d4e160fd9caaceb"><span class="id" title="variable">Ω</span></a></span> to a new set <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#3917dc18d4b72e035d4e160fd9caaceb"><span class="id" title="variable">Ω</span></a></span> <span class="inlinecode">×</span> <span class="inlinecode"><span class="id" title="var">Ω'</span></span>. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Section</span> <a id="PartitionExtend" class="idref" href="#PartitionExtend"><span class="id" title="section">PartitionExtend</span></a>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="20404187f712d6e42fbca4898bd08efd" class="idref" href="#20404187f712d6e42fbca4898bd08efd"><span class="id" title="binder">Ω</span></a>} (<a id="87df9883d03cff0cff9469b5234da66c" class="idref" href="#87df9883d03cff0cff9469b5234da66c"><span class="id" title="binder">μ</span></a> : <a class="idref" href="probsa.util.notation.html#measure"><span class="id" title="definition">measure</span></a> <a class="idref" href="probsa.probability.partition.html#20404187f712d6e42fbca4898bd08efd"><span class="id" title="variable">Ω</span></a>).<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="6d35d0c2e1734491f9f2448a420d63ae" class="idref" href="#6d35d0c2e1734491f9f2448a420d63ae"><span class="id" title="binder">Ω'</span></a>} (<a id="eba0b07f84074d60333432558b4c1185" class="idref" href="#eba0b07f84074d60333432558b4c1185"><span class="id" title="binder">μ'</span></a> : <a class="idref" href="probsa.util.notation.html#measure"><span class="id" title="definition">measure</span></a> <a class="idref" href="probsa.probability.partition.html#6d35d0c2e1734491f9f2448a420d63ae"><span class="id" title="variable">Ω'</span></a>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+A partition of <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#3917dc18d4b72e035d4e160fd9caaceb"><span class="id" title="variable">Ω</span></a></span> with index <span class="inlinecode"><a class="idref" href="probsa.probability.partition.html#I"><span class="id" title="projection">I</span></a></span> and set <span class="inlinecode"><a class="idref" href="probsa.probability.partition.html#p"><span class="id" title="projection">p</span></a></span> <span class="inlinecode"><span class="id" title="var">i</span></span> can be extended
+      to a set <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#3917dc18d4b72e035d4e160fd9caaceb"><span class="id" title="variable">Ω</span></a></span> <span class="inlinecode">×</span> <span class="inlinecode"><span class="id" title="var">Ω'</span></span> by using the same index set <span class="inlinecode"><a class="idref" href="probsa.probability.partition.html#I"><span class="id" title="projection">I</span></a></span> and by
+      redefining <span class="inlinecode"><a class="idref" href="probsa.probability.partition.html#p"><span class="id" title="projection">p</span></a></span> <span class="inlinecode"><span class="id" title="var">i</span></span> to ignore the element of <span class="inlinecode"><span class="id" title="var">Ω'</span></span>:
+      <span class="inlinecode"><span class="id" title="keyword">fun</span></span> <span class="inlinecode"><span class="id" title="var">i</span></span> <span class="inlinecode">'(ω</span> <span class="inlinecode">,<span class="id" title="var">_</span>)</span> <span class="inlinecode">⇒</span> <span class="inlinecode"><a class="idref" href="probsa.probability.partition.html#p"><span class="id" title="projection">p</span></a></span> <span class="inlinecode"><span class="id" title="var">i</span></span> <span class="inlinecode">ω)</span>. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Program Definition</span> <a id="partition_ext" class="idref" href="#partition_ext"><span class="id" title="definition">partition_ext</span></a> (<a id="P:31" class="idref" href="#P:31"><span class="id" title="binder">P</span></a> : @<a class="idref" href="probsa.probability.partition.html#7e10c6526b8044fa677ab91fad7f6b86"><span class="id" title="record">Ω_partition</span></a> <a class="idref" href="probsa.probability.partition.html#b1ad032ee3e2939e82f89e554f60a832"><span class="id" title="variable">Ω</span></a> <a class="idref" href="probsa.probability.partition.html#9204daeb44386c4b19fb865bb9735120"><span class="id" title="variable">μ</span></a>) :<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;@<a class="idref" href="probsa.probability.partition.html#7e10c6526b8044fa677ab91fad7f6b86"><span class="id" title="record">Ω_partition</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.choice.html#3fd72847645c366340e6e9be05776bd8"><span class="id" title="notation">[</span></a><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.choice.html#3fd72847645c366340e6e9be05776bd8"><span class="id" title="notation">countType</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.choice.html#3fd72847645c366340e6e9be05776bd8"><span class="id" title="notation">of</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.choice.html#3fd72847645c366340e6e9be05776bd8"><span class="id" title="notation">(</span></a><a class="idref" href="probsa.probability.partition.html#b1ad032ee3e2939e82f89e554f60a832"><span class="id" title="variable">Ω</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#11c698c8685bb8ab1cf725545c085ac4"><span class="id" title="notation">×</span></a> <a class="idref" href="probsa.probability.partition.html#a1bf85ead1e2c3237e7e92fe68c04fcc"><span class="id" title="variable">Ω'</span></a><a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.choice.html#3fd72847645c366340e6e9be05776bd8"><span class="id" title="notation">)]</span></a> (<span class="id" title="definition">distrib_prod</span> <a class="idref" href="probsa.probability.partition.html#9204daeb44386c4b19fb865bb9735120"><span class="id" title="variable">μ</span></a> <a class="idref" href="probsa.probability.partition.html#4febf66ea3de00152cbe57096ec239bb"><span class="id" title="variable">μ'</span></a>) :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="probsa.probability.partition.html#P:31"><span class="id" title="variable">P</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="probsa.probability.partition.html#792195be9d0912735f8e438ed83f1fe0"><span class="id" title="constructor">Build_Ω_partition</span></a> <span class="id" title="var">I</span> <span class="id" title="var">p</span> <span class="id" title="var">CO</span> <span class="id" title="var">DI</span> ⇒<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{|<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="probsa.probability.partition.html#I"><span class="id" title="projection">I</span></a> := <span class="id" title="var">I</span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="probsa.probability.partition.html#p"><span class="id" title="projection">p</span></a> := <span class="id" title="keyword">fun</span> <a id="i:33" class="idref" href="#i:33"><span class="id" title="binder">i</span></a> '<a id="pat:35" class="idref" href="#pat:35"><span class="id" title="binder">(ω,</span></a> <a id="pat:35" class="idref" href="#pat:35"><span class="id" title="binder">_</span></a><a id="pat:35" class="idref" href="#pat:35"><span class="id" title="binder">)</span></a> ⇒ <span class="id" title="var">p</span> <a class="idref" href="probsa.probability.partition.html#i:33"><span class="id" title="variable">i</span></a> <a class="idref" href="probsa.probability.partition.html#9f65ae1de7fd98ecf1f7f89797c279cd"><span class="id" title="variable">ω</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="probsa.probability.partition.html#PartitionExtend"><span class="id" title="section">PartitionExtend</span></a>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

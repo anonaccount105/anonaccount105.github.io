@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<title>probsa.util.etime</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Library probsa.util.etime</h1>
+
+<div class="code">
+<span class="comment">(*&nbsp;---------------------------&nbsp;Reals&nbsp;and&nbsp;SSReflect&nbsp;--------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">mathcomp</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.ssreflect.html#"><span class="id" title="library">ssreflect</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.ssrnat.html#"><span class="id" title="library">ssrnat</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.ssrbool.html#"><span class="id" title="library">ssrbool</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#"><span class="id" title="library">eqtype</span></a>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;----------------------------------&nbsp;Prosa&nbsp;---------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">prosa.behavior</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <span class="id" title="library">time</span>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;----------------------------------&nbsp;Main&nbsp;----------------------------------&nbsp;*)</span><br/>
+
+<br/>
+<span class="id" title="keyword">Inductive</span> <a id="etime" class="idref" href="#etime"><span class="id" title="inductive">etime</span></a> := <a id="Undef" class="idref" href="#Undef"><span class="id" title="constructor">Undef</span></a> | <a id="Fin" class="idref" href="#Fin"><span class="id" title="constructor">Fin</span></a> (<a id="n:3" class="idref" href="#n:3"><span class="id" title="binder">n</span></a> : <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a>) | <a id="Infty" class="idref" href="#Infty"><span class="id" title="constructor">Infty</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="etime_eqdef" class="idref" href="#etime_eqdef"><span class="id" title="definition">etime_eqdef</span></a> (<a id="tb1:4" class="idref" href="#tb1:4"><span class="id" title="binder">tb1</span></a> <a id="tb2:5" class="idref" href="#tb2:5"><span class="id" title="binder">tb2</span></a> : <a class="idref" href="probsa.util.etime.html#etime"><span class="id" title="inductive">etime</span></a>) :=<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="probsa.util.etime.html#tb1:4"><span class="id" title="variable">tb1</span></a>, <a class="idref" href="probsa.util.etime.html#tb2:5"><span class="id" title="variable">tb2</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;| <a class="idref" href="probsa.util.etime.html#Undef"><span class="id" title="constructor">Undef</span></a>, <a class="idref" href="probsa.util.etime.html#Undef"><span class="id" title="constructor">Undef</span></a> ⇒ <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#true"><span class="id" title="constructor">true</span></a><br/>
+&nbsp;&nbsp;| <a class="idref" href="probsa.util.etime.html#Infty"><span class="id" title="constructor">Infty</span></a>, <a class="idref" href="probsa.util.etime.html#Infty"><span class="id" title="constructor">Infty</span></a> ⇒ <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#true"><span class="id" title="constructor">true</span></a><br/>
+&nbsp;&nbsp;| <a class="idref" href="probsa.util.etime.html#Fin"><span class="id" title="constructor">Fin</span></a> <span class="id" title="var">n1</span>, <a class="idref" href="probsa.util.etime.html#Fin"><span class="id" title="constructor">Fin</span></a> <span class="id" title="var">n2</span> ⇒ <span class="id" title="var">n1</span> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#df45e8c2e8370fd4f0f7c4fdaf208180"><span class="id" title="notation">==</span></a> <span class="id" title="var">n2</span><br/>
+&nbsp;&nbsp;| <span class="id" title="var">_</span>, <span class="id" title="var">_</span> ⇒ <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#false"><span class="id" title="constructor">false</span></a><br/>
+&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a id="eqn_etime" class="idref" href="#eqn_etime"><span class="id" title="lemma">eqn_etime</span></a> : <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#Equality.axiom"><span class="id" title="definition">Equality.axiom</span></a> <a class="idref" href="probsa.util.etime.html#etime_eqdef"><span class="id" title="definition">etime_eqdef</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Canonical</span> <a id="etime_eqMixin" class="idref" href="#etime_eqMixin"><span class="id" title="definition">etime_eqMixin</span></a> := <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#Equality.Exports.EqMixin"><span class="id" title="abbreviation">EqMixin</span></a> <a class="idref" href="probsa.util.etime.html#eqn_etime"><span class="id" title="lemma">eqn_etime</span></a>.<br/>
+<span class="id" title="keyword">Canonical</span> <a id="etime_eqType" class="idref" href="#etime_eqType"><span class="id" title="definition">etime_eqType</span></a> := <span class="id" title="keyword">Eval</span> <span class="id" title="tactic">hnf</span> <span class="id" title="tactic">in</span> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#Equality.Exports.EqType"><span class="id" title="abbreviation">EqType</span></a> <a class="idref" href="probsa.util.etime.html#etime"><span class="id" title="inductive">etime</span></a> <a class="idref" href="probsa.util.etime.html#etime_eqMixin"><span class="id" title="definition">etime_eqMixin</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a id="exceeds" class="idref" href="#exceeds"><span class="id" title="definition">exceeds</span></a> (<a id="X:8" class="idref" href="#X:8"><span class="id" title="binder">X</span></a> : <a class="idref" href="probsa.util.etime.html#etime"><span class="id" title="inductive">etime</span></a>) (<a id="t:9" class="idref" href="#t:9"><span class="id" title="binder">t</span></a> : <span class="id" title="definition">instant</span>) : <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a> :=<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="probsa.util.etime.html#X:8"><span class="id" title="variable">X</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;| <a class="idref" href="probsa.util.etime.html#Undef"><span class="id" title="constructor">Undef</span></a> ⇒ <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#false"><span class="id" title="constructor">false</span></a><br/>
+&nbsp;&nbsp;| <a class="idref" href="probsa.util.etime.html#Fin"><span class="id" title="constructor">Fin</span></a> <span class="id" title="var">x</span> ⇒ (<span class="id" title="var">x</span> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.ssrnat.html#::nat_scope:x_'&gt;'_x"><span class="id" title="notation">&gt;</span></a> <a class="idref" href="probsa.util.etime.html#t:9"><span class="id" title="variable">t</span></a>)%<span class="id" title="var">N</span><br/>
+&nbsp;&nbsp;| <a class="idref" href="probsa.util.etime.html#Infty"><span class="id" title="constructor">Infty</span></a> ⇒ <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#true"><span class="id" title="constructor">true</span></a><br/>
+&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

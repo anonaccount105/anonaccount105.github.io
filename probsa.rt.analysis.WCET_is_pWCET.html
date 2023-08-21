@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<title>probsa.rt.analysis.WCET_is_pWCET</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Library probsa.rt.analysis.WCET_is_pWCET</h1>
+
+<div class="code">
+<span class="comment">(*&nbsp;---------------------------------&nbsp;ProBsa&nbsp;---------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">probsa.util</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <a class="idref" href="probsa.util.bigop_inf.html#"><span class="id" title="library">bigop_inf</span></a>.<br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">probsa.probability</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <a class="idref" href="probsa.probability.pred.html#"><span class="id" title="library">pred</span></a>.<br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">probsa.rt.model</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <a class="idref" href="probsa.rt.model.task.html#"><span class="id" title="library">task</span></a> <a class="idref" href="probsa.rt.model.WCET.html#"><span class="id" title="library">WCET</span></a> <a class="idref" href="probsa.rt.model.events.html#"><span class="id" title="library">events</span></a> <a class="idref" href="probsa.rt.model.axiomatic_pWCET.html#"><span class="id" title="library">axiomatic_pWCET</span></a> .<br/>
+
+<br/>
+<span class="comment">(*&nbsp;----------------------------------&nbsp;Main&nbsp;----------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">Section</span> <a id="WCETisAxiomaticPWCET" class="idref" href="#WCETisAxiomaticPWCET"><span class="id" title="section">WCETisAxiomaticPWCET</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Consider a probability space <span class="inlinecode">(<a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#3917dc18d4b72e035d4e160fd9caaceb"><span class="id" title="variable">Ω</span></a>,</span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#57ef97b357f4ce81b251f1f7c70df932"><span class="id" title="variable">μ</span></a>)</span>, ... 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="c3d482fd3513878b11e14abf9e72362d" class="idref" href="#c3d482fd3513878b11e14abf9e72362d"><span class="id" title="binder">Ω</span></a>} {<a id="64252de629bdd27d41a7716d98f42d82" class="idref" href="#64252de629bdd27d41a7716d98f42d82"><span class="id" title="binder">μ</span></a> : <a class="idref" href="probsa.util.notation.html#measure"><span class="id" title="definition">measure</span></a> <a class="idref" href="probsa.rt.analysis.WCET_is_pWCET.html#c3d482fd3513878b11e14abf9e72362d"><span class="id" title="variable">Ω</span></a>}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+... any type of tasks with costs defined by a function
+      <span class="inlinecode"><span class="id" title="var">task_cost</span></span>, ... 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="Task:3" class="idref" href="#Task:3"><span class="id" title="binder">Task</span></a> : <span class="id" title="definition">TaskType</span>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a id="task_cost:4" class="idref" href="#task_cost:4"><span class="id" title="binder">task_cost</span></a> : <span class="id" title="class">TaskCost</span> <a class="idref" href="probsa.rt.analysis.WCET_is_pWCET.html#Task:3"><span class="id" title="variable">Task</span></a>}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+... and any finite type of jobs associated with these
+      tasks. Assume that the jobs have probabilistic arrivals and
+      costs defined by <span class="inlinecode"><a class="idref" href="probsa.rt.behavior.job.html#job_arrival"><span class="id" title="projection">job_arrival</span></a></span> and <span class="inlinecode"><a class="idref" href="probsa.rt.behavior.job.html#job_cost"><span class="id" title="projection">job_cost</span></a></span>, respectively. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="Job:5" class="idref" href="#Job:5"><span class="id" title="binder">Job</span></a> : <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.fintype.html#Finite.Exports.finType"><span class="id" title="abbreviation">finType</span></a>}.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="job_task:6" class="idref" href="#job_task:6"><span class="id" title="binder">job_task</span></a> : <span class="id" title="class">JobTask</span> <a class="idref" href="probsa.rt.analysis.WCET_is_pWCET.html#WCETisAxiomaticPWCET.Job"><span class="id" title="variable">Job</span></a> <a class="idref" href="probsa.rt.analysis.WCET_is_pWCET.html#WCETisAxiomaticPWCET.Task"><span class="id" title="variable">Task</span></a>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a id="job_arrival:7" class="idref" href="#job_arrival:7"><span class="id" title="binder">job_arrival</span></a> : <a class="idref" href="probsa.rt.behavior.job.html#JobArrivalRV"><span class="id" title="class">JobArrivalRV</span></a> <a class="idref" href="probsa.rt.analysis.WCET_is_pWCET.html#WCETisAxiomaticPWCET.Job"><span class="id" title="variable">Job</span></a> <a class="idref" href="probsa.rt.analysis.WCET_is_pWCET.html#f339354afa84833a5380ab840a8b38d6"><span class="id" title="variable">Ω</span></a> <a class="idref" href="probsa.rt.analysis.WCET_is_pWCET.html#e2143df2fbc83c03f660982f22dee0a0"><span class="id" title="variable">μ</span></a>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a id="job_cost:8" class="idref" href="#job_cost:8"><span class="id" title="binder">job_cost</span></a> : <a class="idref" href="probsa.rt.behavior.job.html#JobCostRV"><span class="id" title="class">JobCostRV</span></a> <a class="idref" href="probsa.rt.analysis.WCET_is_pWCET.html#WCETisAxiomaticPWCET.Job"><span class="id" title="variable">Job</span></a> <a class="idref" href="probsa.rt.analysis.WCET_is_pWCET.html#f339354afa84833a5380ab840a8b38d6"><span class="id" title="variable">Ω</span></a> <a class="idref" href="probsa.rt.analysis.WCET_is_pWCET.html#e2143df2fbc83c03f660982f22dee0a0"><span class="id" title="variable">μ</span></a>}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Let us assume that <span class="inlinecode"><span class="id" title="var">task_cost</span></span> is a valid WCET in the system <span class="inlinecode">(<a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#3917dc18d4b72e035d4e160fd9caaceb"><span class="id" title="variable">Ω</span></a>,<a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#57ef97b357f4ce81b251f1f7c70df932"><span class="id" title="variable">μ</span></a>)</span>.  
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Hypothesis</span> <a id="WCETisAxiomaticPWCET.H_task_cost_is_valid_WCET" class="idref" href="#WCETisAxiomaticPWCET.H_task_cost_is_valid_WCET"><span class="id" title="variable">H_task_cost_is_valid_WCET</span></a> : <a class="idref" href="probsa.rt.model.WCET.html#task_cost_is_valid_WCET"><span class="id" title="definition">task_cost_is_valid_WCET</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Here we state that WCET might be interpreted as a pWCET.  For
+      this, we define a degenerate distribution with one step at
+      workload <span class="inlinecode"><span class="id" title="var">task_cost</span></span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.tsk"><span class="id" title="variable">tsk</span></a></span>, which represents the WCET of a task
+      <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.tsk"><span class="id" title="variable">tsk</span></a></span>. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Program Instance</span> <a id="WCET_pmf" class="idref" href="#WCET_pmf"><span class="id" title="instance">WCET_pmf</span></a> : <a class="idref" href="probsa.rt.model.task.html#ProbWCET"><span class="id" title="class">ProbWCET</span></a> <a class="idref" href="probsa.rt.analysis.WCET_is_pWCET.html#WCETisAxiomaticPWCET.Task"><span class="id" title="variable">Task</span></a> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;{|<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="probsa.rt.model.task.html#pWCET_pmf"><span class="id" title="method">pWCET_pmf</span></a> (<a id="tsk:10" class="idref" href="#tsk:10"><span class="id" title="binder">tsk</span></a> : <a class="idref" href="probsa.rt.analysis.WCET_is_pWCET.html#WCETisAxiomaticPWCET.Task"><span class="id" title="variable">Task</span></a>) (<a id="c:11" class="idref" href="#c:11"><span class="id" title="binder">c</span></a> : <span class="id" title="definition">work</span>) := <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.ssr.ssreflect.html#::boolean_if_scope:'if'_x_'then'_x_'else'_x"><span class="id" title="notation">if</span></a> <a class="idref" href="probsa.rt.analysis.WCET_is_pWCET.html#WCETisAxiomaticPWCET.task_cost"><span class="id" title="variable">task_cost</span></a> <a class="idref" href="probsa.rt.analysis.WCET_is_pWCET.html#tsk:10"><span class="id" title="variable">tsk</span></a> <a class="idref" href="https://math-comp.github.io/htmldoc//mathcomp.ssreflect.eqtype.html#df45e8c2e8370fd4f0f7c4fdaf208180"><span class="id" title="notation">==</span></a> <a class="idref" href="probsa.rt.analysis.WCET_is_pWCET.html#c:11"><span class="id" title="variable">c</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.ssr.ssreflect.html#::boolean_if_scope:'if'_x_'then'_x_'else'_x"><span class="id" title="notation">then</span></a> 1%<span class="id" title="var">R</span> <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.ssr.ssreflect.html#::boolean_if_scope:'if'_x_'then'_x_'else'_x"><span class="id" title="notation">else</span></a> 0%<span class="id" title="var">R</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;|}.<br/>
+</div>
+
+<div class="doc">
+Next, we prove that <span class="inlinecode"><a class="idref" href="probsa.probability.partition.html#partition_into_singletons"><span class="id" title="definition">partition_into_singletons</span></a></span> trivially
+      ensures the <span class="inlinecode"><a class="idref" href="probsa.rt.model.axiomatic_pWCET.html#job_cost_partition_independence"><span class="id" title="definition">job_cost_partition_independence</span></a></span>. The idea here is
+      that conditioned on a singleton <span class="inlinecode">{ω}</span> (for <span class="inlinecode">ω</span> <span class="inlinecode">∈</span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#3917dc18d4b72e035d4e160fd9caaceb"><span class="id" title="variable">Ω</span></a></span>), any random
+      variable becomes a constant. But constants are always
+      independent. Hence, the conditional independence holds. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Lemma</span> <a id="partition_into_singletons_partition_intependent" class="idref" href="#partition_into_singletons_partition_intependent"><span class="id" title="lemma">partition_into_singletons_partition_intependent</span></a> :<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">∀</span> <a id="j:14" class="idref" href="#j:14"><span class="id" title="binder">j</span></a> <a id="2f03a6ee03530ae1bec139ee7ebf2e30" class="idref" href="#2f03a6ee03530ae1bec139ee7ebf2e30"><span class="id" title="binder">ξ</span></a>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="probsa.rt.model.axiomatic_pWCET.html#job_cost_partition_independence"><span class="id" title="definition">job_cost_partition_independence</span></a> <a class="idref" href="probsa.rt.analysis.WCET_is_pWCET.html#e2143df2fbc83c03f660982f22dee0a0"><span class="id" title="variable">μ</span></a> <a class="idref" href="probsa.rt.analysis.WCET_is_pWCET.html#j:14"><span class="id" title="variable">j</span></a> <a class="idref" href="probsa.rt.analysis.WCET_is_pWCET.html#2f03a6ee03530ae1bec139ee7ebf2e30"><span class="id" title="variable">ξ</span></a> (<a class="idref" href="probsa.probability.partition.html#partition_into_singletons"><span class="id" title="definition">partition_into_singletons</span></a> <a class="idref" href="probsa.rt.analysis.WCET_is_pWCET.html#e2143df2fbc83c03f660982f22dee0a0"><span class="id" title="variable">μ</span></a>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Next, we prove that conditioned on a singleton <span class="inlinecode">{ω}</span>, any job
+      cost is still bounded by <span class="inlinecode"><a class="idref" href="probsa.rt.model.WCET.html#WCET"><span class="id" title="section">WCET</span></a></span>. This follows from the fact that
+      we simply assume <span class="inlinecode"><a class="idref" href="probsa.rt.model.WCET.html#WCET"><span class="id" title="section">WCET</span></a></span> is valid. The rest of the proof just
+      connects the probabilistic interpretation of WCET with job
+      costs. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Lemma</span> <a id="partition_into_singletons_partition_dominated" class="idref" href="#partition_into_singletons_partition_dominated"><span class="id" title="lemma">partition_into_singletons_partition_dominated</span></a> :<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">∀</span> <a id="j:17" class="idref" href="#j:17"><span class="id" title="binder">j</span></a> <a id="e8d6c2b9e78081898bdebe9b720ee357" class="idref" href="#e8d6c2b9e78081898bdebe9b720ee357"><span class="id" title="binder">ξ</span></a>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="probsa.rt.model.axiomatic_pWCET.html#job_cost_partition_dominated"><span class="id" title="definition">job_cost_partition_dominated</span></a> <a class="idref" href="probsa.rt.analysis.WCET_is_pWCET.html#e2143df2fbc83c03f660982f22dee0a0"><span class="id" title="variable">μ</span></a> <a class="idref" href="probsa.rt.analysis.WCET_is_pWCET.html#j:17"><span class="id" title="variable">j</span></a> <a class="idref" href="probsa.rt.analysis.WCET_is_pWCET.html#e8d6c2b9e78081898bdebe9b720ee357"><span class="id" title="variable">ξ</span></a> (<a class="idref" href="probsa.probability.partition.html#partition_into_singletons"><span class="id" title="definition">partition_into_singletons</span></a> <a class="idref" href="probsa.rt.analysis.WCET_is_pWCET.html#e2143df2fbc83c03f660982f22dee0a0"><span class="id" title="variable">μ</span></a>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Since both conditions hold, we can conclude that <span class="inlinecode"><a class="idref" href="probsa.rt.model.WCET.html#WCET"><span class="id" title="section">WCET</span></a></span> is an
+      axiomatic pWCET. Note, however, that here we only prove that
+      WCET <i>might</i> be used as an axiomatic pWCET, not that this is the
+      only possible pWCET. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Lemma</span> <a id="WCET_is_axiomatic_pWCET" class="idref" href="#WCET_is_axiomatic_pWCET"><span class="id" title="lemma">WCET_is_axiomatic_pWCET</span></a> :<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="probsa.rt.model.axiomatic_pWCET.html#axiomatic_pWCET"><span class="id" title="definition">axiomatic_pWCET</span></a> <a class="idref" href="probsa.rt.analysis.WCET_is_pWCET.html#e2143df2fbc83c03f660982f22dee0a0"><span class="id" title="variable">μ</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="probsa.rt.analysis.WCET_is_pWCET.html#WCETisAxiomaticPWCET"><span class="id" title="section">WCETisAxiomaticPWCET</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Print</span> <span class="id" title="keyword">Assumptions</span> <a class="idref" href="probsa.rt.analysis.WCET_is_pWCET.html#WCET_is_axiomatic_pWCET"><span class="id" title="lemma">WCET_is_axiomatic_pWCET</span></a>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<title>probsa.rt.model.rt_monotonic</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Library probsa.rt.model.rt_monotonic</h1>
+
+<div class="code">
+<span class="comment">(*&nbsp;---------------------------------&nbsp;ProBsa&nbsp;---------------------------------&nbsp;*)</span><br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">probsa.probability</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <a class="idref" href="probsa.probability.dominance_relation.html#"><span class="id" title="library">dominance_relation</span></a>.<br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">probsa.rt.behavior</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Export</span> <a class="idref" href="probsa.rt.behavior.response_time.html#"><span class="id" title="library">response_time</span></a>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;----------------------------------&nbsp;Main&nbsp;----------------------------------&nbsp;*)</span><br/>
+</div>
+
+<div class="doc">
+In this section, we introduce a notion of response-time monotonic
+    transformation of a system. 
+</div>
+<div class="code">
+<span class="id" title="keyword">Section</span> <a id="ProbabilisticResponseTimeMonotonicity" class="idref" href="#ProbabilisticResponseTimeMonotonicity"><span class="id" title="section">ProbabilisticResponseTimeMonotonicity</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Assume that <span class="inlinecode"><a class="idref" href="probsa.rt.model.scheduler.html#SustainableScheduler.horizon"><span class="id" title="variable">horizon</span></a></span> defines the termination time of the
+      system. If <span class="inlinecode"><a class="idref" href="probsa.rt.model.scheduler.html#SustainableScheduler.horizon"><span class="id" title="variable">horizon</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#None"><span class="id" title="constructor">None</span></a></span>, the system will not terminate. If
+      <span class="inlinecode"><a class="idref" href="probsa.rt.model.scheduler.html#SustainableScheduler.horizon"><span class="id" title="variable">horizon</span></a></span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#Some"><span class="id" title="constructor">Some</span></a></span> <span class="inlinecode"><a class="idref" href="probsa.probability.law_of_total_prob.html#LawOfTotalProbability.B"><span class="id" title="variable">B</span></a></span>, then the system will terminate at time <span class="inlinecode"><a class="idref" href="probsa.probability.law_of_total_prob.html#LawOfTotalProbability.B"><span class="id" title="variable">B</span></a></span>,
+      and jobs that are not completed by that time will be considered
+      to never finished. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Variable</span> <a id="ProbabilisticResponseTimeMonotonicity.horizon" class="idref" href="#ProbabilisticResponseTimeMonotonicity.horizon"><span class="id" title="variable">horizon</span></a> : <a class="idref" href="http://coq.inria.fr/distrib/V8.13.2/stdlib//Coq.Init.Datatypes.html#option"><span class="id" title="inductive">option</span></a> <span class="id" title="definition">instant</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Consider a set of jobs ... 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="Job:2" class="idref" href="#Job:2"><span class="id" title="binder">Job</span></a> : <span class="id" title="definition">JobType</span>}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+... and any kind of processor state model. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="PState:3" class="idref" href="#PState:3"><span class="id" title="binder">PState</span></a> : <span class="id" title="class">ProcessorState</span> <a class="idref" href="probsa.rt.model.rt_monotonic.html#ProbabilisticResponseTimeMonotonicity.Job"><span class="id" title="variable">Job</span></a>}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a id="lab30"></a><h3 class="section">Ground Truth System</h3>
+
+<div class="paragraph"> </div>
+
+ Consider a system that is described by a ground truth sample
+      space <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#2b9501143c475da893d448032f6a15d1"><span class="id" title="variable">Ωg</span></a></span> and a ground truth probability measure <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#51d59d4546cb16b019582f7dd6932cce"><span class="id" title="variable">μg</span></a></span>. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="a29e67f785a33a15fe9d365262df330a" class="idref" href="#a29e67f785a33a15fe9d365262df330a"><span class="id" title="binder">Ωg</span></a>} {<a id="cf530a4bf39362ddb32d590a4df2557f" class="idref" href="#cf530a4bf39362ddb32d590a4df2557f"><span class="id" title="binder">μg</span></a> : <a class="idref" href="probsa.util.notation.html#measure"><span class="id" title="definition">measure</span></a> <a class="idref" href="probsa.rt.model.rt_monotonic.html#a29e67f785a33a15fe9d365262df330a"><span class="id" title="variable">Ωg</span></a>}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Next, consider two parameters -- <span class="inlinecode"><a class="idref" href="probsa.rt.behavior.job.html#job_cost"><span class="id" title="projection">job_cost</span></a></span> and <span class="inlinecode"><a class="idref" href="probsa.rt.behavior.job.html#job_arrival"><span class="id" title="projection">job_arrival</span></a></span>. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="job_cost:6" class="idref" href="#job_cost:6"><span class="id" title="binder">job_cost</span></a> : <a class="idref" href="probsa.rt.behavior.job.html#JobCostRV"><span class="id" title="class">JobCostRV</span></a> <a class="idref" href="probsa.rt.model.rt_monotonic.html#ProbabilisticResponseTimeMonotonicity.Job"><span class="id" title="variable">Job</span></a> <a class="idref" href="probsa.rt.model.rt_monotonic.html#ab565c9767bfa7bb567db2d307212574"><span class="id" title="variable">Ωg</span></a> <a class="idref" href="probsa.rt.model.rt_monotonic.html#7865117a2d8b31582df7a8a6ff9f7ba5"><span class="id" title="variable">μg</span></a>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a id="job_arrival:7" class="idref" href="#job_arrival:7"><span class="id" title="binder">job_arrival</span></a> : <a class="idref" href="probsa.rt.behavior.job.html#JobArrivalRV"><span class="id" title="class">JobArrivalRV</span></a> <a class="idref" href="probsa.rt.model.rt_monotonic.html#ProbabilisticResponseTimeMonotonicity.Job"><span class="id" title="variable">Job</span></a> <a class="idref" href="probsa.rt.model.rt_monotonic.html#ab565c9767bfa7bb567db2d307212574"><span class="id" title="variable">Ωg</span></a> <a class="idref" href="probsa.rt.model.rt_monotonic.html#7865117a2d8b31582df7a8a6ff9f7ba5"><span class="id" title="variable">μg</span></a>}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Finally, assume we have a schedule of jobs in the ground truth
+      system. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Variable</span> <a id="5692b803617a3ed4681dfb7b6c6e9e07" class="idref" href="#5692b803617a3ed4681dfb7b6c6e9e07"><span class="id" title="variable">pr_sched_Ωg</span></a> : <a class="idref" href="probsa.rt.behavior.schedule.html#pr_schedule"><span class="id" title="definition">pr_schedule</span></a> <a class="idref" href="probsa.rt.model.rt_monotonic.html#7865117a2d8b31582df7a8a6ff9f7ba5"><span class="id" title="variable">μg</span></a> <a class="idref" href="probsa.rt.model.rt_monotonic.html#ProbabilisticResponseTimeMonotonicity.PState"><span class="id" title="variable">PState</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a id="lab31"></a><h3 class="section">Transformed System</h3>
+
+<div class="paragraph"> </div>
+
+ Next, we consider a transformed system with new <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#56a37ddcef4870fb6d038c3b26e71cca"><span class="id" title="variable">Ωs</span></a></span>, <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#239577e22833681d0b8b116f4a5b46ca"><span class="id" title="variable">μs</span></a></span>, job
+      arrivals, job costs, as well as new schedule <span class="inlinecode"><a class="idref" href="probsa.rt.model.rt_monotonic.html#e34399055b0684027922555add595a13"><span class="id" title="variable">pr_sched_Ωs</span></a></span>. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="1ff5550ac68be2e2f5e4250df5359824" class="idref" href="#1ff5550ac68be2e2f5e4250df5359824"><span class="id" title="binder">Ωs</span></a>} {<a id="476677b4d023ebe71036e2c414f263c6" class="idref" href="#476677b4d023ebe71036e2c414f263c6"><span class="id" title="binder">μs</span></a> : <a class="idref" href="probsa.util.notation.html#measure"><span class="id" title="definition">measure</span></a> <a class="idref" href="probsa.rt.model.rt_monotonic.html#1ff5550ac68be2e2f5e4250df5359824"><span class="id" title="variable">Ωs</span></a>}.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Context</span> {<a id="job_cost_s:11" class="idref" href="#job_cost_s:11"><span class="id" title="binder">job_cost_s</span></a> : <a class="idref" href="probsa.rt.behavior.job.html#JobCostRV"><span class="id" title="class">JobCostRV</span></a> <a class="idref" href="probsa.rt.model.rt_monotonic.html#ProbabilisticResponseTimeMonotonicity.Job"><span class="id" title="variable">Job</span></a> <a class="idref" href="probsa.rt.model.rt_monotonic.html#ee04a3b503a49839f11ab35fcd09844c"><span class="id" title="variable">Ωs</span></a> <a class="idref" href="probsa.rt.model.rt_monotonic.html#050604eb9efce86d09490504e6db035c"><span class="id" title="variable">μs</span></a>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a id="job_arrival_s:12" class="idref" href="#job_arrival_s:12"><span class="id" title="binder">job_arrival_s</span></a> : <a class="idref" href="probsa.rt.behavior.job.html#JobArrivalRV"><span class="id" title="class">JobArrivalRV</span></a> <a class="idref" href="probsa.rt.model.rt_monotonic.html#ProbabilisticResponseTimeMonotonicity.Job"><span class="id" title="variable">Job</span></a> <a class="idref" href="probsa.rt.model.rt_monotonic.html#ee04a3b503a49839f11ab35fcd09844c"><span class="id" title="variable">Ωs</span></a> <a class="idref" href="probsa.rt.model.rt_monotonic.html#050604eb9efce86d09490504e6db035c"><span class="id" title="variable">μs</span></a>}.<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">Variable</span> <a id="e34399055b0684027922555add595a13" class="idref" href="#e34399055b0684027922555add595a13"><span class="id" title="variable">pr_sched_Ωs</span></a> : <a class="idref" href="probsa.rt.behavior.schedule.html#pr_schedule"><span class="id" title="definition">pr_schedule</span></a> <a class="idref" href="probsa.rt.model.rt_monotonic.html#050604eb9efce86d09490504e6db035c"><span class="id" title="variable">μs</span></a> <a class="idref" href="probsa.rt.model.rt_monotonic.html#ProbabilisticResponseTimeMonotonicity.PState"><span class="id" title="variable">PState</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a id="lab32"></a><h3 class="section">Probabilistic Response-Time Monotonicity</h3>
+
+<div class="paragraph"> </div>
+
+ System <span class="inlinecode">(<a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#56a37ddcef4870fb6d038c3b26e71cca"><span class="id" title="variable">Ωs</span></a>,</span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#239577e22833681d0b8b116f4a5b46ca"><span class="id" title="variable">μs</span></a>)</span> is a result of a <i>response-time monotone
+     transformation</i> of system <span class="inlinecode">(<a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#56a37ddcef4870fb6d038c3b26e71cca"><span class="id" title="variable">Ωs</span></a>,</span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#239577e22833681d0b8b116f4a5b46ca"><span class="id" title="variable">μs</span></a>)</span> if the response time of a
+     job <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.j"><span class="id" title="variable">j</span></a></span> in system <span class="inlinecode">(<a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#2b9501143c475da893d448032f6a15d1"><span class="id" title="variable">Ωg</span></a>,</span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#51d59d4546cb16b019582f7dd6932cce"><span class="id" title="variable">μg</span></a>)</span> is upper-bounded (in the sense of
+     stochastic domination, <span class="inlinecode">⪯</span>) by response time of <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_step.html#StepByStepProof.j"><span class="id" title="variable">j</span></a></span> in system
+     <span class="inlinecode">(<a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#56a37ddcef4870fb6d038c3b26e71cca"><span class="id" title="variable">Ωs</span></a>,</span> <span class="inlinecode"><a class="idref" href="probsa.rt.analysis.axiomatic_pWCET_full.html#239577e22833681d0b8b116f4a5b46ca"><span class="id" title="variable">μs</span></a>)</span>. 
+</div>
+<div class="code">
+&nbsp;&nbsp;<span class="id" title="keyword">Definition</span> <a id="probabilistic_response_time_monotone_transformation" class="idref" href="#probabilistic_response_time_monotone_transformation"><span class="id" title="definition">probabilistic_response_time_monotone_transformation</span></a> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">∀</span> <a id="j:14" class="idref" href="#j:14"><span class="id" title="binder">j</span></a>, <a class="idref" href="probsa.rt.behavior.response_time.html#response_time"><span class="id" title="definition">response_time</span></a> <a class="idref" href="probsa.rt.model.rt_monotonic.html#5692b803617a3ed4681dfb7b6c6e9e07"><span class="id" title="variable">pr_sched_Ωg</span></a> <a class="idref" href="probsa.rt.model.rt_monotonic.html#ProbabilisticResponseTimeMonotonicity.horizon"><span class="id" title="variable">horizon</span></a> <a class="idref" href="probsa.rt.model.rt_monotonic.html#j:14"><span class="id" title="variable">j</span></a> <a class="idref" href="probsa.probability.dominance_relation.html#d6b276de6cc79a0d8d5fcd5ed0d7a595"><span class="id" title="notation">⪯</span></a> <a class="idref" href="probsa.rt.behavior.response_time.html#response_time"><span class="id" title="definition">response_time</span></a> <a class="idref" href="probsa.rt.model.rt_monotonic.html#e34399055b0684027922555add595a13"><span class="id" title="variable">pr_sched_Ωs</span></a> <a class="idref" href="probsa.rt.model.rt_monotonic.html#ProbabilisticResponseTimeMonotonicity.horizon"><span class="id" title="variable">horizon</span></a> <a class="idref" href="probsa.rt.model.rt_monotonic.html#j:14"><span class="id" title="variable">j</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">End</span> <a class="idref" href="probsa.rt.model.rt_monotonic.html#ProbabilisticResponseTimeMonotonicity"><span class="id" title="section">ProbabilisticResponseTimeMonotonicity</span></a>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>
